@@ -1,0 +1,34 @@
+--- 
+backend: 
+  name: test-repo
+collections: 
+  - 
+    files: 
+      - 
+        fields: 
+          - 
+            label: Title
+            name: title
+          - 
+            label: Tagline
+            name: tagline
+          - 
+            field: 
+              label: Image
+              name: image
+              widget: image
+            label: "Carousel images"
+            name: carouselImage
+            widget: list
+          - 
+            label: Body
+            name: body
+            widget: markdown
+        file: src/pages/index.md
+        label: Index
+        name: index
+    label: Index
+    name: index
+media_folder: static/assets
+public_folder: assets
+---
