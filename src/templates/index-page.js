@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import Markdown from 'markdown-to-jsx';
 
 import Layout from '../components/layout'
 
@@ -13,7 +14,7 @@ export const IndexPageTemplate = ({
   <div>
       <h1>{title}</h1>
       <h2>{tagline}</h2>
-      <p>{body}</p>
+      <Markdown options={{ forceBlock: true }}>{body}</Markdown>
   </div>
 )
 
