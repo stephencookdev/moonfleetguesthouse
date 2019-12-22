@@ -8,29 +8,31 @@ import Layout from '../components/layout'
 export const IndexPageTemplate = ({
   title,
   tagline,
-  carousel,
+  carouselImage,
   body,
 }) => (
-  <div>
+    <div>
       <h1>{title}</h1>
       <h2>{tagline}</h2>
+      {carouselImage.map(src => <img key={src} src={src} alt="" />)}
       <Markdown options={{ forceBlock: true }}>{body}</Markdown>
-  </div>
-)
+    </div>
+  )
 
 IndexPageTemplate.propTypes = {
   title: PropTypes.string,
   tagline: PropTypes.string,
-  carousel: PropTypes.arrayOf(PropTypes.shape({ image: PropTypes.string })),
-  description: PropTypes.string,
+  carouselImage: PropTypes.arrayOf(PropTypes.string),
+  body: PropTypes.string,
 }
 
 const IndexPage = ({ data }) => {
-  const { frontmatter } = data.markdownRemark
+  const { frontmatter, rawMarkdownBody } = data.markdownRemark
 
   return (
     <Layout>
       <IndexPageTemplate
+        body={rawMarkdownBody}
         {...frontmatter}
       />
     </Layout>
@@ -40,6 +42,7 @@ const IndexPage = ({ data }) => {
 IndexPage.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.shape({
+      rawMarkdownBody: PropTypes.string,
       frontmatter: PropTypes.object,
     }),
   }),
@@ -50,10 +53,11 @@ export default IndexPage
 export const pageQuery = graphql`
   query {
     markdownRemark {
+      rawMarkdownBody
       frontmatter {
         title
         tagline
-        body
+        carouselImage
       }
     }
   }

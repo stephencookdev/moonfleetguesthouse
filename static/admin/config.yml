@@ -20,9 +20,9 @@ collections:
             name: body
             widget: markdown
         file: src/pages/index.md
-        label: Index
+        label: Homepage
         name: index
-    label: Index
+    label: Homepage
     name: index
 media_folder: static/assets
 public_folder: assets

@@ -10,11 +10,9 @@ exports.createPages = ({ actions, graphql }) => {
         edges {
           node {
             id
+            fileAbsolutePath
             fields {
               slug
-            }
-            frontmatter {
-              templateKey
             }
           }
         }
@@ -26,19 +24,17 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors)
     }
 
-    const posts = result.data.allMarkdownRemark.edges
+    const posts = result.data.allMarkdownRemark.edges;
 
     posts.forEach(edge => {
-      const id = edge.node.id
+      const fileName = path.basename(edge.node.fileAbsolutePath, '.md');
+
       createPage({
         path: edge.node.fields.slug,
-        tags: edge.node.frontmatter.tags,
-        component: path.resolve(
-          `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-        ),
+        component: path.resolve(`src/templates/${fileName}-page.js`),
         // additional data can be passed via context
         context: {
-          id,
+          id: edge.node.id,
         },
       })
     })
