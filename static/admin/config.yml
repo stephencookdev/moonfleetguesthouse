@@ -1,6 +1,7 @@
 ---
 backend:
-  name: test-repo
+  name: github
+  repo: stephencookdev/moonfleetguesthouse
 collections:
   - files:
       - fields:
