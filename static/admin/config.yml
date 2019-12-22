@@ -22,7 +22,46 @@ collections:
         file: src/pages/index.md
         label: Homepage
         name: index
-    label: Homepage
-    name: index
+      - fields:
+          - label: Title
+            name: title
+          - label: Tagline
+            name: tagline
+          - field:
+              label: Image
+              name: image
+              widget: image
+            label: "Carousel images"
+            name: carouselImage
+            widget: list
+          - fields:
+              - label: Name
+                name: name
+              - label: Tagline
+                name: tagline
+              - label: Normal price
+                name: normalPrice
+              - label: Saturday price
+                name: saturdayPrice
+            label: Rooms
+            name: rooms
+            widget: list
+          - label: Rooms extra
+            name: roomsExtra
+            widget: markdown
+          - fields:
+              - label: Title
+                name: title
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Extra sections"
+            name: extraSections
+            widget: list
+        file: src/pages/room-rates.md
+        label: Room rates
+        name: room-rates
+    label: Moonfleet Guesthouse
+    name: moonfleet
 media_folder: static/assets
 public_folder: assets

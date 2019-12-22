@@ -31,7 +31,7 @@ exports.createPages = ({ actions, graphql }) => {
 
       createPage({
         path: edge.node.fields.slug,
-        component: path.resolve(`src/templates/${fileName}-page.js`),
+        component: path.resolve(`src/templates/${fileName}.js`),
         // additional data can be passed via context
         context: {
           id: edge.node.id,
