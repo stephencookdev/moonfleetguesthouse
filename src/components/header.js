@@ -1,42 +1,61 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import { useStaticQuery, graphql, Link } from "gatsby";
+import PropTypes from "prop-types";
+import React from "react";
+import styles from "./header.module.css";
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
+const Nav = ({ links }) => (
+  <nav>
+    {links.map(({ title, href, highlight }) => (
+      <Link
+        key={href}
+        to={href}
+        className={highlight ? styles.highlight : null}
+      >
+        {title}
+      </Link>
+    ))}
+  </nav>
+);
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
+Nav.propTypes = {
+  links: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
-Header.defaultProps = {
-  siteTitle: ``,
-}
+const Header = ({ siteTitle, location }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          telephone
+          mainNav {
+            href
+            title
+          }
+        }
+      }
+    }
+  `);
 
-export default Header
+  const { title, telephone, mainNav } = data.site.siteMetadata;
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.headerInner}>
+        <h1>
+          <Link to="/">{title}</Link>
+        </h1>
+
+        <Nav
+          location={location}
+          links={[
+            ...mainNav,
+            { href: `tel:${telephone}`, title: "Book", highlight: true }
+          ]}
+        />
+      </div>
+    </header>
+  );
+};
+
+export default Header;

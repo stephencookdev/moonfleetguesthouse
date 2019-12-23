@@ -70,8 +70,8 @@ RoomRates.propTypes = {
 export default RoomRates;
 
 export const pageQuery = graphql`
-  query {
-    markdownRemark {
+  query RoomRatesQuery($id: String!) {
+    markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
         tagline
