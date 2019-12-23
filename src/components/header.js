@@ -33,7 +33,7 @@ Nav.propTypes = {
   links: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-const Header = ({ location }) => {
+const Header = ({ floatHeader }) => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -52,14 +52,17 @@ const Header = ({ location }) => {
   const { title, telephone, mainNav } = data.site.siteMetadata;
 
   return (
-    <header className={styles.header}>
+    <header
+      className={[styles.header, floatHeader && styles.float]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <div className={styles.headerInner}>
         <h1>
           <Link to="/">{title}</Link>
         </h1>
 
         <Nav
-          location={location}
           links={[
             ...mainNav,
             { href: `tel:${telephone}`, title: "Book", highlight: true }
@@ -68,6 +71,14 @@ const Header = ({ location }) => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  floatHeader: PropTypes.bool
+};
+
+Header.defaultProps = {
+  floatHeader: false
 };
 
 export default Header;

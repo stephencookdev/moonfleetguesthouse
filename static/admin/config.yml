@@ -27,13 +27,6 @@ collections:
             name: title
           - label: Tagline
             name: tagline
-          - field:
-              label: Image
-              name: image
-              widget: image
-            label: "Carousel images"
-            name: carouselImage
-            widget: list
           - fields:
               - label: Name
                 name: name
@@ -43,6 +36,9 @@ collections:
                 name: normalPrice
               - label: Saturday price
                 name: saturdayPrice
+              - label: Image
+                name: image
+                widget: image
             label: Rooms
             name: rooms
             widget: list

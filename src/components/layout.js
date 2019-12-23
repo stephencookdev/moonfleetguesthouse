@@ -13,7 +13,7 @@ import Header from "./header";
 import "react-image-gallery/styles/css/image-gallery.css";
 import styles from "./layout.module.css";
 
-const Layout = ({ children }) => {
+const Layout = ({ floatHeader, children }) => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -37,12 +37,12 @@ const Layout = ({ children }) => {
       <Helmet>
         <title>{title}</title>
         <link
-          href="https://fonts.googleapis.com/css?family=Cardo|Josefin+Sans:300,400&display=swap"
+          href="https://fonts.googleapis.com/css?family=Cardo:400,700|Josefin+Sans:300,400&display=swap"
           rel="stylesheet"
         />
       </Helmet>
 
-      <Header />
+      <Header floatHeader={floatHeader} />
 
       <main className={styles.main}>{children}</main>
 
@@ -77,7 +77,12 @@ const Layout = ({ children }) => {
 };
 
 Layout.propTypes = {
+  floatHeader: PropTypes.bool,
   children: PropTypes.node.isRequired
+};
+
+Layout.defaultProps = {
+  floatHeader: false
 };
 
 export default Layout;

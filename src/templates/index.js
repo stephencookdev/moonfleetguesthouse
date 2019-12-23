@@ -44,7 +44,7 @@ export const IndexPageTemplate = ({
       </a>
     </header>
 
-    <Layout>
+    <Layout floatHeader>
       <Markdown options={{ forceBlock: true }}>{body}</Markdown>
     </Layout>
   </>

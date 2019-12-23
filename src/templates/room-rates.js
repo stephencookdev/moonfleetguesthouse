@@ -2,46 +2,74 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Markdown from "markdown-to-jsx";
-
 import Layout from "../components/layout";
+import styles from "./room-rates.module.css";
+
+const Room = ({
+  name,
+  telephone,
+  image,
+  normalPrice,
+  saturdayPrice,
+  tagline
+}) => (
+  <div key={name} className={styles.room}>
+    <h2>{name}</h2>
+    <p className={styles.description}>{tagline}</p>
+    <p>
+      Sun-Fri inc. Breakfast <span className={styles.price}>{normalPrice}</span>
+    </p>
+    <p>
+      Saturday inc. Breakfast{" "}
+      <span className={styles.price}>{saturdayPrice}</span>
+    </p>
+    <img src={image} alt="" />
+    <a href={`tel:${telephone}`} className={styles.cta}>
+      Book Now
+    </a>
+  </div>
+);
+
+Room.propTypes = {
+  name: PropTypes.string,
+  image: PropTypes.string,
+  normalPrice: PropTypes.string,
+  saturdayPrice: PropTypes.string,
+  tagline: PropTypes.string,
+  telephone: PropTypes.string
+};
 
 export const RoomRatesTemplate = ({
   title,
   tagline,
-  carouselImage,
+  telephone,
   rooms,
   roomsExtra,
   extraSections
 }) => (
-  <div>
-    <h1>{title}</h1>
-    <h2>{tagline}</h2>
-    {carouselImage.map(src => (
-      <img key={src} src={src} alt="" />
-    ))}
-    {rooms.map(({ name, normalPrice, saturdayPrice, tagline }) => (
-      <div key={name}>
-        <h3>{name}</h3>
-        <p>{tagline}</p>
-        <p>
-          {normalPrice} / {saturdayPrice}
-        </p>
-      </div>
-    ))}
+  <>
+    <p className={styles.tagline}>{tagline}</p>
+
+    <div>
+      {rooms.map(room => (
+        <Room key={room.name} telephone={telephone} {...room} />
+      ))}
+    </div>
+
     <Markdown options={{ forceBlock: true }}>{roomsExtra}</Markdown>
+
     {extraSections.map(({ title, body }) => (
-      <div key={title}>
+      <div key={title} className={styles.roomSection}>
         <h3>{title}</h3>
         <Markdown options={{ forceBlock: true }}>{body}</Markdown>
       </div>
     ))}
-  </div>
+  </>
 );
 
 RoomRatesTemplate.propTypes = {
   title: PropTypes.string,
   tagline: PropTypes.string,
-  carouselImage: PropTypes.arrayOf(PropTypes.string),
   rooms: PropTypes.arrayOf(PropTypes.object),
   roomsExtra: PropTypes.string,
   extraSections: PropTypes.arrayOf(PropTypes.object)
@@ -49,12 +77,11 @@ RoomRatesTemplate.propTypes = {
 
 const RoomRates = ({ data }) => {
   const { frontmatter } = data.markdownRemark;
-
-  console.log(frontmatter);
+  const { telephone } = data.site.siteMetadata;
 
   return (
     <Layout>
-      <RoomRatesTemplate {...frontmatter} />
+      <RoomRatesTemplate telephone={telephone} {...frontmatter} />
     </Layout>
   );
 };
@@ -71,6 +98,11 @@ export default RoomRates;
 
 export const pageQuery = graphql`
   query RoomRatesQuery($id: String!) {
+    site {
+      siteMetadata {
+        telephone
+      }
+    }
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
@@ -78,6 +110,7 @@ export const pageQuery = graphql`
         carouselImage
         rooms {
           name
+          image
           tagline
           normalPrice
           saturdayPrice

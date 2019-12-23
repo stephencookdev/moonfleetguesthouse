@@ -1,7 +1,9 @@
 .header {
-  position: absolute;
   background: white;
   border-bottom: 2px solid #222;
+}
+.header.float {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -39,11 +41,14 @@
     width: 100%;
     background-color: rgba(255, 255, 255, 0);
     padding: 16px 24px;
+    pointer-events: none;
     box-sizing: border-box;
-    transition: 0.3s ease background-color;
+    transition: 0.3s ease background-color, 0.3s ease box-shadow;
   }
   .active.navContainer {
+    pointer-events: all;
     background-color: rgba(255, 255, 255, 255);
+    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -54,12 +59,10 @@
   .header nav {
     flex-direction: column;
     text-align: right;
-    pointer-events: none;
     opacity: 0;
     transition: 0.3s ease opacity;
   }
   .header .active nav {
-    pointer-events: all;
     opacity: 1;
   }
 }
@@ -112,6 +115,13 @@
     font-size: 24px;
     padding: 6px 16px 4px;
   }
+  .header nav a:after {
+    width: 2px;
+    height: 100%;
+    bottom: -2px;
+    right: 0;
+    left: unset;
+  }
   .header nav a:not(:last-of-type) {
     margin: 0 -16px 8px;
   }
@@ -132,6 +142,7 @@
   margin-bottom: 32px;
   background: none;
   outline: none;
+  pointer-events: all;
 }
 .hamburger:before,
 .hamburger:after {
