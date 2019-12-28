@@ -1,0 +1,11 @@
+---
+images:
+  - /assets/bkpam2100478_raffleintheflowers.jpg
+  - /assets/smartdoggo.png
+  - /assets/bkpam2100478_raffleintheflowers.jpg
+  - /assets/smartdoggo.png
+  - /assets/bkpam2100478_raffleintheflowers.jpg
+  - /assets/smartdoggo.png
+  - /assets/bkpam2100478_raffleintheflowers.jpg
+  - /assets/smartdoggo.png
+---

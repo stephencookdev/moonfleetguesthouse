@@ -57,6 +57,41 @@ collections:
         file: src/pages/room-rates.md
         label: Room rates
         name: room-rates
+      - fields:
+          - fields:
+              - label: Title
+                name: title
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Pre-Map Sections"
+            name: preMapSections
+            widget: list
+          - label: Google Maps IFrame SRC
+            name: googleMapsIframeSrc
+          - fields:
+              - label: Title
+                name: title
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Post-Map Sections"
+            name: postMapSections
+            widget: list
+        file: src/pages/find-us.md
+        label: "Find Us"
+        name: find-us
+      - fields:
+          - field:
+              - label: Image
+                name: image
+                widget: image
+            label: Images
+            name: images
+            widget: list
+        file: src/pages/gallery.md
+        label: Gallery
+        name: gallery
     label: Moonfleet Guesthouse
     name: moonfleet
 media_folder: static/assets
