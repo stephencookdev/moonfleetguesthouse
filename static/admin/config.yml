@@ -2,6 +2,7 @@
 backend:
   name: github
   repo: stephencookdev/moonfleetguesthouse
+  site_domain: cms.netlify.com
 collections:
   - files:
       - fields:
