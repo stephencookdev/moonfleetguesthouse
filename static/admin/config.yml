@@ -83,15 +83,68 @@ collections:
         name: find-us
       - fields:
           - field:
-              - label: Image
-                name: image
-                widget: image
+              label: Image
+              name: image
+              widget: image
             label: Images
             name: images
             widget: list
         file: src/pages/gallery.md
         label: Gallery
         name: gallery
+      - fields:
+          - fields:
+              - label: Title
+                name: title
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Sections"
+            name: sections
+            widget: list
+        file: src/pages/contact-us.md
+        label: "Contact Us"
+        name: contact-us
+      - fields:
+          - fields:
+              - label: Title
+                name: title
+              - label: Image
+                name: image
+                widget: image
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Sections"
+            name: sections
+            widget: list
+        file: src/pages/local-attractions.md
+        label: "Things To Do"
+        name: local-attractions
+      - fields:
+          - label: "Booking.com Rating"
+            name: bookingComRating
+          - label: "TripAdvisor Rating"
+            name: tripAdvisorComRating
+        file: src/pages/visitors-comments.md
+        label: "Reviews"
+        name: visitors-comments
+      - fields:
+          - fields:
+              - label: Title
+                name: title
+              - label: Image
+                name: image
+                widget: image
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Sections"
+            name: sections
+            widget: list
+        file: src/pages/dogs.md
+        label: "Dogs"
+        name: dogs
     label: Moonfleet Guesthouse
     name: moonfleet
 media_folder: static/assets

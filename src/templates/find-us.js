@@ -1,29 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import Markdown from "markdown-to-jsx";
 import Layout from "../components/layout";
+import SectionList, { SectionType } from "../components/section-list";
 import styles from "./find-us.module.css";
-
-const SectionList = ({ sections }) => (
-  <div className={styles.sectionList}>
-    {sections.map(({ title, body }) => (
-      <div className={styles.section}>
-        <h2>{title}</h2>
-        <Markdown options={{ forceBlock: true }}>{body}</Markdown>
-      </div>
-    ))}
-  </div>
-);
-
-const SectionType = PropTypes.shape({
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired
-});
-
-SectionList.propTypes = {
-  sections: PropTypes.arrayOf(SectionType).isRequired
-};
 
 export const FindUsTemplate = ({
   preMapSections,
@@ -35,10 +15,10 @@ export const FindUsTemplate = ({
 
     <iframe
       src={googleMapsIframeSrc}
-      allowfullscreen={false}
+      allowFullScreen={false}
       height="400"
       width="100%"
-      frameborder="0"
+      frameBorder={0}
       className={styles.iframe}
       title="Map to Moonfleet"
     ></iframe>

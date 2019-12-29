@@ -1,6 +1,6 @@
-import { useStaticQuery, graphql, Link } from "gatsby";
-import PropTypes from "prop-types";
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useStaticQuery, graphql, Link } from "gatsby";
 import styles from "./header.module.css";
 
 const Nav = ({ links }) => {
