@@ -25,12 +25,12 @@ const BackgroundImageCarousel = ({ images }) => {
   );
 };
 
-export const IndexPageTemplate = ({
+export const IndexTemplate = ({
   title,
   tagline,
   carouselImage,
   body,
-  telephone
+  siteMetadata
 }) => (
   <>
     <header className={styles.header}>
@@ -39,33 +39,32 @@ export const IndexPageTemplate = ({
       <h1 className={styles.title}>{title}</h1>
       <p className={styles.tagline}>{tagline}</p>
 
-      <a href={`tel:${telephone}`} className={styles.cta}>
+      <a href={`tel:${siteMetadata.telephone}`} className={styles.cta}>
         Book Now
       </a>
     </header>
 
-    <Layout floatHeader>
+    <Layout floatHeader siteMetadata={siteMetadata}>
       <Markdown options={{ forceBlock: true }}>{body}</Markdown>
     </Layout>
   </>
 );
 
-IndexPageTemplate.propTypes = {
+IndexTemplate.propTypes = {
   title: PropTypes.string,
   tagline: PropTypes.string,
   carouselImage: PropTypes.arrayOf(PropTypes.string),
   body: PropTypes.string,
-  telephone: PropTypes.string
+  siteMetadata: PropTypes.object.isRequired
 };
 
 const IndexPage = ({ data }) => {
-  const { telephone } = data.site.siteMetadata;
   const { frontmatter, rawMarkdownBody } = data.markdownRemark;
 
   return (
-    <IndexPageTemplate
+    <IndexTemplate
       body={rawMarkdownBody}
-      telephone={telephone}
+      siteMetadata={data.site.siteMetadata}
       {...frontmatter}
     />
   );
@@ -75,8 +74,11 @@ IndexPage.propTypes = {
   data: PropTypes.shape({
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
-        telephone: PropTypes.string
-      })
+        title: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        telephone: PropTypes.string.isRequired,
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
+      }).isRequired
     }),
     markdownRemark: PropTypes.shape({
       rawMarkdownBody: PropTypes.string,
@@ -91,7 +93,13 @@ export const pageQuery = graphql`
   query IndexQuery($id: String!) {
     site {
       siteMetadata {
+        title
+        email
         telephone
+        mainNav {
+          href
+          title
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {

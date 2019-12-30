@@ -8,29 +8,13 @@
 import React from "react";
 import Helmet from "react-helmet";
 import PropTypes from "prop-types";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { Link } from "gatsby";
 import Header from "./header";
 import "react-image-gallery/styles/css/image-gallery.css";
 import styles from "./layout.module.css";
 
-const Layout = ({ floatHeader, children }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-          email
-          telephone
-          mainNav {
-            href
-            title
-          }
-        }
-      }
-    }
-  `);
-
-  const { title, email, telephone, mainNav } = data.site.siteMetadata;
+const Layout = ({ floatHeader, siteMetadata, children }) => {
+  const { title, email, telephone, mainNav } = siteMetadata;
 
   return (
     <>
@@ -42,7 +26,7 @@ const Layout = ({ floatHeader, children }) => {
         />
       </Helmet>
 
-      <Header floatHeader={floatHeader} />
+      <Header floatHeader={floatHeader} siteMetadata={siteMetadata} />
 
       <main className={styles.main}>{children}</main>
 
@@ -78,6 +62,12 @@ const Layout = ({ floatHeader, children }) => {
 
 Layout.propTypes = {
   floatHeader: PropTypes.bool,
+  siteMetadata: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    telephone: PropTypes.string.isRequired,
+    mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
+  }).isRequired,
   children: PropTypes.node.isRequired
 };
 

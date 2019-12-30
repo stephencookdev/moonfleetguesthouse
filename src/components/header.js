@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { Link } from "gatsby";
 import styles from "./header.module.css";
 
 const Nav = ({ links }) => {
@@ -33,23 +33,8 @@ Nav.propTypes = {
   links: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-const Header = ({ floatHeader }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-          telephone
-          mainNav {
-            href
-            title
-          }
-        }
-      }
-    }
-  `);
-
-  const { title, telephone, mainNav } = data.site.siteMetadata;
+const Header = ({ siteMetadata, floatHeader }) => {
+  const { title, telephone, mainNav } = siteMetadata;
 
   return (
     <header
@@ -74,6 +59,12 @@ const Header = ({ floatHeader }) => {
 };
 
 Header.propTypes = {
+  siteMetadata: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    telephone: PropTypes.string.isRequired,
+    mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
+  }).isRequired,
   floatHeader: PropTypes.bool
 };
 

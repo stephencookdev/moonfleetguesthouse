@@ -40,19 +40,18 @@ Room.propTypes = {
 };
 
 export const RoomRatesTemplate = ({
-  title,
+  siteMetadata,
   tagline,
-  telephone,
   rooms,
   roomsExtra,
   extraSections
 }) => (
-  <>
+  <Layout siteMetadata={siteMetadata}>
     <p className={styles.tagline}>{tagline}</p>
 
     <div>
       {rooms.map(room => (
-        <Room key={room.name} telephone={telephone} {...room} />
+        <Room key={room.name} telephone={siteMetadata.telephone} {...room} />
       ))}
     </div>
 
@@ -64,10 +63,11 @@ export const RoomRatesTemplate = ({
         <Markdown options={{ forceBlock: true }}>{body}</Markdown>
       </div>
     ))}
-  </>
+  </Layout>
 );
 
 RoomRatesTemplate.propTypes = {
+  siteMetadata: PropTypes.object.isRequired,
   title: PropTypes.string,
   tagline: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
@@ -77,17 +77,22 @@ RoomRatesTemplate.propTypes = {
 
 const RoomRates = ({ data }) => {
   const { frontmatter } = data.markdownRemark;
-  const { telephone } = data.site.siteMetadata;
 
   return (
-    <Layout>
-      <RoomRatesTemplate telephone={telephone} {...frontmatter} />
-    </Layout>
+    <RoomRatesTemplate {...frontmatter} siteMetadata={data.site.siteMetadata} />
   );
 };
 
 RoomRates.propTypes = {
   data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        telephone: PropTypes.string.isRequired,
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
+      }).isRequired
+    }).isRequired,
     markdownRemark: PropTypes.shape({
       frontmatter: PropTypes.object
     })
@@ -100,7 +105,13 @@ export const pageQuery = graphql`
   query RoomRatesQuery($id: String!) {
     site {
       siteMetadata {
+        title
+        email
         telephone
+        mainNav {
+          href
+          title
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {
