@@ -17,13 +17,14 @@ const maxSizeJpeg = (
     const longestLength = Math.max(metadata.width, metadata.height);
     const longestLengthKey =
       metadata.width > metadata.height ? "width" : "height";
-    const resizedImage =
-      longestLength > maxLength
-        ? image.resize({ [longestLengthKey]: maxLength })
-        : image;
+
+    const needsResize = longestLength > maxLength;
+    const resizedImage = needsResize
+      ? image.resize({ [longestLengthKey]: maxLength })
+      : image;
 
     return resizedImage
-      .jpeg({ quality, progressive })
+      .jpeg({ quality: needsResize ? quality : 95, progressive })
       .toFile(filePath.replace(`/${TMP_DIR}/`, `/${outputDir}/`));
   });
 };
@@ -59,7 +60,7 @@ class FixUpImagesPlugin {
         const mainPromise = maxSizeJpeg(image, file, {
           maxLength: 1800,
           outputDir: ASSETS_DIR,
-          quality: 80,
+          quality: 85,
           progressive: true,
         });
 
