@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Markdown from "markdown-to-jsx";
 import Layout from "../components/layout";
+import BookNow from "../components/book-now";
 import styles from "./room-rates.module.css";
 
 const Room = ({
   name,
   telephone,
+  email,
   image,
   normalPrice,
   saturdayPrice,
-  tagline
+  tagline,
 }) => (
   <div key={name} className={styles.room}>
     <h2>{name}</h2>
@@ -24,9 +26,9 @@ const Room = ({
       <span className={styles.price}>{saturdayPrice}</span>
     </p>
     <img src={image} alt="" />
-    <a href={`tel:${telephone}`} className={styles.cta}>
+    <BookNow telephone={telephone} email={email} className={styles.cta}>
       Book Now
-    </a>
+    </BookNow>
   </div>
 );
 
@@ -36,7 +38,7 @@ Room.propTypes = {
   normalPrice: PropTypes.string,
   saturdayPrice: PropTypes.string,
   tagline: PropTypes.string,
-  telephone: PropTypes.string
+  telephone: PropTypes.string,
 };
 
 export const RoomRatesTemplate = ({
@@ -44,14 +46,19 @@ export const RoomRatesTemplate = ({
   tagline,
   rooms,
   roomsExtra,
-  extraSections
+  extraSections,
 }) => (
   <Layout siteMetadata={siteMetadata}>
     <p className={styles.tagline}>{tagline}</p>
 
     <div>
-      {rooms.map(room => (
-        <Room key={room.name} telephone={siteMetadata.telephone} {...room} />
+      {rooms.map((room) => (
+        <Room
+          key={room.name}
+          telephone={siteMetadata.telephone}
+          email={siteMetadata.email}
+          {...room}
+        />
       ))}
     </div>
 
@@ -72,7 +79,7 @@ RoomRatesTemplate.propTypes = {
   tagline: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
   roomsExtra: PropTypes.string,
-  extraSections: PropTypes.arrayOf(PropTypes.object)
+  extraSections: PropTypes.arrayOf(PropTypes.object),
 };
 
 const RoomRates = ({ data }) => {
@@ -90,13 +97,13 @@ RoomRates.propTypes = {
         title: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         telephone: PropTypes.string.isRequired,
-        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
-      }).isRequired
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
     }).isRequired,
     markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object
-    })
-  })
+      frontmatter: PropTypes.object,
+    }),
+  }),
 };
 
 export default RoomRates;

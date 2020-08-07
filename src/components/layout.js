@@ -10,6 +10,7 @@ import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import Header from "./header";
+import BookNow from "./book-now";
 import "react-image-gallery/styles/css/image-gallery.css";
 import styles from "./layout.module.css";
 
@@ -50,9 +51,9 @@ const Layout = ({ floatHeader, siteMetadata, children }) => {
               <a href={`mailto:${email}`}>{email}</a>
             </p>
 
-            <a className={styles.cta} href={`tel:${telephone}`}>
+            <BookNow telephone={telephone} email={email} className={styles.cta}>
               Book Now
-            </a>
+            </BookNow>
           </div>
         </div>
       </footer>
@@ -66,13 +67,13 @@ Layout.propTypes = {
     title: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     telephone: PropTypes.string.isRequired,
-    mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
+    mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 Layout.defaultProps = {
-  floatHeader: false
+  floatHeader: false,
 };
 
 export default Layout;

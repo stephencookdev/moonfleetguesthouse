@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
+import { useBookHref } from "./book-now";
 import styles from "./header.module.css";
 
 const Nav = ({ links }) => {
@@ -19,15 +20,20 @@ const Nav = ({ links }) => {
         />
 
         <nav>
-          {links.map(({ title, href, highlight }) => (
-            <Link
-              key={href}
-              to={href}
-              className={highlight ? styles.highlight : null}
-            >
-              {title}
-            </Link>
-          ))}
+          {links.map(({ title, absolute, href, highlight }) => {
+            const LinkComp = absolute ? "a" : Link;
+            const hrefAttr = absolute ? "href" : "to";
+
+            return (
+              <LinkComp
+                key={href}
+                className={highlight ? styles.highlight : null}
+                {...{ [hrefAttr]: href }}
+              >
+                {title}
+              </LinkComp>
+            );
+          })}
         </nav>
       </div>
 
@@ -41,7 +47,8 @@ Nav.propTypes = {
 };
 
 const Header = ({ siteMetadata, floatHeader }) => {
-  const { title, telephone, mainNav } = siteMetadata;
+  const { title, telephone, email, mainNav } = siteMetadata;
+  const bookHref = useBookHref(telephone, email);
 
   return (
     <header
@@ -57,7 +64,7 @@ const Header = ({ siteMetadata, floatHeader }) => {
         <Nav
           links={[
             ...mainNav,
-            { href: `tel:${telephone}`, title: "Book", highlight: true },
+            { href: bookHref, title: "Book", highlight: true, absolute: true },
           ]}
         />
       </div>

@@ -4,20 +4,21 @@ import { graphql } from "gatsby";
 import Markdown from "markdown-to-jsx";
 import ImageGallery from "react-image-gallery";
 import Layout from "../components/layout";
+import BookNow from "../components/book-now";
 import styles from "./index.module.css";
 
 const BackgroundImageCarousel = ({ images }) => {
   return (
     <div className={styles.headerBg}>
       <ImageGallery
-        items={images.map(im => ({ original: im }))}
+        items={images.map((im) => ({ original: im }))}
         showNav={false}
         showThumbnails={false}
         showFullscreenButton={false}
         showPlayButton={false}
         autoPlay
         slideInterval={6000}
-        renderItem={item => (
+        renderItem={(item) => (
           <img src={item.original} alt="" className={styles.headerBgItem} />
         )}
       />
@@ -30,7 +31,7 @@ export const IndexTemplate = ({
   tagline,
   carouselImage,
   body,
-  siteMetadata
+  siteMetadata,
 }) => (
   <>
     <header className={styles.header}>
@@ -39,9 +40,13 @@ export const IndexTemplate = ({
       <h1 className={styles.title}>{title}</h1>
       <p className={styles.tagline}>{tagline}</p>
 
-      <a href={`tel:${siteMetadata.telephone}`} className={styles.cta}>
+      <BookNow
+        telephone={siteMetadata.telephone}
+        email={siteMetadata.email}
+        className={styles.cta}
+      >
         Book Now
-      </a>
+      </BookNow>
     </header>
 
     <Layout floatHeader siteMetadata={siteMetadata}>
@@ -55,7 +60,7 @@ IndexTemplate.propTypes = {
   tagline: PropTypes.string,
   carouselImage: PropTypes.arrayOf(PropTypes.string),
   body: PropTypes.string,
-  siteMetadata: PropTypes.object.isRequired
+  siteMetadata: PropTypes.object.isRequired,
 };
 
 const IndexPage = ({ data }) => {
@@ -77,14 +82,14 @@ IndexPage.propTypes = {
         title: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         telephone: PropTypes.string.isRequired,
-        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
-      }).isRequired
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
     }),
     markdownRemark: PropTypes.shape({
       rawMarkdownBody: PropTypes.string,
-      frontmatter: PropTypes.object
-    })
-  })
+      frontmatter: PropTypes.object,
+    }),
+  }),
 };
 
 export default IndexPage;
