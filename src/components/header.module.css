@@ -33,9 +33,14 @@
   margin-bottom: -2px;
 }
 
+.navBlackOut {
+  display: none;
+}
+
 @media (max-width: 800px) {
   .navContainer {
     position: absolute;
+    z-index: 1002;
     top: 0;
     left: 0;
     width: 100%;
@@ -43,12 +48,29 @@
     padding: 16px 24px;
     pointer-events: none;
     box-sizing: border-box;
-    transition: 0.3s ease background-color, 0.3s ease box-shadow;
+    transition: 0.3s ease background-color;
   }
   .active.navContainer {
     pointer-events: all;
     background-color: rgba(255, 255, 255, 255);
-    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .navBlackOut {
+    display: block;
+    opacity: 0;
+    transition: 0.3s ease opacity;
+    background: #222;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+  .active + .navBlackOut {
+    opacity: 0.9;
+    pointer-events: all;
   }
 }
 

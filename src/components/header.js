@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import styles from "./header.module.css";
@@ -7,30 +7,37 @@ const Nav = ({ links }) => {
   const [active, setActive] = useState(false);
 
   return (
-    <div
-      className={[styles.navContainer, active && styles.active]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      <button className={styles.hamburger} onClick={() => setActive(!active)} />
+    <Fragment>
+      <div
+        className={[styles.navContainer, active && styles.active]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        <button
+          className={styles.hamburger}
+          onClick={() => setActive(!active)}
+        />
 
-      <nav>
-        {links.map(({ title, href, highlight }) => (
-          <Link
-            key={href}
-            to={href}
-            className={highlight ? styles.highlight : null}
-          >
-            {title}
-          </Link>
-        ))}
-      </nav>
-    </div>
+        <nav>
+          {links.map(({ title, href, highlight }) => (
+            <Link
+              key={href}
+              to={href}
+              className={highlight ? styles.highlight : null}
+            >
+              {title}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      <div className={styles.navBlackOut} onClick={() => setActive(false)} />
+    </Fragment>
   );
 };
 
 Nav.propTypes = {
-  links: PropTypes.arrayOf(PropTypes.object).isRequired
+  links: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const Header = ({ siteMetadata, floatHeader }) => {
@@ -50,7 +57,7 @@ const Header = ({ siteMetadata, floatHeader }) => {
         <Nav
           links={[
             ...mainNav,
-            { href: `tel:${telephone}`, title: "Book", highlight: true }
+            { href: `tel:${telephone}`, title: "Book", highlight: true },
           ]}
         />
       </div>
@@ -63,13 +70,13 @@ Header.propTypes = {
     title: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     telephone: PropTypes.string.isRequired,
-    mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
+    mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
-  floatHeader: PropTypes.bool
+  floatHeader: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  floatHeader: false
+  floatHeader: false,
 };
 
 export default Header;
