@@ -68,5 +68,13 @@ extraSections:
       Accompanied by a choice of hot drinks including Cafetiere, Cappuccino, Hot
       Chocolate or choose from our wide selection of Teas
     title: Breakfast
+  - body: >-
+      We require 7 days notice, prior to arrival, in the event of a
+      cancellation.
+
+
+      Otherwise, the full cost of the first night's stay will be chargeable.
+      Full payment of the first night will be taken 7 days prior to your visit. 
+    title: Cancellation Policy
 ---
 
