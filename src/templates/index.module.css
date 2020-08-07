@@ -7,10 +7,11 @@
   text-align: center;
   box-sizing: border-box;
   position: relative;
+  z-index: 1;
 }
 .headerBg {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   top: 0;
   left: 0;
   width: 100%;
@@ -18,6 +19,7 @@
   pointer-events: none;
 }
 .headerBgItem {
+  width: 100%;
   height: 100vh;
   object-fit: cover;
 }

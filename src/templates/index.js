@@ -34,9 +34,9 @@ export const IndexTemplate = ({
   siteMetadata,
 }) => (
   <>
-    <header className={styles.header}>
-      <BackgroundImageCarousel images={carouselImage} />
+    <BackgroundImageCarousel images={carouselImage} />
 
+    <header className={styles.header}>
       <h1 className={styles.title}>{title}</h1>
       <p className={styles.tagline}>{tagline}</p>
 
