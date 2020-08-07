@@ -1,6 +1,7 @@
 const path = require("path");
 const { existsSync } = require("fs");
 const { createFilePath } = require("gatsby-source-filesystem");
+const FixUpImagesPlugin = require("./fix-up-images-plugin");
 
 const getPages = ({ graphql }) => {
   return graphql(`
@@ -65,4 +66,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     });
   }
+};
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    plugins: [new FixUpImagesPlugin()],
+  });
 };

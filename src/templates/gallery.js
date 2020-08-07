@@ -24,7 +24,10 @@ export const GalleryTemplate = ({ images, siteMetadata }) => {
       </div>
 
       <ImageGallery
-        items={images.map((im) => ({ thumbnail: im, original: im }))}
+        items={images.map((im) => ({
+          thumbnail: im.replace("/assets/", "/assets-thumbnails/"),
+          original: im,
+        }))}
         infinite
         showBullets
         showPlayButton={false}

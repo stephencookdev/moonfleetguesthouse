@@ -34,9 +34,11 @@
 .fullscreenGallery :global(.image-gallery-thumbnail.active) {
   border-color: #fff;
 }
-.fullscreenGallery :global(.image-gallery-image) img {
+.fullscreenGallery :global(.image-gallery-image) {
   width: 100%;
   height: 100vh;
+  max-height: none;
+  max-width: none;
   object-fit: contain;
 }
 .fullscreenGallery :global(.image-gallery-right-nav:before),
