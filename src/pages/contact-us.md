@@ -1,6 +1,15 @@
 ---
 sections:
   - body: |-
+      **Phone**
+
+      07572 743 951
+
+      **Email**
+
+      <mailto:moonfleetguesthouse@icloud.com>
+    title: Contact
+  - body: |-
       **Moonfleet**
 
       The Square
@@ -11,9 +20,5 @@ sections:
 
       TS13 4BD
     title: Our Address
-  - body: 07572 743 951
-    title: Call
-  - body: '<mailto:moonfleetguesthouse@icloud.com>'
-    title: Email
 ---
 
