@@ -1,11 +1,31 @@
 ---
 images:
-  - /assets/bkpam2100478_raffleintheflowers.jpg
-  - /assets/smartdoggo.png
-  - /assets/bkpam2100478_raffleintheflowers.jpg
-  - /assets/smartdoggo.png
-  - /assets/bkpam2100478_raffleintheflowers.jpg
-  - /assets/smartdoggo.png
-  - /assets/bkpam2100478_raffleintheflowers.jpg
-  - /assets/smartdoggo.png
+  - /assets/181a0dfe-be80-4c41-939b-2ec028ef549d (1).jpg
+  - /assets/eac9400c-a6df-4b17-a152-0ba8d3745f87 (1).jpg
+  - /assets/bkpam2100478_img_0199 (1).jpg
+  - /assets/335328bf-e5f9-405d-b1d7-7bb5c43c2a4a (1).jpg
+  - /assets/bkpam2100478_patiocomplete (1).jpg
+  - /assets/bkpam2100478_img_0188 (1).jpg
+  - /assets/337b1f21-5062-46d7-80c4-233b3ee1b042 (1).jpg
+  - /assets/e41adaca-5ce3-433c-aae4-93fedf5bdd11 (1).jpg
+  - /assets/7c5abe8b-8cdd-4b1a-9000-fd3eac8b7f4e (1).jpg
+  - /assets/bkpam2100478_img_3824_1 (1).jpg
+  - /assets/05eeade2-d1b2-440c-b958-f6f8e7bfcfd1-1-.jpg
+  - /assets/885a5a71-2ab5-47c7-91c4-74d3c2e69c2e (1).jpeg
+  - /assets/13008cf6-dce0-4a25-93b7-c82c860af9fb (1).jpg
+  - /assets/9ff2def4-f7dc-472f-bd67-4b1e83d55733 (1).jpeg
+  - /assets/59fa980b-f439-47c3-89a9-67bdd1851656 (1).jpg
+  - /assets/2c240c54-828d-4fe5-9290-6ae7257633c3-1-.jpg
+  - /assets/bkpam2100478_8fba66f3d82f4472afec06243901ff04 (1).jpg
+  - /assets/bkpam2100478_img_1728 (1).jpg
+  - /assets/bkpam2100478_img_0102 (1).jpg
+  - /assets/bkpam2100478_blackandwhitehouse (1).jpg
+  - /assets/bkpam2100478_lightbulbs (1).jpg
+  - /assets/bkpam2100478_img_0192 (1).jpg
+  - /assets/de270329-ac01-46ca-97a4-b151b9b798c5 (1).jpg
+  - /assets/5c81b523-a686-4ec7-bfcf-f659c29a6653-1-.jpg
+  - /assets/a9243795-d335-41f2-8af9-9b5f5f0c847f (1).jpg
+  - /assets/ca0edf6a-68bc-4414-83cc-a1e659058b73 (1).jpg
+  - /assets/eaa2b8ec-6b67-4413-ba0e-724791b4b9ee (1).jpg
 ---
+
