@@ -12,7 +12,7 @@ export const GenericTemplate = ({ sections, siteMetadata }) => (
 
 GenericTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,
-  sections: PropTypes.arrayOf(SectionType).isRequired
+  sections: PropTypes.arrayOf(SectionType).isRequired,
 };
 
 const Generic = ({ data }) => {
@@ -30,13 +30,13 @@ Generic.propTypes = {
         title: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         telephone: PropTypes.string.isRequired,
-        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
-      }).isRequired
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
     }).isRequired,
     markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object
-    })
-  })
+      frontmatter: PropTypes.object,
+    }),
+  }),
 };
 
 export default Generic;

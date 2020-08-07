@@ -74,7 +74,6 @@ extraSections:
 
 
       Otherwise, the full cost of the first night's stay will be chargeable.
-      Full payment of the first night will be taken 7 days prior to your visit. 
+      Full payment of the first night will be taken 7 days prior to your visit.
     title: Cancellation Policy
 ---
-

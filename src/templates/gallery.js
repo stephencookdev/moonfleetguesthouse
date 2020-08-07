@@ -8,7 +8,7 @@ import styles from "./gallery.module.css";
 export const GalleryTemplate = ({ images, siteMetadata }) => {
   const imageGalleryRef = useRef(null);
 
-  const openImage = i => () => {
+  const openImage = (i) => () => {
     imageGalleryRef.current.slideToIndex(i);
     imageGalleryRef.current.fullScreen();
   };
@@ -24,7 +24,7 @@ export const GalleryTemplate = ({ images, siteMetadata }) => {
       </div>
 
       <ImageGallery
-        items={images.map(im => ({ thumbnail: im, original: im }))}
+        items={images.map((im) => ({ thumbnail: im, original: im }))}
         infinite
         showBullets
         showPlayButton={false}
@@ -40,7 +40,7 @@ export const GalleryTemplate = ({ images, siteMetadata }) => {
 
 GalleryTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string).isRequired
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const Gallery = ({ data }) => {
@@ -58,13 +58,13 @@ Gallery.propTypes = {
         title: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         telephone: PropTypes.string.isRequired,
-        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
-      }).isRequired
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
     }).isRequired,
     markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object
-    })
-  })
+      frontmatter: PropTypes.object,
+    }),
+  }),
 };
 
 export default Gallery;

@@ -20,4 +20,3 @@ postMapSections:
       a 30-minute drive, or a 5-hour walk along the cliffs or the beach.
     title: Whitby
 ---
-

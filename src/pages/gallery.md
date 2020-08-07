@@ -28,4 +28,3 @@ images:
   - /assets/ca0edf6a-68bc-4414-83cc-a1e659058b73 (1).jpg
   - /assets/eaa2b8ec-6b67-4413-ba0e-724791b4b9ee (1).jpg
 ---
-

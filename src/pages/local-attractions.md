@@ -32,4 +32,3 @@ sections:
     image: /assets/bkpam2100478_raffleintheflowers.jpg
     title: Neighbouring Towns
 ---
-

@@ -29,7 +29,7 @@ const Circles = ({ count }) => {
 export const VisitorsCommentsTemplate = ({
   siteMetadata,
   tripAdvisorComRating,
-  bookingComRating
+  bookingComRating,
 }) => {
   return (
     <Layout siteMetadata={siteMetadata}>
@@ -68,7 +68,7 @@ export const VisitorsCommentsTemplate = ({
 VisitorsCommentsTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,
   tripAdvisorComRating: PropTypes.string.isRequired,
-  bookingComRating: PropTypes.string.isRequired
+  bookingComRating: PropTypes.string.isRequired,
 };
 
 const VisitorsComments = ({ data }) => {
@@ -89,13 +89,13 @@ VisitorsComments.propTypes = {
         title: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         telephone: PropTypes.string.isRequired,
-        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
-      }).isRequired
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
     }).isRequired,
     markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object
-    })
-  })
+      frontmatter: PropTypes.object,
+    }),
+  }),
 };
 
 export default VisitorsComments;

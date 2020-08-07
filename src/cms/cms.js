@@ -9,7 +9,7 @@ import { VisitorsCommentsTemplate } from "../templates/visitors-comments";
 import { GenericTemplate } from "../templates/generic";
 import config from "../../gatsby-config";
 
-const createPagePreview = Template => {
+const createPagePreview = (Template) => {
   const PreviewTemplate = ({ entry }) => {
     const data = entry.getIn(["data"]).toJS();
 
@@ -22,9 +22,9 @@ const createPagePreview = Template => {
 
   PreviewTemplate.propTypes = {
     entry: PropTypes.shape({
-      getIn: PropTypes.func
+      getIn: PropTypes.func,
     }),
-    getAsset: PropTypes.func
+    getAsset: PropTypes.func,
   };
 
   return PreviewTemplate;

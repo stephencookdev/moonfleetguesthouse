@@ -9,7 +9,7 @@ export const FindUsTemplate = ({
   siteMetadata,
   preMapSections,
   googleMapsIframeSrc,
-  postMapSections
+  postMapSections,
 }) => (
   <Layout siteMetadata={siteMetadata}>
     <SectionList sections={preMapSections} />
@@ -32,7 +32,7 @@ FindUsTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,
   preMapSections: PropTypes.arrayOf(SectionType).isRequired,
   googleMapsIframeSrc: PropTypes.string.isRequired,
-  postMapSections: PropTypes.arrayOf(SectionType).isRequired
+  postMapSections: PropTypes.arrayOf(SectionType).isRequired,
 };
 
 const FindUs = ({ data }) => {
@@ -50,13 +50,13 @@ FindUs.propTypes = {
         title: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         telephone: PropTypes.string.isRequired,
-        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired
-      }).isRequired
+        mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
+      }).isRequired,
     }).isRequired,
     markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object
-    })
-  })
+      frontmatter: PropTypes.object,
+    }),
+  }),
 };
 
 export default FindUs;

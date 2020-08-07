@@ -6,7 +6,7 @@ import styles from "./section-list.module.css";
 export const SectionType = PropTypes.shape({
   title: PropTypes.string.isRequired,
   image: PropTypes.string,
-  body: PropTypes.string.isRequired
+  body: PropTypes.string.isRequired,
 });
 
 const SectionList = ({ sections }) => (
@@ -24,7 +24,7 @@ const SectionList = ({ sections }) => (
 );
 
 SectionList.propTypes = {
-  sections: PropTypes.arrayOf(SectionType).isRequired
+  sections: PropTypes.arrayOf(SectionType).isRequired,
 };
 
 export default SectionList;
