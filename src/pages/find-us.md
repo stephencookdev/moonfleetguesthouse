@@ -8,8 +8,8 @@ postMapSections:
       along the coast. That's a 12-minute drive, or a relatively flat 1h30 walk
       along the cliffs above the beach.
     title: Saltburn-By-The-Sea
-  - body: A seaside village famous for its artistic inspiration, 5.8 miles away. It
-      takes 12 minutes to drive, or an adventurous 1h45 walk along the cliffs.
+  - body: A seaside village famed for inspiring artists, 5.8 miles away. It takes 12
+      minutes to drive, or an adventurous 1h45 walk along the cliffs.
     title: Staithes
   - body: A gothic town known for the famous Whitby Abbey (the spot where Dracula
       landed), 14.7 miles away. It's a 30-minute drive, or ~5 hour walk along
