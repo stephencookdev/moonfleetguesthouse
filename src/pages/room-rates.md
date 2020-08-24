@@ -62,7 +62,7 @@ extraSections:
       Followed by a cooked Full English Breakfast :)
 
 
-      Accompanied by a choice of hot drinks including Cafetiere, Cappuccino, Hot Chocolate or Tea
+      Accompanied by a choice of hot drinks including Cafetiere, Cappuccino, Hot Chocolate or Tea.
     title: Breakfast
   - body: >-
       We require 7 days notice, prior to arrival, in the event of a
