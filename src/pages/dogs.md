@@ -5,7 +5,7 @@ sections:
       £6 per dog, per night to allow for extra cleaning.
 
 
-      Hot and cold water taps are available outside for muddy paws and we have a list of local dog friendly places to eat in the rooms. 
+      Hot and cold water taps are available outside for muddy paws and we have a list of local dog friendly places to eat. 
 
 
       We ask our furry friends' parents to bring a dog bed with them, as we don't allow dogs on the furniture. 
