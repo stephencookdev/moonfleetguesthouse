@@ -45,7 +45,7 @@ extraSections:
       Accommodation consisting of 6 En-Suite Bedrooms and Private Hire of the Breakfast Room, Pool Room and Bar
 
 
-      From £600
+      From £600 per night (minimum stay 2 nights)
 
 
       Perfect for a group holiday or family reunion. Contact us for more information.
