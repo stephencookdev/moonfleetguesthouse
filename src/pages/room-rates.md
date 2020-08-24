@@ -48,7 +48,7 @@ extraSections:
       From £600 per night (minimum stay 2 nights)
 
 
-      Perfect for a group holiday or family reunion. Contact us directly for more information.
+      Perfect for a group holiday or family reunion. Please call us directly for more information.
     title: Friends and Family Gatherings
   - body: Dogs are welcome to stay upon request. There is an extra charge of £6 per
       night per dog to allow for extra cleaning.
