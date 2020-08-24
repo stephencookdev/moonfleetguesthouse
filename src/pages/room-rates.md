@@ -34,9 +34,9 @@ rooms:
     saturdayPrice: £120-£140
     tagline: Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath
 roomsExtra: |-
-  A discount of 15% is applied to rooms with single occupancy.\
-  \
-  Extra single beds are charged at £30 including breakfast.
+  A discount of 15% is applied to rooms with single occupancy
+
+  Extra single beds are charged at £30 including breakfast
 extraSections:
   - body: >-
       **Private Hire of the Guest House**
@@ -50,18 +50,19 @@ extraSections:
 
       Perfect for a group holiday or family reunion. Contact us for more information.
     title: Friends and Family Gatherings
-  - body: Dogs are welcome to stay upon request, however, there is an extra charge
-      of £5 per night to allow for extra cleaning.
+  - body: Dogs are welcome to stay upon request. There is an extra charge of £6 per
+      night per dog to allow for extra cleaning.
     title: Dogs
   - body: >-
-      A buffet consisting of homemade muffins, cereals, muesli, yogurt, fruit
-      compote and fresh juice
+      Continental breakfast is available (including fruit, yoghurt, juice,
+      cereals, homemade muffins). This is served on a per table basis as we have
+      temporarily reduced the buffet for social distancing reasons. 
 
 
-      Followed by a Full English Breakfast
+      Followed by a cooked Full English Breakfast :)
 
 
-      Accompanied by a choice of hot drinks including Cafetiere, Cappuccino, Hot Chocolate or choose from our wide selection of Teas
+      Accompanied by a choice of hot drinks including Cafetiere, Cappuccino, Hot Chocolate or Tea
     title: Breakfast
   - body: >-
       We require 7 days notice, prior to arrival, in the event of a
