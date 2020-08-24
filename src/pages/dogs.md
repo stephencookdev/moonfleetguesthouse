@@ -11,7 +11,7 @@ sections:
       We ask our furry friends' parents to bring a dog bed with them, as we don't allow dogs on the furniture. 
 
 
-      The local beach is unrestricted at all times of the year, which is perfect for a trip to the sea for a doggy paddle!
+      The local beach is unrestricted at all times of the year, which is perfect for a trip to the sea for a paddle!
 
 
       Please contact us directly to request a stay with your dog.
