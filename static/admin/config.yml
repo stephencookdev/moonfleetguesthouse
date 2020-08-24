@@ -148,4 +148,4 @@ collections:
     label: Moonfleet Guesthouse
     name: moonfleet
 media_folder: static/assets
-public_folder: assets
+public_folder: /assets
