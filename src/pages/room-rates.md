@@ -18,7 +18,7 @@ rooms:
     normalPrice: £90-£110
     saturdayPrice: £95-£120
     tagline: Double Bedroom with Shower
-  - image: /assets/twin-chairs-and-light.jpg
+  - image: /assets/twin-beds-and-boxes.jpg
     name: Joseph's Pit
     normalPrice: £95-£120
     saturdayPrice: £105-£130
