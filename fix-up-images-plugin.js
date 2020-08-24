@@ -20,7 +20,10 @@ const maxSizeJpeg = (
 
     const needsResize = longestLength > maxLength;
     const resizedImage = needsResize
-      ? image.resize({ [longestLengthKey]: maxLength })
+      ? image
+          .resize({ [longestLengthKey]: maxLength })
+          // preserve the metadata since JPEG embeds rotation in the metadata sometimes
+          .withMetadata()
       : image;
 
     return resizedImage
