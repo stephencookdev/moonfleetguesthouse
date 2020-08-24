@@ -13,22 +13,22 @@ rooms:
     normalPrice: £90-£110
     saturdayPrice: £95-£120
     tagline: Double Bedroom with Shower
-  - image: a/ssets/mr-with-the-box.jpg
+  - image: /assets/mr-with-the-box.jpg
     name: Master Ratsey
     normalPrice: £90-£110
     saturdayPrice: £95-£120
     tagline: Double Bedroom with Shower
-  - image: a/ssets/twin-paintings.jpg
+  - image: /assets/twin-paintings.jpg
     name: Joseph's Pit
     normalPrice: £95-£120
     saturdayPrice: £105-£130
     tagline: Superior Twin Bedroom with Shower
-  - image: a/ssets/bed-mohune-from-below.jpg
+  - image: /assets/bed-mohune-from-below.jpg
     name: The Mohune
     normalPrice: £95-£120
     saturdayPrice: £105-£130
     tagline: Superior Double Room with Shower
-  - image: a/ssets/jf-from-the-door.jpg
+  - image: /assets/jf-from-the-door.jpg
     name: Jeremy Fox
     normalPrice: £110-£130
     saturdayPrice: £120-£140
