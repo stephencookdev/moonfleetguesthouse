@@ -15,6 +15,6 @@ sections:
 
 
       Please contact us directly to request a stay with your dog.
-    image: /assets/bkpam2100478_raffleintheflowers.jpg
+    image: /assets/raph-and-moonfleet-sky.png
     title: Dogs Welcome
 ---
