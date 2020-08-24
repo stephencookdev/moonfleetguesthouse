@@ -8,7 +8,7 @@ rooms:
     normalPrice: £90-£110
     saturdayPrice: £95-£120
     tagline: Double Bedroom with Bath
-  - image: /assets/a9243795-d335-41f2-8af9-9b5f5f0c847f (1).jpg
+  - image: /assets/ynot-room.jpg
     name: Y NOT
     normalPrice: £90-£110
     saturdayPrice: £95-£120
@@ -50,8 +50,7 @@ extraSections:
 
       Perfect for a group holiday or family reunion. Contact us for more information.
     title: Friends and Family Gatherings
-  - body:
-      Dogs are welcome to stay upon request. There is an extra charge of £6 per
+  - body: Dogs are welcome to stay upon request. There is an extra charge of £6 per
       night per dog to allow for extra cleaning.
     title: Dogs
   - body: >-
@@ -70,6 +69,9 @@ extraSections:
       cancellation.
 
 
-      Otherwise, the full cost of the first night's stay will be chargeable. Full payment of the first night will be taken 7 days prior to your visit.
+      Otherwise, the full cost of the first night's stay will be chargeable. 
+
+
+      Payment authorisation will be taken 7 days prior to your stay.
     title: Cancellation Policy
 ---
