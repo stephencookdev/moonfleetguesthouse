@@ -3,7 +3,7 @@ images:
   - /assets/181a0dfe-be80-4c41-939b-2ec028ef549d (1).jpg
   - /assets/eac9400c-a6df-4b17-a152-0ba8d3745f87 (1).jpg
   - /assets/bkpam2100478_img_0199 (1).jpg
-  - /assets/335328bf-e5f9-405d-b1d7-7bb5c43c2a4a (1).jpg
+  - /assets/mohune-painting.jpg
   - /assets/bkpam2100478_patiocomplete (1).jpg
   - /assets/bkpam2100478_img_0188 (1).jpg
   - /assets/337b1f21-5062-46d7-80c4-233b3ee1b042 (1).jpg
