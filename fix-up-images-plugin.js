@@ -20,15 +20,16 @@ const maxSizeJpeg = (
 
     const needsResize = longestLength > maxLength;
     const resizedImage = needsResize
-      ? image
-          .resize({ [longestLengthKey]: maxLength })
-          // preserve the metadata since JPEG embeds rotation in the metadata sometimes
-          .withMetadata()
+      ? image.resize({ [longestLengthKey]: maxLength })
       : image;
 
-    return resizedImage
-      .jpeg({ quality: needsResize ? quality : 95, progressive })
-      .toFile(filePath.replace(`/${TMP_DIR}/`, `/${outputDir}/`));
+    return (
+      resizedImage
+        .jpeg({ quality: needsResize ? quality : 95, progressive })
+        // preserve the metadata since JPEG embeds rotation in the metadata sometimes
+        .withMetadata()
+        .toFile(filePath.replace(`/${TMP_DIR}/`, `/${outputDir}/`))
+    );
   });
 };
 
