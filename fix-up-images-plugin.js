@@ -23,13 +23,10 @@ const maxSizeJpeg = (
       ? image.resize({ [longestLengthKey]: maxLength })
       : image;
 
-    return (
-      resizedImage
-        .jpeg({ quality: needsResize ? quality : 95, progressive })
-        // preserve the metadata since JPEG embeds rotation in the metadata sometimes
-        .withMetadata()
-        .toFile(filePath.replace(`/${TMP_DIR}/`, `/${outputDir}/`))
-    );
+    return resizedImage
+      .rotate() // turn EXIF rotation into a true rotation
+      .jpeg({ quality: needsResize ? quality : 95, progressive })
+      .toFile(filePath.replace(`/${TMP_DIR}/`, `/${outputDir}/`));
   });
 };
 
