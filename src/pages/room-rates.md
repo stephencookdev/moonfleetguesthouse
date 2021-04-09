@@ -42,10 +42,7 @@ extraSections:
       **Private Hire of the Guest House**
 
 
-      Accommodation consisting of 6 En-Suite Bedrooms and Private Hire of the Breakfast Room, Pool Room and Bar
-
-
-      Bed and Breakfast and exclusive hire of the public areas charged at £700 per night (minimum stay 2 nights)
+      Accommodation consisting of 6 En-Suite Bedrooms, Private Hire of the Breakfast Room, Pool Room and Bar. Breakfast included for all guests - £700 per night (minimum stay 2 nights)
 
 
       Perfect for a group holiday or family reunion! Please call us directly for more information.
