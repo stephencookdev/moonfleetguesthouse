@@ -42,7 +42,7 @@ extraSections:
       **Private Hire of the Guest House**
 
 
-      Accommodation consisting of 6 En-Suite Bedrooms, Private Hire of the Breakfast Room, Pool Room and Bar. Breakfast included for all guests - £700 per night (minimum stay 2 nights)
+      Accommodation consisting of 6 En-Suite Bedrooms, Private Hire of the Breakfast Room, Pool Room and Bar. Breakfast included for all guests for £700 per night (minimum stay 2 nights)
 
 
       Perfect for a group holiday or family reunion! Please call us directly for more information. Dogs welcome.
@@ -69,14 +69,12 @@ extraSections:
       Otherwise, the full cost of the first night's stay will be chargeable. 
 
 
-      Payment pre-authorisation will be taken 7 days prior to your stay. \
+      Payment pre-authorisation will be taken 7 days prior to your stay.
 
-      \
 
-      If Moonfleet needs to close due to unexpected Covid-19 related restrictions, no charges will be made.\
+      If Moonfleet needs to close due to unexpected Covid-19 related restrictions, no charges will be made.
 
-      \
 
-      If guests are unable to honour their reservation due to a positive Covid-19 test, the reservation will be cancelled free of charge. Proof will be required, otherwise the 7 day cancellation policy still stands.
+      If guests are unfortunately unable to honour their reservation due to a positive Covid-19 test, the reservation can be cancelled free of charge. Proof will be required, otherwise the 7 day cancellation policy still stands.
     title: Cancellation Policy
 ---
