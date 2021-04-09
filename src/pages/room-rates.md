@@ -69,6 +69,14 @@ extraSections:
       Otherwise, the full cost of the first night's stay will be chargeable. 
 
 
-      Payment pre-authorisation will be taken 7 days prior to your stay.
+      Payment pre-authorisation will be taken 7 days prior to your stay. \
+
+      \
+
+      If Moonfleet needs to close due to unexpected Covid-19 related restrictions no charges will be made.\
+
+      \
+
+      If guests are unable to honour their reservation due to a positive Covid-19 test, the reservation will be cancelled free of charge. Proof will be required, otherwise the 7 day cancellation window remains in place.
     title: Cancellation Policy
 ---
