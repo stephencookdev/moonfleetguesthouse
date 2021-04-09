@@ -77,6 +77,6 @@ extraSections:
 
       \
 
-      If guests are unable to honour their reservation due to a positive Covid-19 test, the reservation will be cancelled free of charge. Proof will be required, otherwise the 7 day cancellation window remains in place.
+      If guests are unable to honour their reservation due to a positive Covid-19 test, the reservation will be cancelled free of charge. Proof will be required, otherwise the 7 day cancellation window stands.
     title: Cancellation Policy
 ---
