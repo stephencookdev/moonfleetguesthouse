@@ -5,33 +5,33 @@ tagline: Each bedroom is decorated in a unique style — ask for details and
 rooms:
   - image: /assets/eac9400c-a6df-4b17-a152-0ba8d3745f87 (1).jpg
     name: Elzevir Block
-    normalPrice: £100-£120
-    saturdayPrice: £110-£125
+    normalPrice: £100-£110
+    saturdayPrice: £110-£120
     tagline: Double Bedroom with Bath
   - image: /assets/ynot-room.jpg
     name: Y NOT
-    normalPrice: £100-£120
-    saturdayPrice: £110-£125
+    normalPrice: £100-£110
+    saturdayPrice: £110-£120
     tagline: Double Bedroom with Shower
   - image: /assets/mr-with-the-box.jpg
     name: Master Ratsey
-    normalPrice: £100-£120
-    saturdayPrice: £110-£125
+    normalPrice: £100-£110
+    saturdayPrice: £110-£120
     tagline: Double Bedroom with Shower
   - image: /assets/twin-beds-and-boxes.jpg
     name: Joseph's Pit
-    normalPrice: £110-£130
-    saturdayPrice: £120-£135
+    normalPrice: £110-£120
+    saturdayPrice: £120-£130
     tagline: Superior Twin Bedroom with Shower
   - image: /assets/bed-mohune-from-below.jpg
     name: The Mohune
-    normalPrice: £110-£130
-    saturdayPrice: £120-£135
+    normalPrice: £110-£120
+    saturdayPrice: £120-£130
     tagline: Superior Double Room with Shower
   - image: /assets/jf-from-the-door.jpg
     name: Jeremy Fox
-    normalPrice: £125-£140
-    saturdayPrice: £125-145
+    normalPrice: £125-£135
+    saturdayPrice: £135-£145
     tagline: Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath
 roomsExtra: |-
   A discount of 15% is applied to rooms with single occupancy
