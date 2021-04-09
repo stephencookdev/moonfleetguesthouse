@@ -73,7 +73,7 @@ extraSections:
 
       \
 
-      If Moonfleet needs to close due to unexpected Covid-19 related restrictions no charges will be made.\
+      If Moonfleet needs to close due to unexpected Covid-19 related restrictions, no charges will be made.\
 
       \
 
