@@ -10,8 +10,8 @@ rooms:
     tagline: Double Bedroom with Bath
   - image: /assets/ynot-room.jpg
     name: Y NOT
-    normalPrice: £100-£110
-    saturdayPrice: £110-£120
+    normalPrice: £125-135
+    saturdayPrice: £135-145
     tagline: Double Bedroom with Shower
   - image: /assets/mr-with-the-box.jpg
     name: Master Ratsey
