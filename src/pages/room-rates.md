@@ -20,8 +20,8 @@ rooms:
     tagline: Double Bedroom with Shower
   - image: /assets/twin-beds-and-boxes.jpg
     name: Joseph's Pit
-    normalPrice: £135-145
-    saturdayPrice: £145-155
+    normalPrice: £135
+    saturdayPrice: £145
     tagline: Superior Twin Bedroom with Shower
   - image: /assets/bed-mohune-from-below.jpg
     name: The Mohune
