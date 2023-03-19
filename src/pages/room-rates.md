@@ -5,18 +5,18 @@ tagline: Each bedroom is decorated in a unique style — ask for details and
 rooms:
   - image: /assets/eac9400c-a6df-4b17-a152-0ba8d3745f87 (1).jpg
     name: Elzevir Block
-    normalPrice: £125-135
-    saturdayPrice: £135-145
+    normalPrice: £125
+    saturdayPrice: £135
     tagline: Double Bedroom with Bath
   - image: /assets/ynot-room.jpg
     name: Y NOT
-    normalPrice: £125-135
-    saturdayPrice: £135-145
+    normalPrice: £125
+    saturdayPrice: £135
     tagline: Double Bedroom with Shower
   - image: /assets/mr-with-the-box.jpg
     name: Master Ratsey
-    normalPrice: £125-135
-    saturdayPrice: £135-145
+    normalPrice: £125
+    saturdayPrice: £135
     tagline: Double Bedroom with Shower
   - image: /assets/twin-beds-and-boxes.jpg
     name: Joseph's Pit
@@ -25,15 +25,17 @@ rooms:
     tagline: Superior Twin Bedroom with Shower
   - image: /assets/bed-mohune-from-below.jpg
     name: The Mohune
-    normalPrice: £135-145
-    saturdayPrice: £145-155
+    normalPrice: £135
+    saturdayPrice: £145
     tagline: Superior Double Room with Shower
   - image: /assets/jf-from-the-door.jpg
     name: Jeremy Fox
-    normalPrice: £145-155
-    saturdayPrice: £160-170
+    normalPrice: £145
+    saturdayPrice: £160
     tagline: Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath
 roomsExtra: |-
+  **During peak month of August, please add £10 to all room prices above.** 
+
   A discount of 15% is applied to rooms with single occupancy
 
   Extra single beds are charged at £30 including breakfast
