@@ -2,7 +2,7 @@
 sections:
   - body: >-
       Dogs are welcome to stay upon request, however there is an extra charge of
-      £6 per dog, per night to allow for extra cleaning.
+      £10 per dog, per night to allow for extra cleaning.
 
 
       Hot and cold water taps are available outside for muddy paws and we have a list of local dog friendly places to eat. 
