@@ -3,32 +3,32 @@ title: Room Rates
 tagline: Each bedroom is decorated in a unique style — ask for details and
   request your favourite when booking directly.
 rooms:
-  - image: /assets/eac9400c-a6df-4b17-a152-0ba8d3745f87 (1).jpg
+  - image: /assets/moonfleet-32.jpg
     name: Elzevir Block
     normalPrice: £125
     saturdayPrice: £135
     tagline: Double Bedroom with Bath
-  - image: /assets/ynot-room.jpg
+  - image: /assets/moonfleet-37.jpg
     name: Y NOT
     normalPrice: £125
     saturdayPrice: £135
     tagline: Double Bedroom with Shower
-  - image: /assets/mr-with-the-box.jpg
+  - image: /assets/moonfleet-26.jpg
     name: Master Ratsey
     normalPrice: £125
     saturdayPrice: £135
     tagline: Double Bedroom with Shower
-  - image: /assets/twin-beds-and-boxes.jpg
+  - image: /assets/moonfleet-22.jpg
     name: Joseph's Pit
     normalPrice: £135
     saturdayPrice: £145
     tagline: Superior Twin Bedroom with Shower
-  - image: /assets/bed-mohune-from-below.jpg
+  - image: /assets/moonfleet-50.jpg
     name: The Mohune
     normalPrice: £135
     saturdayPrice: £145
     tagline: Superior Double Room with Shower
-  - image: /assets/jf-from-the-door.jpg
+  - image: /assets/moonfleet-49.jpg
     name: Jeremy Fox
     normalPrice: £145
     saturdayPrice: £160
