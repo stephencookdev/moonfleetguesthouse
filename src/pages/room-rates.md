@@ -32,7 +32,8 @@ rooms:
     name: Jeremy Fox
     normalPrice: £145
     saturdayPrice: £160
-    tagline: Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath
+    tagline: Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath &
+      Shower
 roomsExtra: |-
   **During peak month of August, please add £10 to all room prices above.** 
 
