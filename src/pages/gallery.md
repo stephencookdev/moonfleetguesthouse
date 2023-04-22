@@ -25,7 +25,7 @@ images:
   - /assets/eb-bed.jpg
   - /assets/5c81b523-a686-4ec7-bfcf-f659c29a6653-1-.jpg
   - /assets/ynot-tapestry.jpg
-  - /assets/jf-from-the-door.jpg
+  - /assets/moonfleet-outside.jpg
   - /assets/eaa2b8ec-6b67-4413-ba0e-724791b4b9ee (1).jpg
   - /assets/moonfleet-27.jpg
 ---
