@@ -23,7 +23,7 @@ images:
   - /assets/bkpam2100478_lightbulbs (1).jpg
   - /assets/moonfleet-25.jpg
   - /assets/moonfleet-6.jpg
-  - /assets/moonfleet-30.jpg
+  - /assets/moonfleet-56.jpg
   - /assets/moonfleet-38.jpg
   - /assets/moonfleet-outside.jpg
   - /assets/moonfleet-66.jpg
