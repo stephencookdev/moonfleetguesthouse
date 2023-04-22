@@ -8,7 +8,7 @@ sections:
       Hot and cold water taps are available outside for muddy paws and we have a list of local dog friendly places to eat. 
 
 
-      We ask our furry friends' parents to bring a dog bed with them, as we don't allow dogs on the furniture. 
+      We ask our furry friends' parents to bring a dog bed with them, as we don't allow dogs on the furniture. Please note, dogs are not allowed in the dining room during breakfast time but are welcome in the bar in the evening.
 
 
       The local beach is unrestricted at all times of the year, which is perfect for a trip to the sea for a paddle!
