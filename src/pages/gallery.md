@@ -1,12 +1,12 @@
 ---
 images:
-  - /assets/181a0dfe-be80-4c41-939b-2ec028ef549d (1).jpg
-  - /assets/eac9400c-a6df-4b17-a152-0ba8d3745f87 (1).jpg
-  - /assets/bkpam2100478_img_0199 (1).jpg
-  - /assets/mohune-painting.jpg
-  - /assets/bkpam2100478_patiocomplete (1).jpg
-  - /assets/bkpam2100478_img_0188 (1).jpg
-  - /assets/337b1f21-5062-46d7-80c4-233b3ee1b042 (1).jpg
+  - /assets/10078626-a170-4c4f-8473-ad4c82d4d043.jpg
+  - /assets/moonfleet-61.jpg
+  - /assets/moonfleet-7.jpg
+  - /assets/moonfleet-12.jpg
+  - /assets/moonfleet-21.jpg
+  - /assets/lulu-on-the-cliff.jpg
+  - /assets/moonfleet-11.jpg
   - /assets/e41adaca-5ce3-433c-aae4-93fedf5bdd11 (1).jpg
   - /assets/7c5abe8b-8cdd-4b1a-9000-fd3eac8b7f4e (1).jpg
   - /assets/bkpam2100478_img_3824_1 (1).jpg
@@ -27,4 +27,5 @@ images:
   - /assets/ynot-tapestry.jpg
   - /assets/jf-from-the-door.jpg
   - /assets/eaa2b8ec-6b67-4413-ba0e-724791b4b9ee (1).jpg
+  - /assets/moonfleet-27.jpg
 ---
