@@ -24,7 +24,7 @@ images:
   - /assets/bkpam2100478_img_0192 (1).jpg
   - /assets/eb-bed.jpg
   - /assets/5c81b523-a686-4ec7-bfcf-f659c29a6653-1-.jpg
-  - /assets/ynot-tapestry.jpg
+  - /assets/moonfleet-38.jpg
   - /assets/moonfleet-outside.jpg
-  - /assets/moonfleet-27.jpg
+  - /assets/moonfleet-66.jpg
 ---
