@@ -8,16 +8,16 @@ images:
   - /assets/lulu-on-the-cliff.jpg
   - /assets/moonfleet-11.jpg
   - /assets/e41adaca-5ce3-433c-aae4-93fedf5bdd11 (1).jpg
-  - /assets/7c5abe8b-8cdd-4b1a-9000-fd3eac8b7f4e (1).jpg
+  - /assets/moonfleet-23.jpg
   - /assets/bkpam2100478_img_3824_1 (1).jpg
-  - /assets/05eeade2-d1b2-440c-b958-f6f8e7bfcfd1-1-.jpg
-  - /assets/885a5a71-2ab5-47c7-91c4-74d3c2e69c2e (1).jpeg
-  - /assets/2c240c54-828d-4fe5-9290-6ae7257633c3-1-.jpg
-  - /assets/mr-bed.jpg
-  - /assets/59fa980b-f439-47c3-89a9-67bdd1851656 (1).jpg
-  - /assets/mohune-bed.jpg
-  - /assets/mohune-bathroom-2.jpg
-  - /assets/inside-bath.jpg
+  - /assets/moonfleet-17.jpg
+  - /assets/moonfleet-38.jpg
+  - /assets/moonfleet-33.jpg
+  - /assets/moonfleet-27.jpg
+  - /assets/moonfleet-3.jpg
+  - /assets/moonfleet-59.jpg
+  - /assets/moonfleet-41.jpg
+  - /assets/moonfleet-45.jpg
   - /assets/dodo.jpg
   - /assets/bkpam2100478_blackandwhitehouse (1).jpg
   - /assets/bkpam2100478_lightbulbs (1).jpg
@@ -26,6 +26,5 @@ images:
   - /assets/5c81b523-a686-4ec7-bfcf-f659c29a6653-1-.jpg
   - /assets/ynot-tapestry.jpg
   - /assets/moonfleet-outside.jpg
-  - /assets/eaa2b8ec-6b67-4413-ba0e-724791b4b9ee (1).jpg
   - /assets/moonfleet-27.jpg
 ---
