@@ -17,7 +17,7 @@ images:
   - /assets/moonfleet-3.jpg
   - /assets/moonfleet-59.jpg
   - /assets/moonfleet-41.jpg
-  - /assets/moonfleet-45.jpg
+  - /assets/moonfleet-15.jpg
   - /assets/dodo.jpg
   - /assets/bkpam2100478_blackandwhitehouse (1).jpg
   - /assets/bkpam2100478_lightbulbs (1).jpg
