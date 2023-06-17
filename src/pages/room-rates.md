@@ -50,7 +50,7 @@ extraSections:
 
       Perfect for a group holiday or family reunion! Please call us directly for more information. Dogs welcome.
     title: Friends and Family Gatherings
-  - body: Dogs are welcome to stay upon request. There is an extra charge of £6 per
+  - body: Dogs are welcome to stay upon request. There is an extra charge of £10 per
       night per dog to allow for extra cleaning.
     title: Dogs
   - body: >-
