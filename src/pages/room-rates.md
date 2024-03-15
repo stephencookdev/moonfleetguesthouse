@@ -13,7 +13,7 @@ rooms:
     normalPrice: £125
     saturdayPrice: £135
     tagline: Double Bedroom with Shower
-  - image: /assets/moonfleet-26.jpg
+  - image: /assets/img_2617.jpeg
     name: Master Ratsey
     normalPrice: £125
     saturdayPrice: £135
