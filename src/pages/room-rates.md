@@ -23,12 +23,12 @@ rooms:
     normalPrice: £135
     saturdayPrice: £145
     tagline: Superior Twin Bedroom with Shower
-  - image: /assets/moonfleet-50.jpg
+  - image: /assets/img_2653.jpeg
     name: The Mohune
     normalPrice: £135
     saturdayPrice: £145
     tagline: Superior Double Room with Shower
-  - image: /assets/moonfleet-49.jpg
+  - image: /assets/img_2723.jpeg
     name: Jeremy Fox
     normalPrice: £145
     saturdayPrice: £160
