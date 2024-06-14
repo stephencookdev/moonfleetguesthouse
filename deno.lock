@@ -1,0 +1,44 @@
+{
+  "version": "3",
+  "remote": {
+    "https://edge.netlify.com/": "ff84a16f192fdb43db8b9dff869889f555c05857d075044d2a7cfa54c283a0a0",
+    "https://edge.netlify.com/bootstrap/config.ts": "0aa0a225d978b89e0e62cbd853701605199e7a84095e55eeb70147faf1a24803",
+    "https://edge.netlify.com/bootstrap/context.ts": "8f99269eeeeccf9b852e6089cc648c962a0ea20b2198b8b38b38e3b2ce2b9143",
+    "https://edge.netlify.com/bootstrap/cookie.ts": "8b0baae708989ca183c6f3b4ab3d029e6abcbc2e43f93edeb0ff447b3bbc3a05",
+    "https://edge.netlify.com/bootstrap/edge_function.ts": "b8253e86aa83c67341f5cfedeba5049d77fbf84dcab7eceff7566b7728ae9b39",
+    "https://edge.netlify.com/bootstrap/globals.ts": "38f9e0be6c2c78206bf14d2387d41964d38bbe81644b3668e203c6f6473408a7"
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@stripe/stripe-js@^3.5.0",
+        "npm:formik@^2.4.6",
+        "npm:gatsby-image@^2.4.14",
+        "npm:gatsby-plugin-manifest@^2.4.22",
+        "npm:gatsby-plugin-netlify-cms@^4.3.11",
+        "npm:gatsby-plugin-offline@^3.2.22",
+        "npm:gatsby-plugin-react-helmet@^3.3.10",
+        "npm:gatsby-plugin-sharp@^2.6.25",
+        "npm:gatsby-source-filesystem@^2.3.24",
+        "npm:gatsby-transformer-remark@^2.8.28",
+        "npm:gatsby-transformer-sharp@^2.5.12",
+        "npm:gatsby@^2.24.34",
+        "npm:glob@^7.1.6",
+        "npm:markdown-to-jsx@^6.11.4",
+        "npm:netlify-cli@^17.27.0",
+        "npm:netlify-cms-app@^2.12.19",
+        "npm:prettier@^2.0.5",
+        "npm:prop-types@^15.7.2",
+        "npm:react-dom@^16.14.0",
+        "npm:react-helmet@^5.2.1",
+        "npm:react-image-gallery@^1.0.8",
+        "npm:react@^16.14.0",
+        "npm:rimraf@^3.0.2",
+        "npm:sharp@^0.25.4",
+        "npm:sweetalert2-react-content@^4.2.0",
+        "npm:sweetalert2@^11.11.1",
+        "npm:yup@^1.4.0"
+      ]
+    }
+  }
+}
