@@ -1,33 +1,139 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const sgMail = require("@sendgrid/mail");
+const mailgun = require("mailgun-js");
+const { google } = require("googleapis");
 const omit = require("lodash.omit");
+const {
+  roomToCalendarId,
+  getPriceToPay,
+  formatPrice,
+  getUKTime,
+  CHECK_IN_HOUR,
+  CHECK_OUT_HOUR,
+} = require("../utils/utils");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const mg = mailgun({
+  apiKey: process.env.MAILGUN_API_KEY,
+  domain: "moonfleetguesthouse.co.uk",
+});
+
+const calendar = google.calendar("v3");
+
+const serviceAccount = JSON.parse(process.env.GOOGLE_CALENDAR_SERVICE_JSON);
+const googleCalendarAuth = new google.auth.JWT(
+  serviceAccount.client_email,
+  null,
+  serviceAccount.private_key.replace(/\\n/g, "\n"),
+  ["https://www.googleapis.com/auth/calendar"]
+);
+
+const objectKeysCamelCaseToTitleCase = (obj) =>
+  Object.keys(obj).reduce((acc, key) => {
+    const titleCasedKey = key
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase());
+    acc[titleCasedKey] = obj[key];
+    return acc;
+  }, {});
 
 exports.handler = async (event) => {
   try {
-    const { customerInfo } = JSON.parse(event.body);
+    const { customerInfo, room } = JSON.parse(event.body);
 
-    // Create a customer if not already created
+    const calendarId = roomToCalendarId(room);
+
+    const eventStartTime = getUKTime(
+      customerInfo.checkInDate,
+      CHECK_IN_HOUR,
+      0
+    );
+    const eventEndTime = getUKTime(
+      customerInfo.checkOutDate,
+      CHECK_OUT_HOUR,
+      0
+    );
+
+    // Check if a calendar entry already exists
+    const existingEvents = await calendar.events.list({
+      auth: googleCalendarAuth,
+      calendarId,
+      timeMin: eventStartTime,
+      timeMax: eventEndTime,
+    });
+    if (existingEvents.data.items.length > 0) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: "Booking already exists for this date range",
+        }),
+      };
+    }
+
+    const priceToPay = formatPrice(
+      await getPriceToPay({
+        room,
+        dateRange: {
+          start: eventStartTime,
+          end: eventEndTime,
+        },
+        numberOfGuests: customerInfo.numberOfGuests,
+      })
+    );
+    const singleLineNotes = customerInfo.notes.replace(/\n/g, "  ").trim();
+    const customerMetadata = objectKeysCamelCaseToTitleCase({
+      ...omit(customerInfo, ["email", "name", "phone", "postalCode", "notes"]),
+      priceToPay,
+      notes: singleLineNotes,
+    });
+    if (!customerMetadata.notes) {
+      delete customerMetadata.notes;
+    }
     const customer = await stripe.customers.create({
       email: customerInfo.email,
       name: customerInfo.name,
       phone: customerInfo.phone,
-      metadata: omit(customerInfo, ["email", "name", "phone"]),
+      metadata: customerMetadata,
     });
+    const isTestStripeAccount =
+      process.env.STRIPE_SECRET_KEY.startsWith("sk_test");
+    const customerUrl = `https://dashboard.stripe.com/${
+      isTestStripeAccount ? "test/" : ""
+    }customers/${customer.id}`;
 
     const setupIntent = await stripe.setupIntents.create({
       customer: customer.id,
     });
 
     if (customer && setupIntent) {
-      await sgMail.send({
-        to: customerInfo.email,
-        from: "stephen.richard.cook@gmail.com",
-        templateId: "d-3ad8a8279360488d84d58d1f351df412",
-        dynamicTemplateData: {
-          date: customerInfo.checkInDate,
+      await calendar.events.insert({
+        auth: googleCalendarAuth,
+        calendarId,
+        resource: {
+          summary: `Booking for ${customerInfo.name}`,
+          description: `Booking details: ${customerInfo.name}, ${
+            customerInfo.email
+          }, ${customerInfo.phone}\nNumber of guests: ${
+            customerInfo.numberOfGuests
+          }\n${customerUrl}${
+            customerInfo.notes.trim()
+              ? `\n\nCustomer notes: ${customerInfo.notes}`
+              : ""
+          }`,
+          start: {
+            dateTime: eventStartTime,
+          },
+          end: {
+            dateTime: eventEndTime,
+          },
+          attendees: [],
         },
+      });
+
+      await mg.messages().send({
+        from: "info@moonfleetguesthouse.co.uk",
+        to: customerInfo.email,
+        subject: "Booking Confirmation",
+        template: "Booking Confirmation",
+        "v:date": customerInfo.checkInDate,
       });
     } else {
       throw new Error("Customer failed to create");
@@ -41,6 +147,7 @@ exports.handler = async (event) => {
       }),
     };
   } catch (error) {
+    console.error(error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error }),

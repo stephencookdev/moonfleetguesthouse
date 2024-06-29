@@ -6,15 +6,7 @@ import Layout from "../components/layout";
 import BookNow from "../components/book-now";
 import styles from "./room-rates.module.css";
 
-const Room = ({
-  name,
-  telephone,
-  email,
-  image,
-  normalPrice,
-  saturdayPrice,
-  tagline,
-}) => (
+const Room = ({ name, image, normalPrice, saturdayPrice, tagline }) => (
   <div key={name} className={styles.room}>
     <h2>{name}</h2>
     <p className={styles.description}>{tagline}</p>
@@ -26,7 +18,13 @@ const Room = ({
       <span className={styles.price}>{saturdayPrice}</span>
     </p>
     <img src={image} alt="" />
-    <BookNow telephone={telephone} email={email} className={styles.cta}>
+    <BookNow
+      room={name
+        .toLowerCase()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-z0-9_]/g, "")}
+      className={styles.cta}
+    >
       Book Now
     </BookNow>
   </div>
@@ -53,12 +51,7 @@ export const RoomRatesTemplate = ({
 
     <div>
       {rooms.map((room) => (
-        <Room
-          key={room.name}
-          telephone={siteMetadata.telephone}
-          email={siteMetadata.email}
-          {...room}
-        />
+        <Room key={room.name} {...room} />
       ))}
     </div>
 

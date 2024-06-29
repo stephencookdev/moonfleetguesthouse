@@ -40,13 +40,7 @@ export const IndexTemplate = ({
       <h1 className={styles.title}>{title}</h1>
       <p className={styles.tagline}>{tagline}</p>
 
-      <BookNow
-        telephone={siteMetadata.telephone}
-        email={siteMetadata.email}
-        className={styles.cta}
-      >
-        Book Now
-      </BookNow>
+      <BookNow className={styles.cta}>Book Now</BookNow>
     </header>
 
     <Layout floatHeader siteMetadata={siteMetadata}>

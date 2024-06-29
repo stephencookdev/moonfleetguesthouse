@@ -51,9 +51,7 @@ const Layout = ({ floatHeader, siteMetadata, children }) => {
               <a href={`mailto:${email}`}>{email}</a>
             </p>
 
-            <BookNow telephone={telephone} email={email} className={styles.cta}>
-              Book Now
-            </BookNow>
+            <BookNow className={styles.cta}>Book Now</BookNow>
           </div>
         </div>
       </footer>
