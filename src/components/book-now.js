@@ -74,20 +74,23 @@ const BookNowInner = ({ room, ...props }) => {
 
     const cardElement = elements.getElement(CardElement);
 
-    const response = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customerInfo: {
-          ...values,
-          checkInDate: format(startDate, "yyyy-MM-dd"),
-          checkOutDate: format(endDate, "yyyy-MM-dd"),
+    const response = await fetch(
+      "/.netlify/functions/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        room,
-      }),
-    });
+        body: JSON.stringify({
+          customerInfo: {
+            ...values,
+            checkInDate: format(startDate, "yyyy-MM-dd"),
+            checkOutDate: format(endDate, "yyyy-MM-dd"),
+          },
+          room,
+        }),
+      }
+    );
 
     const { clientSecret } = await response.json();
 

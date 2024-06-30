@@ -16,13 +16,16 @@ const useAvailability = ({ maxDate, room }) => {
         end: maxDate,
       };
 
-      const availabilityResponse = await fetch("/api/check-availability", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ dateRange, room }),
-      });
+      const availabilityResponse = await fetch(
+        "/.netlify/functions/check-availability",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ dateRange, room }),
+        }
+      );
 
       const { busyDates } = await availabilityResponse.json();
       setBusyDates(busyDates || []);

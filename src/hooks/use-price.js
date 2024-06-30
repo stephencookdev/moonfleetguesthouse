@@ -11,7 +11,7 @@ const useAvailability = ({ dateRange, room, numberOfGuests }) => {
       const fetchPrice = async () => {
         setIsLoading(true);
 
-        const priceResponse = await fetch("/api/get-price", {
+        const priceResponse = await fetch("/.netlify/functions/get-price", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
