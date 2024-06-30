@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CMS from "netlify-cms-app";
+import CMS from "decap-cms-app";
 import { IndexTemplate } from "../templates/index";
 import { FindUsTemplate } from "../templates/find-us";
 import { GalleryTemplate } from "../templates/gallery";

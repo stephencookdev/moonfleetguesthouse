@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import ImageGallery from "react-image-gallery";
 import Layout from "../components/layout";
-import styles from "./gallery.module.css";
+import * as styles from "./gallery.module.css";
 
 export const GalleryTemplate = ({ images, siteMetadata }) => {
   const imageGalleryRef = useRef(null);

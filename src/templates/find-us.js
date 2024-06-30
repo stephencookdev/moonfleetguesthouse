@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import SectionList, { SectionType } from "../components/section-list";
-import styles from "./find-us.module.css";
+import * as styles from "./find-us.module.css";
 
 export const FindUsTemplate = ({
   siteMetadata,

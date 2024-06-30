@@ -12,7 +12,7 @@ import { Link } from "gatsby";
 import Header from "./header";
 import BookNow from "./book-now";
 import "react-image-gallery/styles/css/image-gallery.css";
-import styles from "./layout.module.css";
+import * as styles from "./layout.module.css";
 
 const Layout = ({ floatHeader, siteMetadata, children }) => {
   const { title, email, telephone, mainNav } = siteMetadata;

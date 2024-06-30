@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,9 +9,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { DateRangePicker } from "react-dates";
-import "react-dates/initialize";
-import "react-dates/lib/css/_datepicker.css";
 import useAvailability from "../hooks/use-availability";
 
 const CHECK_IN_HOUR = 15;
@@ -35,7 +32,6 @@ const formatDate = (date, dateShape) => {
 };
 
 const getDateAtHour = (date, hour) => {
-  return date;
   const newDate = new Date(date);
   newDate.setHours(hour, 0, 0, 0);
   return newDate;
@@ -53,8 +49,7 @@ const BookNowInner = ({ room, ...props }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [[startDate, endDate], setDateRange] = useState([null, null]);
   const [numberOfGuests, setNumberOfGuests] = useState(2);
   const [focusedInput, setFocusedInput] = useState(null);
 
@@ -124,7 +119,7 @@ const BookNowInner = ({ room, ...props }) => {
 
   const handleDatesChange =
     (setErrors) =>
-    ({ startDate: rawStartDate, endDate: rawEndDate }) => {
+    ([rawStartDate, rawEndDate]) => {
       const startDate = getDateAtHour(rawStartDate, CHECK_IN_HOUR);
       const endDate = getDateAtHour(rawEndDate, CHECK_OUT_HOUR);
 
@@ -145,8 +140,7 @@ const BookNowInner = ({ room, ...props }) => {
         }
       }
 
-      setStartDate(startDate);
-      setEndDate(endDate);
+      setDateRange([startDate, endDate]);
       setFocusedInput(null);
     };
 
@@ -233,17 +227,17 @@ const BookNowInner = ({ room, ...props }) => {
               </div>
               <div>
                 <label>Dates</label>
-                <DateRangePicker
-                  startDate={startDate}
-                  startDateId="start_date_id"
-                  endDate={endDate}
-                  endDateId="end_date_id"
-                  onDatesChange={handleDatesChange(setErrors)}
-                  focusedInput={focusedInput}
-                  onFocusChange={(focusedInput) =>
-                    setFocusedInput(focusedInput)
-                  }
-                  isDayBlocked={isDateBlocked}
+                <Field
+                  type="date"
+                  name="startDate"
+                  onChange={handleDatesChange(setErrors)}
+                  isBlocked={isDateBlocked}
+                />
+                <Field
+                  type="date"
+                  name="endDate"
+                  onChange={handleDatesChange(setErrors)}
+                  isBlocked={isDateBlocked}
                 />
                 <ErrorMessage name="endDate" component="div" />
               </div>

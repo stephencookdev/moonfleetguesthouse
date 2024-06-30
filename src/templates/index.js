@@ -5,7 +5,7 @@ import Markdown from "markdown-to-jsx";
 import ImageGallery from "react-image-gallery";
 import Layout from "../components/layout";
 import BookNow from "../components/book-now";
-import styles from "./index.module.css";
+import * as styles from "./index.module.css";
 
 const BackgroundImageCarousel = ({ images }) => {
   return (

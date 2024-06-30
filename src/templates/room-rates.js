@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 import Markdown from "markdown-to-jsx";
 import Layout from "../components/layout";
 import BookNow from "../components/book-now";
-import styles from "./room-rates.module.css";
+import * as styles from "./room-rates.module.css";
 
 const Room = ({ name, image, normalPrice, saturdayPrice, tagline }) => (
   <div key={name} className={styles.room}>

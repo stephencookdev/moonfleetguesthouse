@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import styles from "./header.module.css";
+import * as styles from "./header.module.css";
 
 const Nav = ({ links }) => {
   const [active, setActive] = useState(false);
