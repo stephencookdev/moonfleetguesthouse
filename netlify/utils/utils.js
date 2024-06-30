@@ -124,11 +124,74 @@ const applyDiscounts = (price, discounts) => {
 
 const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
   // make a network request to the host URL's /netlify/room-rates.json and parse the JSON response
-  const url = `${
-    process.env.DEPLOY_PRIME_URL || process.env.URL
-  }/netlify/room-rates.json`;
-  console.log(`Making a request to ${url}`);
-  const roomRates = await (await fetch(url)).json();
+  //   const url = `${
+  //     process.env.DEPLOY_PRIME_URL || process.env.URL
+  //   }/netlify/room-rates.json`;
+  //   console.log(`Making a request to ${url}`);
+  //   const roomRates = await (await fetch(url)).json();
+  console.log("TODO pretending to make request for room prices");
+  const roomRates = {
+    elzevir_block: {
+      standard: {
+        amount: 12500,
+        currency: "GBP",
+      },
+      saturday: {
+        amount: 13500,
+        currency: "GBP",
+      },
+    },
+    y_not: {
+      standard: {
+        amount: 12500,
+        currency: "GBP",
+      },
+      saturday: {
+        amount: 13500,
+        currency: "GBP",
+      },
+    },
+    master_ratsey: {
+      standard: {
+        amount: 12500,
+        currency: "GBP",
+      },
+      saturday: {
+        amount: 13500,
+        currency: "GBP",
+      },
+    },
+    josephs_pit: {
+      standard: {
+        amount: 13500,
+        currency: "GBP",
+      },
+      saturday: {
+        amount: 14500,
+        currency: "GBP",
+      },
+    },
+    the_mohune: {
+      standard: {
+        amount: 13500,
+        currency: "GBP",
+      },
+      saturday: {
+        amount: 14500,
+        currency: "GBP",
+      },
+    },
+    jeremy_fox: {
+      standard: {
+        amount: 14500,
+        currency: "GBP",
+      },
+      saturday: {
+        amount: 16000,
+        currency: "GBP",
+      },
+    },
+  };
 
   // If someone is in a room for Saturday, Sunday, then that's only 1 night, Saturday night
   // If someone is in a room for Monday, Tuesday, Wednesday, then that's 2 nights, Monday and Tuesday nights
