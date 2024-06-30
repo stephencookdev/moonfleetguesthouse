@@ -50,6 +50,8 @@ const BookNowInner = ({ room: roomName, ...props }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [[startDate, endDate], setDateRange] = useState([null, null]);
   const [numberOfGuests, setNumberOfGuests] = useState(2);
+  const [success, setSuccess] = useState(null);
+  const [cardError, setCardError] = useState(null);
   const maxDate = startOfDay(addDays(new Date(), 365));
   const room = roomName
     ?.trim()
@@ -101,7 +103,7 @@ const BookNowInner = ({ room: roomName, ...props }) => {
       }
     );
 
-    const { clientSecret } = await response.json();
+    const { clientSecret, customerId } = await response.json();
 
     const { error } = await stripe.confirmCardSetup(clientSecret, {
       payment_method: {
@@ -118,11 +120,10 @@ const BookNowInner = ({ room: roomName, ...props }) => {
     });
 
     if (error) {
+      setCardError("Something went wrong confirming your card");
       console.error("Error confirming card setup:", error);
     } else {
-      alert(
-        "Payment Method Saved. Your payment method has been saved for future use."
-      );
+      setSuccess(customerId || "Unknown");
     }
 
     setSubmitting(false);
@@ -190,154 +191,176 @@ const BookNowInner = ({ room: roomName, ...props }) => {
       >
         <div className={styles.modal}>
           <h2 className={styles.title}>Checkout for {roomName}</h2>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ handleSubmit, setFieldValue, setErrors }) => (
-              <Form
-                id="checkout-form"
-                onSubmit={handleSubmit}
-                className={styles.form}
+
+          {success ? (
+            <div className={styles.success}>
+              <p>Success! Your booking ID is {success}.</p>
+              <p>We look forward to seeing you soon.</p>
+
+              <button
+                type="button"
+                onClick={closeModal}
+                className={styles.secondaryCta}
               >
-                <div>
-                  <label htmlFor="name" className={styles.label}>
-                    Name
-                  </label>
-                  <Field
-                    type="text"
-                    id="name"
-                    name="name"
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name="name"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className={styles.label}>
-                    Email
-                  </label>
-                  <Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className={styles.label}>
-                    Phone
-                  </label>
-                  <Field
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name="phone"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="numberOfGuests" className={styles.label}>
-                    Number of Guests
-                  </label>
-                  <Field
-                    type="number"
-                    id="numberOfGuests"
-                    name="numberOfGuests"
-                    onChange={(e) => {
-                      setFieldValue("numberOfGuests", parseInt(e.target.value));
-                      setNumberOfGuests(parseInt(e.target.value));
-                    }}
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name="numberOfGuests"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label className={styles.label}>Dates</label>
-                  <DatePicker
-                    maxDate={maxDate}
-                    dateRange={{ start: startDate, end: endDate }}
-                    onChange={handleDatesChange(setErrors)}
-                    disabledDateRanges={busyDates}
-                    disabled={isBusyDatesLoading}
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name="endDate"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="postalCode" className={styles.label}>
-                    Postal Code
-                  </label>
-                  <Field
-                    type="text"
-                    id="postalCode"
-                    name="postalCode"
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name="postalCode"
-                    component="div"
-                    className={styles.error}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="cardElement" className={styles.label}>
-                    Card Details
-                  </label>
-                  <CardElement
-                    id="cardElement"
-                    options={cardElementOptions}
-                    className={styles.cardElement}
-                  />
-                </div>
-                {(!!price || isPriceLoading) && (
-                  <div className={styles.pricing}>
-                    <p>
-                      Price:{" "}
-                      {isPriceLoading ? "Calculating..." : formatPrice(price)}
-                    </p>
-                    <p>
-                      You will not be charged today. You will be charged 10 days
-                      before your check-in date.
-                    </p>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ handleSubmit, setFieldValue, setErrors }) => (
+                <Form
+                  id="checkout-form"
+                  onSubmit={handleSubmit}
+                  className={styles.form}
+                >
+                  <div>
+                    <label htmlFor="name" className={styles.label}>
+                      Name
+                    </label>
+                    <Field
+                      type="text"
+                      id="name"
+                      name="name"
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className={styles.error}
+                    />
                   </div>
-                )}
-                <div className={styles.actions}>
-                  <button type="submit" className={styles.cta}>
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className={styles.secondaryCta}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </Form>
-            )}
-          </Formik>
+                  <div>
+                    <label htmlFor="email" className={styles.label}>
+                      Email
+                    </label>
+                    <Field
+                      type="email"
+                      id="email"
+                      name="email"
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className={styles.label}>
+                      Phone
+                    </label>
+                    <Field
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="numberOfGuests" className={styles.label}>
+                      Number of Guests
+                    </label>
+                    <Field
+                      type="number"
+                      id="numberOfGuests"
+                      name="numberOfGuests"
+                      onChange={(e) => {
+                        setFieldValue(
+                          "numberOfGuests",
+                          parseInt(e.target.value)
+                        );
+                        setNumberOfGuests(parseInt(e.target.value));
+                      }}
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="numberOfGuests"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <label className={styles.label}>Dates</label>
+                    <DatePicker
+                      maxDate={maxDate}
+                      dateRange={{ start: startDate, end: endDate }}
+                      onChange={handleDatesChange(setErrors)}
+                      disabledDateRanges={busyDates}
+                      disabled={isBusyDatesLoading}
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="endDate"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="postalCode" className={styles.label}>
+                      Postal Code
+                    </label>
+                    <Field
+                      type="text"
+                      id="postalCode"
+                      name="postalCode"
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="postalCode"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cardElement" className={styles.label}>
+                      Card Details
+                    </label>
+                    <CardElement
+                      id="cardElement"
+                      options={cardElementOptions}
+                      className={styles.cardElement}
+                    />
+                    {!!cardError && (
+                      <div className={styles.error}>{cardError}</div>
+                    )}
+                  </div>
+                  {(!!price || isPriceLoading) && (
+                    <div className={styles.pricing}>
+                      <p>
+                        Price:{" "}
+                        {isPriceLoading ? "Calculating..." : formatPrice(price)}
+                      </p>
+                      <p>
+                        You will not be charged today. You will be charged 10
+                        days before your check-in date.
+                      </p>
+                    </div>
+                  )}
+                  <div className={styles.actions}>
+                    <button type="submit" className={styles.cta}>
+                      Submit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className={styles.secondaryCta}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          )}
         </div>
       </Modal>
     </>

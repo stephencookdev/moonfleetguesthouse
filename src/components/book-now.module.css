@@ -1,7 +1,7 @@
 
 .title {
     font: 24px Cardo, serif;
-    padding: 0 8px;
+    padding: 0;
     color: #505050;
 }
 @media (max-width: 800px) {
@@ -112,5 +112,19 @@
         width: auto;
         text-align: center;
         margin-top: 16px;
+    }
+}
+
+.success {
+    color: #505050;
+    font: 20px "Josefin Sans", sans-serif;
+    margin-top: 32px;
+}
+.success p:last-of-type {
+    margin-bottom: 32px;
+}
+@media (max-width: 800px) {
+    .success {
+        text-align: center;
     }
 }

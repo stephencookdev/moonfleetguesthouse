@@ -133,7 +133,12 @@ exports.handler = async (event) => {
         to: customerInfo.email,
         subject: "Booking Confirmation",
         template: "Booking Confirmation",
-        "v:date": customerInfo.checkInDate,
+        "v:checkInDate": customerInfo.checkInDate,
+        "v:checkOutDate": customerInfo.checkOutDate,
+        "v:room": room,
+        "v:price": priceToPay,
+        "v:customerName": customerInfo.name,
+        "v:bookingId": customer.id,
       });
     } else {
       throw new Error("Customer failed to create");
