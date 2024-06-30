@@ -17,7 +17,7 @@ const Room = ({ name, image, normalPrice, saturdayPrice, tagline }) => (
       Saturday inc. Breakfast{" "}
       <span className={styles.price}>{saturdayPrice}</span>
     </p>
-    <img src={image} alt="" />
+    <img src={image.replace("/assets/", "/assets-thumbnails/")} alt="" />
     <BookNow
       room={name
         .toLowerCase()

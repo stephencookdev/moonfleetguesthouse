@@ -147,5 +147,5 @@ collections:
         name: dogs
     label: Moonfleet Guesthouse
     name: moonfleet
-media_folder: static/assets
+media_folder: static_assets
 public_folder: /assets

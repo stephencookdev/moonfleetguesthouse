@@ -1,76 +1,66 @@
+const { mkdirSync } = require("fs");
 const path = require("path");
-const { existsSync, mkdirSync, renameSync } = require("fs");
 const glob = require("glob");
-const rimraf = require("rimraf");
 const sharp = require("sharp");
+const rimraf = require("rimraf");
 
-const ASSETS_DIR = "assets";
-const TMP_DIR = "assets-tmp";
-const THUMBNAIL_DIR = "assets-thumbnails";
+const INPUT_DIR = "static_assets";
+const ASSETS_DIR = "public/assets";
+const THUMBNAIL_DIR = "public/assets-thumbnails";
 
-const maxSizeJpeg = (
-  image,
-  filePath,
-  { maxLength, outputDir, quality, progressive }
-) => {
-  return image.metadata().then((metadata) => {
-    const longestLength = Math.max(metadata.width, metadata.height);
-    const longestLengthKey =
-      metadata.width > metadata.height ? "width" : "height";
+const maxSizeJpeg = async (image, outputPath, { maxLength, quality }) => {
+  const metadata = await image.metadata();
+  const longestLength = Math.max(metadata.width, metadata.height);
+  const longestLengthKey =
+    metadata.width > metadata.height ? "width" : "height";
 
-    const needsResize = longestLength > maxLength;
-    const resizedImage = needsResize
-      ? image.resize({ [longestLengthKey]: maxLength })
-      : image;
+  const needsResize = longestLength > maxLength;
+  const resizedImage = needsResize
+    ? image.resize({ [longestLengthKey]: maxLength })
+    : image;
 
-    return resizedImage
-      .rotate() // turn EXIF rotation into a true rotation
-      .jpeg({ quality: needsResize ? quality : 95, progressive })
-      .toFile(filePath.replace(`/${TMP_DIR}/`, `/${outputDir}/`));
-  });
+  return resizedImage
+    .rotate() // turn EXIF rotation into a true rotation
+    .jpeg({ quality: needsResize ? quality : 95, progressive: true })
+    .toFile(outputPath);
 };
 
 class FixUpImagesPlugin {
   apply(compiler) {
-    compiler.hooks.done.tapPromise("FixUpImagesPlugin", async () => {
-      const assetsDir = path.join(compiler.outputPath, ASSETS_DIR);
-      const thumbnailDir = path.join(compiler.outputPath, THUMBNAIL_DIR);
-      const tmpDir = path.join(compiler.outputPath, TMP_DIR);
-
-      rimraf.sync(tmpDir);
-      if (existsSync(assetsDir)) {
-        renameSync(assetsDir, tmpDir);
-        mkdirSync(assetsDir);
-      }
-
-      if (!existsSync(thumbnailDir)) {
-        mkdirSync(thumbnailDir);
-      }
-
-      const files = glob.sync(path.join(tmpDir, "./**/*.+(jpg|jpeg)"));
+    compiler.hooks.afterEmit.tapPromise("FixUpImagesPlugin", async () => {
+      // Assuming ASSETS_DIR and THUMBNAIL_DIR are defined earlier in the plugin
+      const inputAssetsDir = path.join(__dirname, INPUT_DIR);
+      const files = glob.sync(path.join(inputAssetsDir, "./**/*.+(jpg|jpeg)"));
+      const start = Date.now();
       console.log(`CREATING THUMBNAILS for ${files.length} files`);
 
-      const filePromises = files.map((file) => {
-        const image = sharp(file);
-        const thumbnailPromise = maxSizeJpeg(image, file, {
-          maxLength: 400,
-          outputDir: THUMBNAIL_DIR,
-          quality: 70,
-          progressive: true,
-        });
-        const mainPromise = maxSizeJpeg(image, file, {
-          maxLength: 1800,
-          outputDir: ASSETS_DIR,
-          quality: 85,
-          progressive: true,
-        });
+      rimraf.sync(ASSETS_DIR);
+      rimraf.sync(THUMBNAIL_DIR);
+      mkdirSync(ASSETS_DIR, { recursive: true });
+      mkdirSync(THUMBNAIL_DIR, { recursive: true });
 
-        return Promise.all([thumbnailPromise, mainPromise]);
+      const filePromises = files.flatMap((file) => {
+        const relativePath = path.relative(inputAssetsDir, file);
+        const outputPath = path.join(ASSETS_DIR, relativePath);
+        const thumbnailPath = path.join(THUMBNAIL_DIR, relativePath);
+
+        const image = sharp(file);
+
+        return [
+          maxSizeJpeg(image, outputPath, {
+            maxLength: 1800,
+            quality: 85,
+          }),
+          maxSizeJpeg(image, thumbnailPath, {
+            maxLength: 600,
+            quality: 70,
+          }),
+        ];
       });
 
       await Promise.all(filePromises);
 
-      rimraf.sync(tmpDir);
+      console.log(`Done CREATING THUMBNAILS in ${Date.now() - start}ms`);
     });
   }
 }
