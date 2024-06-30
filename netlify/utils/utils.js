@@ -102,7 +102,7 @@ const applyDiscounts = (price, discounts) => {
 const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
   // make a network request to the host URL's /netlify/room-rates.json and parse the JSON response
   const url = `${
-    process.env.URL || process.env.DEPLOY_PRIME_URL
+    process.env.DEPLOY_PRIME_URL || process.env.URL
   }/netlify/room-rates.json`;
   console.log(`Making a request to ${url}`);
   const roomRates = await (await fetch(url)).json();
