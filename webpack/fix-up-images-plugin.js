@@ -4,6 +4,7 @@ const glob = require("glob");
 const sharp = require("sharp");
 const rimraf = require("rimraf");
 
+const ROOT = path.join(__dirname, "..");
 const INPUT_DIR = "static_assets";
 const ASSETS_DIR = "public/assets";
 const THUMBNAIL_DIR = "public/assets-thumbnails";
@@ -29,7 +30,7 @@ class FixUpImagesPlugin {
   apply(compiler) {
     compiler.hooks.afterEmit.tapPromise("FixUpImagesPlugin", async () => {
       // Assuming ASSETS_DIR and THUMBNAIL_DIR are defined earlier in the plugin
-      const inputAssetsDir = path.join(__dirname, INPUT_DIR);
+      const inputAssetsDir = path.join(ROOT, INPUT_DIR);
       const files = glob.sync(path.join(inputAssetsDir, "./**/*.+(jpg|jpeg)"));
       const start = Date.now();
       console.log(`CREATING THUMBNAILS for ${files.length} files`);
@@ -41,8 +42,8 @@ class FixUpImagesPlugin {
 
       const filePromises = files.flatMap((file) => {
         const relativePath = path.relative(inputAssetsDir, file);
-        const outputPath = path.join(ASSETS_DIR, relativePath);
-        const thumbnailPath = path.join(THUMBNAIL_DIR, relativePath);
+        const outputPath = path.join(ROOT, ASSETS_DIR, relativePath);
+        const thumbnailPath = path.join(ROOT, THUMBNAIL_DIR, relativePath);
 
         const image = sharp(file);
 

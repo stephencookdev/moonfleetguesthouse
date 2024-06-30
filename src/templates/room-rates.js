@@ -20,6 +20,7 @@ const Room = ({ name, image, normalPrice, saturdayPrice, tagline }) => (
     <img src={image.replace("/assets/", "/assets-thumbnails/")} alt="" />
     <BookNow
       room={name
+        .trim()
         .toLowerCase()
         .replace(/\s+/g, "_")
         .replace(/[^a-z0-9_]/g, "")}

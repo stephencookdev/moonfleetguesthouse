@@ -1,7 +1,8 @@
 const path = require("path");
 const { existsSync } = require("fs");
 const { createFilePath } = require("gatsby-source-filesystem");
-const FixUpImagesPlugin = require("./fix-up-images-plugin");
+const FixUpImagesPlugin = require("./webpack/fix-up-images-plugin");
+const RoomRatesNetlifyPlugin = require("./webpack/room-rates-netlify-plugin");
 
 const getPages = ({ graphql }) => {
   return graphql(`
@@ -70,6 +71,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
-    plugins: [new FixUpImagesPlugin()],
+    plugins: [new FixUpImagesPlugin(), new RoomRatesNetlifyPlugin()],
   });
 };

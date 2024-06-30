@@ -41,6 +41,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "js-yaml": "^4.1.0",
     "netlify-cli": "^17.30.0",
     "prettier": "^2.0.5"
   },

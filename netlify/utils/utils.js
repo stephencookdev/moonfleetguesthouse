@@ -82,33 +82,6 @@ const formatPrice = (price) => {
   return `${symbol}${amount}`;
 };
 
-const roomRates = {
-  elzevir_block: {
-    saturday: { amount: 135_00, currency: "GBP" },
-    standard: { amount: 125_00, currency: "GBP" },
-  },
-  y_not: {
-    saturday: { amount: 135_00, currency: "GBP" },
-    standard: { amount: 125_00, currency: "GBP" },
-  },
-  master_ratsey: {
-    saturday: { amount: 135_00, currency: "GBP" },
-    standard: { amount: 125_00, currency: "GBP" },
-  },
-  josephs_pit: {
-    saturday: { amount: 145_00, currency: "GBP" },
-    standard: { amount: 135_00, currency: "GBP" },
-  },
-  the_mohune: {
-    saturday: { amount: 145_00, currency: "GBP" },
-    standard: { amount: 135_00, currency: "GBP" },
-  },
-  jeremy_fox: {
-    saturday: { amount: 160_00, currency: "GBP" },
-    standard: { amount: 145_00, currency: "GBP" },
-  },
-};
-
 const applyDiscount = (price, discount) => {
   const newPrice = { ...price };
   if (discount.percentage) {
@@ -124,6 +97,11 @@ const applyDiscounts = (price, discounts) => {
 };
 
 const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
+  // make a network request to the host URL's /netlify/room-rates.json and parse the JSON response
+  const roomRates = await (
+    await fetch(`${process.env.URL}/netlify/room-rates.json`)
+  ).json();
+
   // If someone is in a room for Saturday, Sunday, then that's only 1 night, Saturday night
   // If someone is in a room for Monday, Tuesday, Wednesday, then that's 2 nights, Monday and Tuesday nights
   // The dateRange.end should be 10:00 on the day of checkout, and the dateRange.start should be 15:00 on the day of checkin
