@@ -16,6 +16,40 @@ const googleCalendarAuth = new google.auth.JWT(
   ["https://www.googleapis.com/auth/calendar"]
 );
 
+async function fetchAllBusyDates({
+  calendarId,
+  timeMin,
+  timeMax,
+  pageToken = null,
+  busyDates = [],
+}) {
+  const response = await calendar.events.list({
+    auth: googleCalendarAuth,
+    calendarId,
+    timeMin,
+    timeMax,
+    pageToken,
+  });
+  const newBusyDates = busyDates.concat(
+    response.data.items.map((event) => ({
+      start: event.start.dateTime,
+      end: event.end.dateTime,
+    }))
+  );
+
+  if (response.data.nextPageToken) {
+    return fetchAllEvents({
+      calendarId,
+      timeMin,
+      timeMax,
+      pageToken: response.data.nextPageToken,
+      busyDates: newBusyDates,
+    });
+  } else {
+    return newBusyDates;
+  }
+}
+
 exports.handler = async (event) => {
   try {
     const { dateRange, room } = JSON.parse(event.body);
@@ -26,8 +60,7 @@ exports.handler = async (event) => {
     const eventEndTime = getUKTime(dateRange.end, CHECK_OUT_HOUR, 0);
 
     // Check if a calendar entry already exists
-    const existingEvents = await calendar.events.list({
-      auth: googleCalendarAuth,
+    const busyDates = await fetchAllBusyDates({
       calendarId,
       timeMin: eventStartTime,
       timeMax: eventEndTime,
@@ -35,12 +68,7 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        busyDates: existingEvents.data.items.map((event) => ({
-          start: event.start.dateTime,
-          end: event.end.dateTime,
-        })),
-      }),
+      body: JSON.stringify({ busyDates }),
     };
   } catch (error) {
     console.error(error);

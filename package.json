@@ -10,12 +10,15 @@
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.5.0",
     "co-body": "^6.2.0",
+    "date-fns": "^3.6.0",
     "decap-cms-app": "^3.1.11",
+    "fecha": "^4.2.3",
     "formik": "^2.4.6",
     "gatsby": "^5.13.6",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-decap-cms": "^4.0.4",
     "gatsby-plugin-manifest": "^5.13.1",
+    "gatsby-plugin-netlify": "^5.1.1",
     "gatsby-plugin-offline": "^6.13.2",
     "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
@@ -24,7 +27,9 @@
     "gatsby-transformer-sharp": "^5.13.1",
     "glob": "^10.4.2",
     "googleapis": "^140.0.1",
+    "hotel-datepicker": "^4.10.0",
     "lodash.omit": "^4.5.0",
+    "lodash.uniq": "^4.5.0",
     "mailgun-js": "^0.22.0",
     "markdown-to-jsx": "^7.4.7",
     "prop-types": "^15.8.1",
@@ -37,7 +42,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "netlify-cli": "^17.27.0",
+    "netlify-cli": "^17.30.0",
     "prettier": "^2.0.5"
   },
   "keywords": [
@@ -47,8 +52,6 @@
     "build": "gatsby build",
     "dev": "netlify dev",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "netlify gatsby serve",
     "clean": "gatsby clean"
   }
 }

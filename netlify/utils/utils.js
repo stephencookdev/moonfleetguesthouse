@@ -1,4 +1,5 @@
 const { Temporal } = require("@js-temporal/polyfill");
+const dateFns = require("date-fns");
 
 const CHECK_IN_HOUR = 15;
 const CHECK_OUT_HOUR = 10;
@@ -12,7 +13,7 @@ const roomToCalendarId = (room) => {
     case "y_not":
       return "a9b45dd28c168253fb7d137cba71f049592f6e6769c401393ac72bd175f08295@group.calendar.google.com";
 
-    case "master ratsey":
+    case "master_ratsey":
       return "7fa250fb572b58629ff523ea600508bb87ec936aedd94bc774e2c729f17813bd@group.calendar.google.com";
 
     case "josephs_pit":
@@ -123,14 +124,21 @@ const applyDiscounts = (price, discounts) => {
 };
 
 const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
+  // If someone is in a room for Saturday, Sunday, then that's only 1 night, Saturday night
+  // If someone is in a room for Monday, Tuesday, Wednesday, then that's 2 nights, Monday and Tuesday nights
+  // The dateRange.end should be 10:00 on the day of checkout, and the dateRange.start should be 15:00 on the day of checkin
+  // This means that a stay of 1 night would have 19 hours between it
   const totalNights = Math.ceil(
-    (new Date(dateRange.end) - new Date(dateRange.start)) /
-      (1000 * 60 * 60 * 24)
+    dateFns.differenceInHours(dateRange.end, dateRange.start) / 24
   );
-  const totalSaturdays = Array.from(
-    { length: totalNights },
-    (_, i) => new Date(dateRange.start).getDay() + i
-  ).filter((day) => day % 7 === 6).length;
+  // Saturdays are priced differently, so we need to count how many Saturdays are in the date range
+  const totalSaturdays = dateFns
+    .eachDayOfInterval({
+      start: dateRange.start,
+      end: dateRange.end,
+    })
+    .filter((date) => dateFns.isSaturday(date)).length;
+
   const totalNonSaturdays = totalNights - totalSaturdays;
 
   const saturdayPrice = multiplyPrice(roomRates[room].saturday, totalSaturdays);

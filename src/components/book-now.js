@@ -9,7 +9,10 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { addDays, format, setHours, setMinutes, startOfDay } from "date-fns";
 import useAvailability from "../hooks/use-availability";
+import usePrice from "../hooks/use-price";
+import DatePicker from "./date-picker";
 
 const CHECK_IN_HOUR = 15;
 const CHECK_OUT_HOUR = 10;
@@ -25,23 +28,15 @@ const formatPrice = (price) => {
   return `${symbol}${amount}`;
 };
 
-// Custom date formatting function
-const formatDate = (date, dateShape) => {
-  if (dateShape !== "YYYY-MM-DD") throw new Error("Unsupported date shape");
-  return date.toISOString().split("T")[0];
-};
-
 const getDateAtHour = (date, hour) => {
-  const newDate = new Date(date);
-  newDate.setHours(hour, 0, 0, 0);
-  return newDate;
+  return setHours(setMinutes(date, 0), hour);
 };
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email format").required("Required"),
   phone: Yup.string().required("Required"),
-  numberOfGuests: Yup.number().required("Required").min(0).max(5),
+  numberOfGuests: Yup.number().required("Required").min(1).max(5),
   postalCode: Yup.string().required("Required"),
 });
 
@@ -51,10 +46,15 @@ const BookNowInner = ({ room, ...props }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [[startDate, endDate], setDateRange] = useState([null, null]);
   const [numberOfGuests, setNumberOfGuests] = useState(2);
-  const [focusedInput, setFocusedInput] = useState(null);
+  const maxDate = startOfDay(addDays(new Date(), 365));
 
-  const { busyDates, price } = useAvailability({
+  const { busyDates, isLoading: isBusyDatesLoading } = useAvailability({
+    maxDate,
+    room,
+  });
+  const { price, isLoading: isPriceLoading } = usePrice({
     dateRange: { start: startDate, end: endDate },
+    numberOfGuests,
     room,
   });
 
@@ -82,8 +82,8 @@ const BookNowInner = ({ room, ...props }) => {
       body: JSON.stringify({
         customerInfo: {
           ...values,
-          checkInDate: formatDate(startDate, "YYYY-MM-DD"),
-          checkOutDate: formatDate(endDate, "YYYY-MM-DD"),
+          checkInDate: format(startDate, "yyyy-MM-dd"),
+          checkOutDate: format(endDate, "yyyy-MM-dd"),
         },
         room,
       }),
@@ -141,7 +141,6 @@ const BookNowInner = ({ room, ...props }) => {
       }
 
       setDateRange([startDate, endDate]);
-      setFocusedInput(null);
     };
 
   const openModal = () => {
@@ -166,19 +165,6 @@ const BookNowInner = ({ room, ...props }) => {
       },
     },
     hidePostalCode: true,
-  };
-
-  const isDateBlocked = (date) => {
-    const dateWithTime =
-      focusedInput === "startDate"
-        ? getDateAtHour(date, CHECK_IN_HOUR)
-        : getDateAtHour(date, CHECK_OUT_HOUR);
-
-    return busyDates.some((busyDate) => {
-      const busyStart = new Date(busyDate.start);
-      const busyEnd = new Date(busyDate.end);
-      return dateWithTime >= busyStart && dateWithTime <= busyEnd;
-    });
   };
 
   return (
@@ -219,25 +205,20 @@ const BookNowInner = ({ room, ...props }) => {
                   id="numberOfGuests"
                   name="numberOfGuests"
                   onChange={(e) => {
-                    setFieldValue("numberOfGuests", e.target.value);
-                    setNumberOfGuests(e.target.value);
+                    setFieldValue("numberOfGuests", parseInt(e.target.value));
+                    setNumberOfGuests(parseInt(e.target.value));
                   }}
                 />
                 <ErrorMessage name="numberOfGuests" component="div" />
               </div>
               <div>
                 <label>Dates</label>
-                <Field
-                  type="date"
-                  name="startDate"
+                <DatePicker
+                  maxDate={maxDate}
+                  dateRange={{ start: startDate, end: endDate }}
                   onChange={handleDatesChange(setErrors)}
-                  isBlocked={isDateBlocked}
-                />
-                <Field
-                  type="date"
-                  name="endDate"
-                  onChange={handleDatesChange(setErrors)}
-                  isBlocked={isDateBlocked}
+                  disabledDateRanges={busyDates}
+                  disabled={isBusyDatesLoading}
                 />
                 <ErrorMessage name="endDate" component="div" />
               </div>
@@ -250,10 +231,17 @@ const BookNowInner = ({ room, ...props }) => {
                 <label htmlFor="cardElement">Card Details</label>
                 <CardElement id="cardElement" options={cardElementOptions} />
               </div>
-              <div>
-                <p>Price: {price ? formatPrice(price) : "Calculating..."}</p>
-                <p>(you will not be charged until 10 days before your stay)</p>
-              </div>
+              {(!!price || isPriceLoading) && (
+                <div>
+                  <p>
+                    Price:{" "}
+                    {isPriceLoading ? "Calculating..." : formatPrice(price)}
+                  </p>
+                  <p>
+                    (you will not be charged until 10 days before your stay)
+                  </p>
+                </div>
+              )}
               <button type="submit">Submit</button>
               <button type="button" onClick={closeModal}>
                 Cancel
