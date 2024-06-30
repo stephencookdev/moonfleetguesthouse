@@ -93,17 +93,23 @@
     color: #222;
 }
 
-.cta:hover,
-.cta:focus,
-.secondaryCta:hover,
-.secondaryCta:focus {
+.cta:hover:not([disabled]),
+.cta:focus:not([disabled]),
+.secondaryCta:hover:not([disabled]),
+.secondaryCta:focus:not([disabled]) {
     outline: none;
     background-color: #222;
     border-color: #222;
 }
 
-.secondaryCta:hover,
-.secondaryCta:focus {
+.cta[disabled],
+.secondaryCta[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.secondaryCta:hover:not([disabled]),
+.secondaryCta:focus:not([disabled]) {
     background-color: #eee;
 }
 

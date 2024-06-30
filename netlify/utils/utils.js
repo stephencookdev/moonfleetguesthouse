@@ -30,6 +30,29 @@ const roomToCalendarId = (room) => {
   }
 };
 
+const roomSlugToNameObj = {
+  elzevir_block: "Elzevir Block",
+  y_not: "Y NOT",
+  master_ratsey: "Master Ratsey",
+  josephs_pit: "Joseph's Pit",
+  the_mohune: "The Mohune",
+  jeremy_fox: "Jeremy Fox",
+};
+
+const roomSlugToName = (slug) => {
+  const name = roomSlugToNameObj[slug?.trim()];
+  if (!name) throw new Error(`Unknown room: ${slug}`);
+  return name;
+};
+
+const roomNameToSlug = (name) => {
+  const slug = Object.entries(roomSlugToNameObj).find(
+    ([_, n]) => n === name?.trim()
+  );
+  if (!slug) throw new Error(`Unknown room: ${name}`);
+  return slug[0];
+};
+
 const getUKTime = (rawDate, hour, minute) => {
   const [year, month, day, _] = rawDate.split(/[^0-9]+/);
 
@@ -141,6 +164,8 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
 
 module.exports = {
   roomToCalendarId,
+  roomSlugToName,
+  roomNameToSlug,
   getUKTime,
   CHECK_IN_HOUR,
   CHECK_OUT_HOUR,

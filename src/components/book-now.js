@@ -75,6 +75,7 @@ const BookNowInner = ({ room: roomName, ...props }) => {
     phone: "",
     numberOfGuests,
     postalCode: "",
+    notes: "",
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -127,7 +128,6 @@ const BookNowInner = ({ room: roomName, ...props }) => {
     }
 
     setSubmitting(false);
-    setModalIsOpen(false);
   };
 
   const handleDatesChange =
@@ -211,7 +211,7 @@ const BookNowInner = ({ room: roomName, ...props }) => {
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              {({ handleSubmit, setFieldValue, setErrors }) => (
+              {({ handleSubmit, setFieldValue, setErrors, isSubmitting }) => (
                 <Form
                   id="checkout-form"
                   onSubmit={handleSubmit}
@@ -333,6 +333,16 @@ const BookNowInner = ({ room: roomName, ...props }) => {
                       <div className={styles.error}>{cardError}</div>
                     )}
                   </div>
+                  <div>
+                    <label htmlFor="notes" className={styles.label}>
+                      Requests / Notes
+                    </label>
+                    <Field
+                      as="textarea"
+                      name="notes"
+                      className={styles.input}
+                    />
+                  </div>
                   {(!!price || isPriceLoading) && (
                     <div className={styles.pricing}>
                       <p>
@@ -346,13 +356,18 @@ const BookNowInner = ({ room: roomName, ...props }) => {
                     </div>
                   )}
                   <div className={styles.actions}>
-                    <button type="submit" className={styles.cta}>
+                    <button
+                      type="submit"
+                      className={styles.cta}
+                      disabled={isSubmitting}
+                    >
                       Submit
                     </button>
                     <button
                       type="button"
                       onClick={closeModal}
                       className={styles.secondaryCta}
+                      disabled={isSubmitting}
                     >
                       Cancel
                     </button>

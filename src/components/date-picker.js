@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import HotelDatepicker from "hotel-datepicker";
 import "hotel-datepicker/dist/css/hotel-datepicker.css";
-import { format, startOfDay, eachDayOfInterval } from "date-fns";
+import { format, startOfDay, eachDayOfInterval, subDays } from "date-fns";
 import uniq from "lodash.uniq";
 
 const DatePicker = ({
@@ -15,8 +15,12 @@ const DatePicker = ({
     `hotel-datepicker-${Math.random().toString(36).substring(7)}`
   );
   const disabledDates = uniq(
-    disabledDateRanges.flatMap((range) =>
-      eachDayOfInterval(range).map((date) => format(date, "yyyy-MM-dd"))
+    disabledDateRanges.flatMap(({ start, end }) =>
+      eachDayOfInterval({
+        start,
+        // we don't want to include the end date in the disabled range, since it's the checkout date
+        end: subDays(end, 1),
+      }).map((date) => format(date, "yyyy-MM-dd"))
     )
   ).sort();
 

@@ -9,6 +9,7 @@ const {
   getUKTime,
   CHECK_IN_HOUR,
   CHECK_OUT_HOUR,
+  roomSlugToName,
 } = require("../utils/utils");
 
 const mg = mailgun({
@@ -40,6 +41,7 @@ exports.handler = async (event) => {
     const { customerInfo, room } = JSON.parse(event.body);
 
     const calendarId = roomToCalendarId(room);
+    const roomName = roomSlugToName(room);
 
     const eventStartTime = getUKTime(
       customerInfo.checkInDate,
@@ -133,9 +135,13 @@ exports.handler = async (event) => {
         to: customerInfo.email,
         subject: "Booking Confirmation",
         template: "Booking Confirmation",
-        "v:checkInDate": customerInfo.checkInDate,
-        "v:checkOutDate": customerInfo.checkOutDate,
-        "v:room": room,
+        "v:checkInDate": new Date(customerInfo.checkInDate).toLocaleDateString(
+          "en-GB"
+        ),
+        "v:checkOutDate": new Date(
+          customerInfo.checkOutDate
+        ).toLocaleDateString("en-GB"),
+        "v:room": roomName,
         "v:price": priceToPay,
         "v:customerName": customerInfo.name,
         "v:bookingId": customer.id,
