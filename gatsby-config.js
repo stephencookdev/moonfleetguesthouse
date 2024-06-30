@@ -4,7 +4,6 @@ module.exports = {
     email: "moonfleetguesthouse@icloud.com",
     telephone: "07572 743 951",
     mainNav: [
-      { href: "/room-rates/", title: "Room Rates" },
       { href: "/find-us/", title: "Find Us" },
       { href: "/gallery/", title: "Gallery" },
       { href: "/contact-us/", title: "Contact" },

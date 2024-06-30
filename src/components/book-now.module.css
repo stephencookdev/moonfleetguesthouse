@@ -1,0 +1,116 @@
+
+.title {
+    font: 24px Cardo, serif;
+    padding: 0 8px;
+    color: #505050;
+}
+@media (max-width: 800px) {
+    .title {
+        text-align: center;
+    }
+}
+    
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 400px;
+}
+@media (max-width: 800px) {
+    .form {
+        max-width: none;
+    }
+}
+
+.label {
+    display: block;
+    margin-top: 24px;
+    margin-bottom: 4px;
+    font: 14px "Josefin Sans", sans-serif;
+}
+    
+.input, .cardElement {
+    display: block;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 12px 18px;
+    width: 100%;
+    box-sizing: border-box;
+    font: 16px sans-serif;
+    font-weight: 300;
+}
+.input:focus, .cardElement:focus-within {
+    border-color: #505050;
+}
+
+.error {
+    color: #e77;
+    font: 14px "Josefin Sans", sans-serif;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.pricing {
+    margin: 32px 0 0;
+    font: 16px "Josefin Sans", sans-serif;
+    color: #505050;
+}
+.pricing p:last-of-type {
+    font-size: 14px;
+    font-style: italic;
+    color: #999;
+    line-height: 1.5;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: fit-content;
+    margin-top: 32px;
+    gap: 16px;
+    justify-content: center;
+}
+@media (max-width: 800px) {
+    .actions {
+        width: 100%;
+    }
+}
+
+.cta, .secondaryCta {
+    background-color: #505050;
+    border: 2px solid #505050;
+    color: white;
+    transition: 0.2s ease background-color, 0.2s ease border-color;
+    font: 20px "Josefin Sans", sans-serif;
+    padding: 12px 18px 10px;
+    width: fit-content;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.secondaryCta {
+    background-color: white;
+    color: #222;
+}
+
+.cta:hover,
+.cta:focus,
+.secondaryCta:hover,
+.secondaryCta:focus {
+    outline: none;
+    background-color: #222;
+    border-color: #222;
+}
+
+.secondaryCta:hover,
+.secondaryCta:focus {
+    background-color: #eee;
+}
+
+@media (max-width: 800px) {
+    .cta, .secondaryCta {
+        width: auto;
+        text-align: center;
+        margin-top: 16px;
+    }
+}

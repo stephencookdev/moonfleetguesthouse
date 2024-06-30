@@ -78,8 +78,11 @@ const formatPrice = (price) => {
 
   if (!symbol || !price?.amount) throw new Error("Invalid price object");
 
-  const amount = (price.amount / 100).toFixed(2);
-  return `${symbol}${amount}`;
+  const rawAmount = (price.amount / 100).toFixed(2);
+  const [rawMajor, rawMinor] = rawAmount.split(".");
+  const major = parseInt(rawMajor).toLocaleString();
+  const minor = rawMinor === "00" ? "" : `.${rawMinor}`;
+  return `${symbol}${major}${minor}`;
 };
 
 const applyDiscount = (price, discount) => {

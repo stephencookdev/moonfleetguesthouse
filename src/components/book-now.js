@@ -13,6 +13,7 @@ import { addDays, format, setHours, setMinutes, startOfDay } from "date-fns";
 import useAvailability from "../hooks/use-availability";
 import usePrice from "../hooks/use-price";
 import DatePicker from "./date-picker";
+import * as styles from "./book-now.module.css";
 
 const CHECK_IN_HOUR = 15;
 const CHECK_OUT_HOUR = 10;
@@ -24,8 +25,11 @@ const formatPrice = (price) => {
 
   if (!symbol || !price?.amount) throw new Error("Invalid price object");
 
-  const amount = (price.amount / 100).toFixed(2);
-  return `${symbol}${amount}`;
+  const rawAmount = (price.amount / 100).toFixed(2);
+  const [rawMajor, rawMinor] = rawAmount.split(".");
+  const major = parseInt(rawMajor).toLocaleString();
+  const minor = rawMinor === "00" ? "" : `.${rawMinor}`;
+  return `${symbol}${major}${minor}`;
 };
 
 const getDateAtHour = (date, hour) => {
@@ -40,13 +44,18 @@ const validationSchema = Yup.object({
   postalCode: Yup.string().required("Required"),
 });
 
-const BookNowInner = ({ room, ...props }) => {
+const BookNowInner = ({ room: roomName, ...props }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [[startDate, endDate], setDateRange] = useState([null, null]);
   const [numberOfGuests, setNumberOfGuests] = useState(2);
   const maxDate = startOfDay(addDays(new Date(), 365));
+  const room = roomName
+    ?.trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_")
+    .replace(/[^a-z0-9_]/g, "");
 
   const { busyDates, isLoading: isBusyDatesLoading } = useAvailability({
     maxDate,
@@ -157,13 +166,14 @@ const BookNowInner = ({ room, ...props }) => {
   const cardElementOptions = {
     style: {
       base: {
-        iconColor: "#666EE8",
-        color: "#31325F",
+        iconColor: "#222",
+        color: "#222",
         fontWeight: "300",
-        fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif",
-        fontSize: "18px",
+        fontFamily: "sans-serif",
+        fontSize: "16px",
+        fontWeight: 300,
         "::placeholder": {
-          color: "#CFD7E0",
+          color: "#bbb",
         },
       },
     },
@@ -178,80 +188,157 @@ const BookNowInner = ({ room, ...props }) => {
         onRequestClose={closeModal}
         contentLabel="Checkout Form"
       >
-        <h2>Checkout Form</h2>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ handleSubmit, setFieldValue, setErrors }) => (
-            <Form id="checkout-form" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name">Name</label>
-                <Field type="text" id="name" name="name" />
-                <ErrorMessage name="name" component="div" />
-              </div>
-              <div>
-                <label htmlFor="email">Email</label>
-                <Field type="email" id="email" name="email" />
-                <ErrorMessage name="email" component="div" />
-              </div>
-              <div>
-                <label htmlFor="phone">Phone</label>
-                <Field type="text" id="phone" name="phone" />
-                <ErrorMessage name="phone" component="div" />
-              </div>
-              <div>
-                <label htmlFor="numberOfGuests">Number of Guests</label>
-                <Field
-                  type="number"
-                  id="numberOfGuests"
-                  name="numberOfGuests"
-                  onChange={(e) => {
-                    setFieldValue("numberOfGuests", parseInt(e.target.value));
-                    setNumberOfGuests(parseInt(e.target.value));
-                  }}
-                />
-                <ErrorMessage name="numberOfGuests" component="div" />
-              </div>
-              <div>
-                <label>Dates</label>
-                <DatePicker
-                  maxDate={maxDate}
-                  dateRange={{ start: startDate, end: endDate }}
-                  onChange={handleDatesChange(setErrors)}
-                  disabledDateRanges={busyDates}
-                  disabled={isBusyDatesLoading}
-                />
-                <ErrorMessage name="endDate" component="div" />
-              </div>
-              <div>
-                <label htmlFor="postalCode">Postal Code</label>
-                <Field type="text" id="postalCode" name="postalCode" />
-                <ErrorMessage name="postalCode" component="div" />
-              </div>
-              <div>
-                <label htmlFor="cardElement">Card Details</label>
-                <CardElement id="cardElement" options={cardElementOptions} />
-              </div>
-              {(!!price || isPriceLoading) && (
+        <div className={styles.modal}>
+          <h2 className={styles.title}>Checkout for {roomName}</h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ handleSubmit, setFieldValue, setErrors }) => (
+              <Form
+                id="checkout-form"
+                onSubmit={handleSubmit}
+                className={styles.form}
+              >
                 <div>
-                  <p>
-                    Price:{" "}
-                    {isPriceLoading ? "Calculating..." : formatPrice(price)}
-                  </p>
-                  <p>
-                    (you will not be charged until 10 days before your stay)
-                  </p>
+                  <label htmlFor="name" className={styles.label}>
+                    Name
+                  </label>
+                  <Field
+                    type="text"
+                    id="name"
+                    name="name"
+                    className={styles.input}
+                  />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className={styles.error}
+                  />
                 </div>
-              )}
-              <button type="submit">Submit</button>
-              <button type="button" onClick={closeModal}>
-                Cancel
-              </button>
-            </Form>
-          )}
-        </Formik>
+                <div>
+                  <label htmlFor="email" className={styles.label}>
+                    Email
+                  </label>
+                  <Field
+                    type="email"
+                    id="email"
+                    name="email"
+                    className={styles.input}
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className={styles.error}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className={styles.label}>
+                    Phone
+                  </label>
+                  <Field
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    className={styles.input}
+                  />
+                  <ErrorMessage
+                    name="phone"
+                    component="div"
+                    className={styles.error}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="numberOfGuests" className={styles.label}>
+                    Number of Guests
+                  </label>
+                  <Field
+                    type="number"
+                    id="numberOfGuests"
+                    name="numberOfGuests"
+                    onChange={(e) => {
+                      setFieldValue("numberOfGuests", parseInt(e.target.value));
+                      setNumberOfGuests(parseInt(e.target.value));
+                    }}
+                    className={styles.input}
+                  />
+                  <ErrorMessage
+                    name="numberOfGuests"
+                    component="div"
+                    className={styles.error}
+                  />
+                </div>
+                <div>
+                  <label className={styles.label}>Dates</label>
+                  <DatePicker
+                    maxDate={maxDate}
+                    dateRange={{ start: startDate, end: endDate }}
+                    onChange={handleDatesChange(setErrors)}
+                    disabledDateRanges={busyDates}
+                    disabled={isBusyDatesLoading}
+                    className={styles.input}
+                  />
+                  <ErrorMessage
+                    name="endDate"
+                    component="div"
+                    className={styles.error}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="postalCode" className={styles.label}>
+                    Postal Code
+                  </label>
+                  <Field
+                    type="text"
+                    id="postalCode"
+                    name="postalCode"
+                    className={styles.input}
+                  />
+                  <ErrorMessage
+                    name="postalCode"
+                    component="div"
+                    className={styles.error}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="cardElement" className={styles.label}>
+                    Card Details
+                  </label>
+                  <CardElement
+                    id="cardElement"
+                    options={cardElementOptions}
+                    className={styles.cardElement}
+                  />
+                </div>
+                {(!!price || isPriceLoading) && (
+                  <div className={styles.pricing}>
+                    <p>
+                      Price:{" "}
+                      {isPriceLoading ? "Calculating..." : formatPrice(price)}
+                    </p>
+                    <p>
+                      You will not be charged today. You will be charged 10 days
+                      before your check-in date.
+                    </p>
+                  </div>
+                )}
+                <div className={styles.actions}>
+                  <button type="submit" className={styles.cta}>
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className={styles.secondaryCta}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </Modal>
     </>
   );

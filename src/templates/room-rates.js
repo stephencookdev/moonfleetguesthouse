@@ -18,14 +18,7 @@ const Room = ({ name, image, normalPrice, saturdayPrice, tagline }) => (
       <span className={styles.price}>{saturdayPrice}</span>
     </p>
     <img src={image.replace("/assets/", "/assets-thumbnails/")} alt="" />
-    <BookNow
-      room={name
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, "_")
-        .replace(/[^a-z0-9_]/g, "")}
-      className={styles.cta}
-    >
+    <BookNow room={name} className={styles.cta}>
       Book Now
     </BookNow>
   </div>

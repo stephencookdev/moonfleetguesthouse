@@ -9,7 +9,7 @@ const DatePicker = ({
   dateRange,
   disabledDateRanges,
   onChange,
-  disabled,
+  ...props
 }) => {
   const randomId = useRef(
     `hotel-datepicker-${Math.random().toString(36).substring(7)}`
@@ -56,7 +56,7 @@ const DatePicker = ({
     JSON.stringify(disabledDates),
   ]);
 
-  return <input id={randomId.current} type="text" disabled={disabled} />;
+  return <input id={randomId.current} type="text" {...props} />;
 };
 
 export default DatePicker;
