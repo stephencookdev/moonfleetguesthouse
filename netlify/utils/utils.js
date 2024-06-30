@@ -101,9 +101,11 @@ const applyDiscounts = (price, discounts) => {
 
 const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
   // make a network request to the host URL's /netlify/room-rates.json and parse the JSON response
-  const roomRates = await (
-    await fetch(`${process.env.DEPLOY_URL}/netlify/room-rates.json`)
-  ).json();
+  const url = `${
+    process.env.URL || process.env.DEPLOY_PRIME_URL
+  }/netlify/room-rates.json`;
+  console.log(`Making a request to ${url}`);
+  const roomRates = await (await fetch(url)).json();
 
   // If someone is in a room for Saturday, Sunday, then that's only 1 night, Saturday night
   // If someone is in a room for Monday, Tuesday, Wednesday, then that's 2 nights, Monday and Tuesday nights
