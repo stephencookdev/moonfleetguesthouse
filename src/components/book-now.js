@@ -306,7 +306,23 @@ const BookNowInner = ({ room: roomName, ...props }) => {
                   </div>
                   <div>
                     <label htmlFor="postalCode" className={styles.label}>
-                      Postal Code
+                      Billing House Name / Number
+                    </label>
+                    <Field
+                      type="text"
+                      id="houseName"
+                      name="houseName"
+                      className={styles.input}
+                    />
+                    <ErrorMessage
+                      name="houseName"
+                      component="div"
+                      className={styles.error}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="postalCode" className={styles.label}>
+                      Billing Postal Code
                     </label>
                     <Field
                       type="text"
@@ -350,8 +366,10 @@ const BookNowInner = ({ room: roomName, ...props }) => {
                         {isPriceLoading ? "Calculating..." : formatPrice(price)}
                       </p>
                       <p>
-                        You will not be charged today. You will be charged 10
-                        days before your check-in date.
+                        You will not be charged today. You will be charged 7
+                        days before your check-in date, at which point the
+                        amount is non-refundable in the case of a cancellation
+                        or no-show.
                       </p>
                     </div>
                   )}

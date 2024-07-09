@@ -1,21 +1,16 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react";
 import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
+import Modal from "react-modal";
 import Header from "./header";
-import BookNow from "./book-now";
 import "react-image-gallery/styles/css/image-gallery.css";
 import * as styles from "./layout.module.css";
 
 const Layout = ({ floatHeader, siteMetadata, children }) => {
   const { title, email, telephone, mainNav } = siteMetadata;
+
+  Modal.setAppElement("#___gatsby");
 
   return (
     <>
