@@ -38,7 +38,7 @@ async function fetchAllBusyDates({
   );
 
   if (response.data.nextPageToken) {
-    return fetchAllEvents({
+    return fetchAllBusyDates({
       calendarId,
       timeMin,
       timeMax,
