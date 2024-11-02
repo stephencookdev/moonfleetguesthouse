@@ -48,6 +48,7 @@
   "scripts": {
     "build": "gatsby build",
     "dev": "netlify dev",
+    "dev:local": "URL=http://localhost:8888 npm run dev",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "clean": "gatsby clean"
   }
