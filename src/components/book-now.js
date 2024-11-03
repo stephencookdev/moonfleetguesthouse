@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -44,11 +44,15 @@ const validationSchema = Yup.object({
   postalCode: Yup.string().required("Required"),
 });
 
-const BookNowInner = ({ room: roomName, ...props }) => {
+const BookNowInner = ({ room: roomName, dateRange, ...props }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const resetFormRef = useRef(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [[startDate, endDate], setDateRange] = useState([null, null]);
+  const [[startDate, endDate], setDateRange] = useState([
+    dateRange?.start || null,
+    dateRange?.end || null,
+  ]);
   const [numberOfGuests, setNumberOfGuests] = useState(2);
   const [success, setSuccess] = useState(null);
   const [cardError, setCardError] = useState(null);
@@ -59,10 +63,11 @@ const BookNowInner = ({ room: roomName, ...props }) => {
     .replace(/\s+/g, "_")
     .replace(/[^a-z0-9_]/g, "");
 
-  const { busyDates, isLoading: isBusyDatesLoading } = useAvailability({
+  const { roomToBusyDates, isLoading: isBusyDatesLoading } = useAvailability({
     maxDate,
-    room,
+    rooms: room ? [room] : [],
   });
+  const busyDates = roomToBusyDates[room] || [];
   const { price, isLoading: isPriceLoading } = usePrice({
     dateRange: { start: startDate, end: endDate },
     numberOfGuests,
@@ -77,6 +82,12 @@ const BookNowInner = ({ room: roomName, ...props }) => {
     postalCode: "",
     notes: "",
   };
+
+  useEffect(() => {
+    resetFormRef.current?.();
+    setDateRange([dateRange?.start || null, dateRange?.end || null]);
+    setNumberOfGuests(2);
+  }, [modalIsOpen]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     if (!stripe || !elements) {
@@ -211,11 +222,20 @@ const BookNowInner = ({ room: roomName, ...props }) => {
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              {({ handleSubmit, setFieldValue, setErrors, isSubmitting }) => (
+              {({
+                handleSubmit,
+                setFieldValue,
+                setErrors,
+                isSubmitting,
+                resetForm,
+              }) => (
                 <Form
                   id="checkout-form"
                   onSubmit={handleSubmit}
                   className={styles.form}
+                  useRef={() => {
+                    resetFormRef.current = resetForm;
+                  }}
                 >
                   <div>
                     <label htmlFor="name" className={styles.label}>

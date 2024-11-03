@@ -4,30 +4,25 @@ const dateFns = require("date-fns");
 const CHECK_IN_HOUR = 15;
 const CHECK_OUT_HOUR = 10;
 const SINGLE_OCCUPANCY_DISCOUNT = { percentage: 10 };
+const ROOM_TO_CALENDAR_ID = {
+  elzevir_block:
+    "a864c89beb4df2734cb5fefab8e53bd6582e909efd3d37abbe5191b5b5518c71@group.calendar.google.com",
+  y_not:
+    "a9b45dd28c168253fb7d137cba71f049592f6e6769c401393ac72bd175f08295@group.calendar.google.com",
+  master_ratsey:
+    "7fa250fb572b58629ff523ea600508bb87ec936aedd94bc774e2c729f17813bd@group.calendar.google.com",
+  josephs_pit:
+    "9b4699ab46c5c9781f0be00b7c8b38e950c90563fc068b539f31ffb0a8a2b8f0@group.calendar.google.com",
+  the_mohune:
+    "87143580ff32a8338f6c3686825a92976a6e7e1ebe20057c697634f34b8885a8@group.calendar.google.com",
+  jeremy_fox:
+    "95605ca8ae682fb66c60c0d8c00fe4946dd85eb167fc9724a8218d8aba659464@group.calendar.google.com",
+};
 
 const roomToCalendarId = (room) => {
-  switch (room) {
-    case "elzevir_block":
-      return "a864c89beb4df2734cb5fefab8e53bd6582e909efd3d37abbe5191b5b5518c71@group.calendar.google.com";
-
-    case "y_not":
-      return "a9b45dd28c168253fb7d137cba71f049592f6e6769c401393ac72bd175f08295@group.calendar.google.com";
-
-    case "master_ratsey":
-      return "7fa250fb572b58629ff523ea600508bb87ec936aedd94bc774e2c729f17813bd@group.calendar.google.com";
-
-    case "josephs_pit":
-      return "9b4699ab46c5c9781f0be00b7c8b38e950c90563fc068b539f31ffb0a8a2b8f0@group.calendar.google.com";
-
-    case "the_mohune":
-      return "87143580ff32a8338f6c3686825a92976a6e7e1ebe20057c697634f34b8885a8@group.calendar.google.com";
-
-    case "jeremy_fox":
-      return "95605ca8ae682fb66c60c0d8c00fe4946dd85eb167fc9724a8218d8aba659464@group.calendar.google.com";
-
-    default:
-      throw new Error(`Unknown room: ${room}`);
-  }
+  const calendarId = ROOM_TO_CALENDAR_ID[room];
+  if (!calendarId) throw new Error(`Unknown room: ${room}`);
+  return calendarId;
 };
 
 const roomSlugToNameObj = {
@@ -166,6 +161,7 @@ module.exports = {
   getUKTime,
   CHECK_IN_HOUR,
   CHECK_OUT_HOUR,
+  ROOM_TO_CALENDAR_ID,
   addPrices,
   multiplyPrice,
   formatPrice,

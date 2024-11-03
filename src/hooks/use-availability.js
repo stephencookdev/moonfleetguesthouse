@@ -1,42 +1,61 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-const useAvailability = ({ maxDate, room }) => {
-  const [busyDates, setBusyDates] = useState([]);
+const useAvailability = ({ minDate = new Date(), maxDate, rooms }) => {
+  const [roomToBusyDates, setRoomToBusyDates] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!room) return;
+    if (!rooms?.filter(Boolean)?.length) return;
 
     const fetchAvailability = async () => {
       setIsLoading(true);
 
       const dateRange = {
-        start: new Date(),
+        start: minDate,
         end: maxDate,
       };
 
-      const availabilityResponse = await fetch(
-        "/.netlify/functions/check-availability",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ dateRange, room }),
-        }
+      const roomToBusyDates = Object.fromEntries(
+        await Promise.all(
+          rooms.map(async (room) => {
+            const availabilityResponse = await fetch(
+              "/.netlify/functions/check-availability",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ dateRange, room }),
+              }
+            );
+
+            const { busyDates } = await availabilityResponse.json();
+
+            return [
+              room,
+              busyDates.map(({ start, end }) => ({
+                start: new Date(start),
+                end: new Date(end),
+              })),
+            ];
+          })
+        )
       );
 
-      const { busyDates } = await availabilityResponse.json();
-      setBusyDates(busyDates || []);
+      setRoomToBusyDates(roomToBusyDates || []);
 
       setIsLoading(false);
     };
 
     fetchAvailability();
-  }, [format(maxDate, "yyyy-MM-dd"), room]);
+  }, [
+    format(minDate, "yyyy-MM-dd"),
+    format(maxDate, "yyyy-MM-dd"),
+    JSON.stringify(rooms.sort()),
+  ]);
 
-  return { busyDates, isLoading };
+  return { roomToBusyDates, isLoading };
 };
 
 export default useAvailability;

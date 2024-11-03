@@ -3,35 +3,8 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Markdown from "markdown-to-jsx";
 import Layout from "../components/layout";
-import BookNow from "../components/book-now";
+import AvailableRoomPicker from "../components/available-room-picker";
 import * as styles from "./room-rates.module.css";
-
-const Room = ({ name, image, normalPrice, saturdayPrice, tagline }) => (
-  <div key={name} className={styles.room}>
-    <h2>{name}</h2>
-    <p className={styles.description}>{tagline}</p>
-    <p>
-      Sun-Fri inc. Breakfast <span className={styles.price}>{normalPrice}</span>
-    </p>
-    <p>
-      Saturday inc. Breakfast{" "}
-      <span className={styles.price}>{saturdayPrice}</span>
-    </p>
-    <img src={image.replace("/assets/", "/assets-thumbnails/")} alt="" />
-    <BookNow room={name} className={styles.cta}>
-      Book Now
-    </BookNow>
-  </div>
-);
-
-Room.propTypes = {
-  name: PropTypes.string,
-  image: PropTypes.string,
-  normalPrice: PropTypes.string,
-  saturdayPrice: PropTypes.string,
-  tagline: PropTypes.string,
-  telephone: PropTypes.string,
-};
 
 export const RoomRatesTemplate = ({
   siteMetadata,
@@ -43,11 +16,7 @@ export const RoomRatesTemplate = ({
   <Layout siteMetadata={siteMetadata}>
     <p className={styles.tagline}>{tagline}</p>
 
-    <div>
-      {rooms.map((room) => (
-        <Room key={room.name} {...room} />
-      ))}
-    </div>
+    <AvailableRoomPicker allRooms={rooms} />
 
     <Markdown options={{ forceBlock: true }}>{roomsExtra}</Markdown>
 

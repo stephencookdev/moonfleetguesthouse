@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useAvailability = ({ dateRange, room, numberOfGuests }) => {
+const usePrice = ({ dateRange, room, numberOfGuests }) => {
   const [price, setPrice] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,4 +36,4 @@ const useAvailability = ({ dateRange, room, numberOfGuests }) => {
   return { price, isLoading };
 };
 
-export default useAvailability;
+export default usePrice;
