@@ -105,6 +105,8 @@ const AvailableRoomPicker = ({ allRooms }) => {
           "eee do MMM"
         )} and ${format(endDate, "eee do MMM")}`
       : "Filter by date";
+  const datePickerClassName =
+    startDate && endDate ? styles.datePickerSelected : styles.cta;
 
   return (
     <>
@@ -120,6 +122,7 @@ const AvailableRoomPicker = ({ allRooms }) => {
           disabled={isBusyDatesLoading}
           type="button"
           value={datePickerValue}
+          className={datePickerClassName}
         />
         {startDate && endDate ? (
           <button
@@ -127,6 +130,7 @@ const AvailableRoomPicker = ({ allRooms }) => {
               setStartDate(null);
               setEndDate(null);
             }}
+            className={styles.cta}
           >
             Clear date filter
           </button>

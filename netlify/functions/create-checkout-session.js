@@ -70,20 +70,20 @@ exports.handler = async (event) => {
       };
     }
 
-    const priceToPay = formatPrice(
-      await getPriceToPay({
-        room,
-        dateRange: {
-          start: eventStartTime,
-          end: eventEndTime,
-        },
-        numberOfGuests: customerInfo.numberOfGuests,
-      })
-    );
+    const { price, lineItems } = await getPriceToPay({
+      room,
+      dateRange: {
+        start: eventStartTime,
+        end: eventEndTime,
+      },
+      numberOfGuests: customerInfo.numberOfGuests,
+    });
+    const priceToPay = formatPrice(price);
     const singleLineNotes = customerInfo.notes.replace(/\n/g, "  ").trim();
     const customerMetadata = objectKeysCamelCaseToTitleCase({
       ...omit(customerInfo, ["email", "name", "phone", "postalCode", "notes"]),
       priceToPay,
+      lineItems,
       notes: singleLineNotes,
     });
     if (!customerMetadata.notes) {
@@ -143,6 +143,11 @@ exports.handler = async (event) => {
         ).toLocaleDateString("en-GB"),
         "v:room": roomName,
         "v:price": priceToPay,
+        "v:lineItems": lineItems
+          .map(
+            ({ description, price }) => `${description}: ${formatPrice(price)}`
+          )
+          .join("\n"),
         "v:customerName": customerInfo.name,
         "v:bookingId": customer.id,
       });

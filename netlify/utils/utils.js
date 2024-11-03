@@ -4,6 +4,7 @@ const dateFns = require("date-fns");
 const CHECK_IN_HOUR = 15;
 const CHECK_OUT_HOUR = 10;
 const SINGLE_OCCUPANCY_DISCOUNT = { percentage: 10 };
+const AUGUST_EXTRA = { amount: 1000, currency: "GBP" };
 const ROOM_TO_CALENDAR_ID = {
   elzevir_block:
     "a864c89beb4df2734cb5fefab8e53bd6582e909efd3d37abbe5191b5b5518c71@group.calendar.google.com",
@@ -103,20 +104,6 @@ const formatPrice = (price) => {
   return `${symbol}${major}${minor}`;
 };
 
-const applyDiscount = (price, discount) => {
-  const newPrice = { ...price };
-  if (discount.percentage) {
-    newPrice.amount -= price.amount * (discount.percentage / 100);
-  } else if (discount.amount) {
-    newPrice.amount -= discount.amount;
-  }
-
-  return newPrice;
-};
-const applyDiscounts = (price, discounts) => {
-  return discounts.reduce(applyDiscount, price);
-};
-
 const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
   const url = `${process.env.URL}/netlify/room-rates.json`;
   console.log(`Making a request to ${url}`);
@@ -136,6 +123,13 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
       end: dateRange.end,
     })
     .filter((date) => dateFns.isSaturday(date)).length;
+  // August is also priced differently, so we need to count how many days in August are in the date range
+  const totalAugustDays = dateFns
+    .eachDayOfInterval({
+      start: dateRange.start,
+      end: dateRange.end,
+    })
+    .filter((date) => dateFns.getMonth(date) === 7).length;
 
   const totalNonSaturdays = totalNights - totalSaturdays;
 
@@ -144,14 +138,46 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
     roomRates[room].standard,
     totalNonSaturdays
   );
+  const augustAdditions = multiplyPrice(AUGUST_EXTRA, totalAugustDays);
   const validDiscounts =
-    numberOfGuests === 1 ? [SINGLE_OCCUPANCY_DISCOUNT] : [];
-  const price = applyDiscounts(
-    addPrices(saturdayPrice, nonSaturdayPrice),
-    validDiscounts
-  );
+    numberOfGuests === 1
+      ? [
+          {
+            description: "Single occupancy discount",
+            percent: SINGLE_OCCUPANCY_DISCOUNT,
+          },
+        ]
+      : [];
 
-  return price;
+  const lineItems = [
+    {
+      description: `Saturday night x ${totalSaturdays}`,
+      price: saturdayPrice,
+    },
+    {
+      description: `Non-Saturday night x ${totalNonSaturdays}`,
+      price: nonSaturdayPrice,
+    },
+    {
+      description: `August nights x ${totalAugustDays}`,
+      price: augustAdditions,
+    },
+    ...validDiscounts.filter((d) => d.amount < 0),
+  ].filter((d) => d.price.amount !== 0);
+
+  const preDiscountTotal = addPrices(...lineItems.map((li) => li.price));
+  const percentageDiscountLineItems = validDiscounts
+    .filter((d) => d.percent > 0)
+    .map((d) => ({
+      description: d.description,
+      price: multiplyPrice(preDiscountTotal, -d.percent),
+    }));
+
+  lineItems.push(...percentageDiscountLineItems);
+
+  const price = addPrices(...lineItems.map((li) => li.price));
+
+  return { price, lineItems };
 };
 
 module.exports = {
@@ -165,6 +191,5 @@ module.exports = {
   addPrices,
   multiplyPrice,
   formatPrice,
-  applyDiscounts,
   getPriceToPay,
 };

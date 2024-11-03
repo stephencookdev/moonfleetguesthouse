@@ -95,9 +95,7 @@ const DatePicker = ({
   }, [disabled]);
 
   return (
-    <div
-      style={{ display: "flex", position: "relative", width: "max-content" }}
-    >
+    <div style={{ display: "flex", position: "relative" }}>
       <div
         style={{
           position: "absolute",

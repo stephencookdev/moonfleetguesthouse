@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const usePrice = ({ dateRange, room, numberOfGuests }) => {
   const [price, setPrice] = useState(null);
+  const [lineItems, setLineItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -23,8 +24,9 @@ const usePrice = ({ dateRange, room, numberOfGuests }) => {
           }),
         });
 
-        const { price } = await priceResponse.json();
+        const { price, lineItems } = await priceResponse.json();
         setPrice(price || null);
+        setLineItems(lineItems || []);
 
         setIsLoading(false);
       };
@@ -33,7 +35,7 @@ const usePrice = ({ dateRange, room, numberOfGuests }) => {
     }
   }, [dateRange?.start, dateRange?.end, numberOfGuests, room]);
 
-  return { price, isLoading };
+  return { price, lineItems, isLoading };
 };
 
 export default usePrice;

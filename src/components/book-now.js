@@ -68,7 +68,11 @@ const BookNowInner = ({ room: roomName, dateRange, ...props }) => {
     rooms: room ? [room] : [],
   });
   const busyDates = roomToBusyDates[room] || [];
-  const { price, isLoading: isPriceLoading } = usePrice({
+  const {
+    price,
+    lineItems,
+    isLoading: isPriceLoading,
+  } = usePrice({
     dateRange: { start: startDate, end: endDate },
     numberOfGuests,
     room,
@@ -381,15 +385,23 @@ const BookNowInner = ({ room: roomName, dateRange, ...props }) => {
                   </div>
                   {(!!price || isPriceLoading) && (
                     <div className={styles.pricing}>
+                      <ul>
+                        {lineItems.map((lineItem, index) => (
+                          <li key={index}>
+                            {lineItem.description}:{" "}
+                            {formatPrice(lineItem.price)}
+                          </li>
+                        ))}
+                      </ul>
                       <p>
-                        Price:{" "}
+                        Total:{" "}
                         {isPriceLoading ? "Calculating..." : formatPrice(price)}
                       </p>
                       <p>
                         You will not be charged today. You will be charged 7
-                        days before your check-in date, at which point the
-                        amount is non-refundable in the case of a cancellation
-                        or no-show.
+                        days before your check-in date, for the price of the
+                        first night, at which point the amount is non-refundable
+                        in the case of a cancellation or no-show.
                       </p>
                     </div>
                   )}
