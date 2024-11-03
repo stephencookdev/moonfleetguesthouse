@@ -1,54 +1,10 @@
-const { google } = require("googleapis");
 const {
   roomToCalendarId,
   getUKTime,
   CHECK_IN_HOUR,
   CHECK_OUT_HOUR,
+  fetchAllBusyDates,
 } = require("../utils/utils");
-
-const calendar = google.calendar("v3");
-
-const serviceAccount = JSON.parse(process.env.GOOGLE_CALENDAR_SERVICE_JSON);
-const googleCalendarAuth = new google.auth.JWT(
-  serviceAccount.client_email,
-  null,
-  serviceAccount.private_key.replace(/\\n/g, "\n"),
-  ["https://www.googleapis.com/auth/calendar"]
-);
-
-async function fetchAllBusyDates({
-  calendarId,
-  timeMin,
-  timeMax,
-  pageToken = null,
-  busyDates = [],
-}) {
-  const response = await calendar.events.list({
-    auth: googleCalendarAuth,
-    calendarId,
-    timeMin,
-    timeMax,
-    pageToken,
-  });
-  const newBusyDates = busyDates.concat(
-    response.data.items.map((event) => ({
-      start: event.start.dateTime,
-      end: event.end.dateTime,
-    }))
-  );
-
-  if (response.data.nextPageToken) {
-    return fetchAllBusyDates({
-      calendarId,
-      timeMin,
-      timeMax,
-      pageToken: response.data.nextPageToken,
-      busyDates: newBusyDates,
-    });
-  } else {
-    return newBusyDates;
-  }
-}
 
 exports.handler = async (event) => {
   try {

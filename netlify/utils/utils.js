@@ -1,3 +1,4 @@
+const { google } = require("googleapis");
 const { Temporal } = require("@js-temporal/polyfill");
 const dateFns = require("date-fns");
 
@@ -20,10 +21,35 @@ const ROOM_TO_CALENDAR_ID = {
     "95605ca8ae682fb66c60c0d8c00fe4946dd85eb167fc9724a8218d8aba659464@group.calendar.google.com",
 };
 
+const ROOM_SLUGS = Object.keys(ROOM_TO_CALENDAR_ID);
+
+const ROOM_TO_EXTERNAL_CALENDAR_DATA = {
+  elzevir_block: [
+    {
+      icsUrl:
+        "https://ical.booking.com/v1/export?t=5bb345e4-5a58-4bc3-a3d0-ef0b53ea4edc",
+      source: "booking.com",
+    },
+  ],
+  josephs_pit: [
+    {
+      icsUrl:
+        "https://ical.booking.com/v1/export?t=ec9dcdcb-604b-4c6e-baf0-8dd80ecd7450",
+      source: "booking.com",
+    },
+  ],
+};
+
 const roomToCalendarId = (room) => {
   const calendarId = ROOM_TO_CALENDAR_ID[room];
   if (!calendarId) throw new Error(`Unknown room: ${room}`);
   return calendarId;
+};
+
+const roomToExternalCalendarData = (room) => {
+  const calendarData = ROOM_TO_EXTERNAL_CALENDAR_DATA[room];
+  if (!calendarData) return [];
+  return calendarData;
 };
 
 const roomSlugToNameObj = {
@@ -180,16 +206,62 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
   return { price, lineItems };
 };
 
+async function fetchAllBusyDates({
+  calendarId,
+  timeMin,
+  timeMax,
+  pageToken = null,
+  busyDates = [],
+}) {
+  const calendar = google.calendar("v3");
+
+  const serviceAccount = JSON.parse(process.env.GOOGLE_CALENDAR_SERVICE_JSON);
+  const googleCalendarAuth = new google.auth.JWT(
+    serviceAccount.client_email,
+    null,
+    serviceAccount.private_key.replace(/\\n/g, "\n"),
+    ["https://www.googleapis.com/auth/calendar"]
+  );
+
+  const response = await calendar.events.list({
+    auth: googleCalendarAuth,
+    calendarId,
+    timeMin,
+    timeMax,
+    pageToken,
+  });
+  const newBusyDates = busyDates.concat(
+    response.data.items.map((event) => ({
+      start: event.start.dateTime,
+      end: event.end.dateTime,
+    }))
+  );
+
+  if (response.data.nextPageToken) {
+    return fetchAllBusyDates({
+      calendarId,
+      timeMin,
+      timeMax,
+      pageToken: response.data.nextPageToken,
+      busyDates: newBusyDates,
+    });
+  } else {
+    return newBusyDates;
+  }
+}
+
 module.exports = {
   roomToCalendarId,
+  roomToExternalCalendarData,
   roomSlugToName,
   roomNameToSlug,
   getUKTime,
   CHECK_IN_HOUR,
   CHECK_OUT_HOUR,
-  ROOM_TO_CALENDAR_ID,
+  ROOM_SLUGS,
   addPrices,
   multiplyPrice,
   formatPrice,
   getPriceToPay,
+  fetchAllBusyDates,
 };
