@@ -28,6 +28,6 @@ sections:
 
 
       Moonfleet is near the **National Cycle Route 1**.
-    image: /assets/bkpam2100478_raffleintheflowers.jpg
+    image: /assets/saltburn-by-the-sea-adobestock_339821632.jpeg
     title: Neighbouring Towns
 ---
