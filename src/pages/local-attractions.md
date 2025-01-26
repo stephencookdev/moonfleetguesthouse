@@ -10,13 +10,13 @@ sections:
       [here](https://landofiron.org.uk/) for details and to book your tickets!
     image: /assets/land-of-iron-museum.jpeg
     title: Land of Iron - Skinningrove
-  - body: Less than a 5 minute walk from Skinningrove's unrestricted beaches -
-      revered for their wild cliffs, sand dunes and fossils which can be found
-      hidden at the end of the beach. This can also be a great spot for
-      [birdwatching](https://www.teesmouthbc.com/skinningrove/). Visit the local
-      history group's
-      [website](https://landofiron.org.uk/skinningrove-history-group) to find
-      out more about Skinningrove's rich history.
+  - body: Just a short stroll — less than five minutes — from Skinningrove's
+      stunning, unspoiled beaches, known for their dramatic cliff edges,
+      expansive sand dunes, and hidden fossils waiting to be discovered at the
+      far end of the shore. It's also a fantastic spot for
+      [birdwatching](https://www.teesmouthbc.com/skinningrove/). For a deeper
+      dive into the area's fascinating past, check out the local history group's
+      [website](https://landofiron.org.uk/skinningrove-history-group).
     image: /assets/bkpam2100478_seacliffs_1.jpg
     title: Skinningrove & Beaches
   - body: >-
