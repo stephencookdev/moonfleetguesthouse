@@ -27,14 +27,42 @@ const ROOM_TO_EXTERNAL_CALENDAR_DATA = {
   elzevir_block: [
     {
       icsUrl:
-        "https://ical.booking.com/v1/export?t=5bb345e4-5a58-4bc3-a3d0-ef0b53ea4edc",
+        "https://ical.booking.com/v1/export?t=b9d3ae00-3b2e-4ec8-a75a-066485c4bb04",
       source: "booking.com",
     },
   ],
   josephs_pit: [
     {
       icsUrl:
-        "https://ical.booking.com/v1/export?t=ec9dcdcb-604b-4c6e-baf0-8dd80ecd7450",
+        "https://ical.booking.com/v1/export?t=14836193-3df4-48ef-89f4-4896927573c6",
+      source: "booking.com",
+    },
+  ],
+  y_not: [
+    {
+      icsUrl:
+        "https://ical.booking.com/v1/export?t=312d3c4f-dab6-43d1-86f6-61b084462300",
+      source: "booking.com",
+    },
+  ],
+  master_ratsey: [
+    {
+      icsUrl:
+        "https://ical.booking.com/v1/export?t=f68e3824-fc36-4599-acd9-9cc9aa3ef25a",
+      source: "booking.com",
+    },
+  ],
+  jeremy_fox: [
+    {
+      icsUrl:
+        "https://ical.booking.com/v1/export?t=69bcb158-83f6-4747-8102-b1d17cd0a142",
+      source: "booking.com",
+    },
+  ],
+  the_mohune: [
+    {
+      icsUrl:
+        "https://ical.booking.com/v1/export?t=51ce4591-5ecf-4659-b4c0-b7c1b65fa7cc",
       source: "booking.com",
     },
   ],

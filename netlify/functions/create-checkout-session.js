@@ -83,7 +83,11 @@ exports.handler = async (event) => {
     const customerMetadata = objectKeysCamelCaseToTitleCase({
       ...omit(customerInfo, ["email", "name", "phone", "postalCode", "notes"]),
       priceToPay,
-      lineItems,
+      lineItems: lineItems
+        .map(
+          ({ description, price }) => `${description}: ${formatPrice(price)}`
+        )
+        .join("\n"),
       notes: singleLineNotes,
     });
     if (!customerMetadata.notes) {
@@ -131,7 +135,7 @@ exports.handler = async (event) => {
       });
 
       await mg.messages().send({
-        from: "info@moonfleetguesthouse.co.uk",
+        from: "Moonfleet Guesthouse <info@moonfleetguesthouse.co.uk>",
         to: customerInfo.email,
         subject: "Booking Confirmation",
         template: "Booking Confirmation",

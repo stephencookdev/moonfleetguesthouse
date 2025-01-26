@@ -1,6 +1,6 @@
 const { google } = require("googleapis");
 const ical = require("node-ical");
-const { addDays, startOfDay } = require("date-fns");
+const { addDays, startOfDay, subDays } = require("date-fns");
 const {
   ROOM_SLUGS,
   roomToCalendarId,
@@ -18,7 +18,14 @@ const googleCalendarAuth = new google.auth.JWT(
   ["https://www.googleapis.com/auth/calendar"]
 );
 
-async function syncExternalCalendar({ calendarId, icsUrl, source, busyDates }) {
+async function syncExternalCalendar({
+  calendarId,
+  icsUrl,
+  source,
+  busyDates,
+  timeMin,
+  timeMax,
+}) {
   const icsContents = await (await fetch(icsUrl)).text();
   const icsEvents = Object.values(ical.sync.parseICS(icsContents))
     .filter((event) => event.type === "VEVENT")
@@ -31,24 +38,25 @@ async function syncExternalCalendar({ calendarId, icsUrl, source, busyDates }) {
   const matchingBusyDates = icsEvents.filter((icsEv) =>
     busyDates.some((dateEv) => dateEv.summary === icsEv.summary)
   );
-  const mismatchedDates = matchingBusyDates.filter(
-    (icsEv) =>
-      !busyDates.some(
-        (dateEv) =>
-          dateEv.start === icsEv.start &&
-          dateEv.end === icsEv.end &&
-          dateEv.summary === icsEv.summary
-      )
-  );
 
   const newDates = icsEvents.filter(
     (icsEv) =>
       !matchingBusyDates.some((dateEv) => dateEv.summary === icsEv.summary)
   );
 
-  console.log("TODO");
-  console.log("Update", mismatchedDates);
+  const allExistingEventsBySource = (
+    (
+      await calendar.events.list({
+        auth: googleCalendarAuth,
+        calendarId,
+        q: `[${source}]`,
+        start: timeMin,
+        end: timeMax,
+      })
+    )?.data?.items || []
+  ).map((event) => event.id);
 
+  // Upload new events
   await Promise.all(
     newDates.map(async (icsEvent) => {
       await calendar.events.insert({
@@ -68,6 +76,19 @@ async function syncExternalCalendar({ calendarId, icsUrl, source, busyDates }) {
       });
     })
   );
+
+  console.log("Deleted events", allExistingEventsBySource);
+
+  // Delete old events
+  await Promise.all(
+    allExistingEventsBySource.map(async (eventId) => {
+      await calendar.events.delete({
+        auth: googleCalendarAuth,
+        calendarId,
+        eventId,
+      });
+    })
+  );
 }
 
 exports.handler = async (event) => {
@@ -76,13 +97,23 @@ exports.handler = async (event) => {
       ROOM_SLUGS.map(async (roomSlug) => {
         const calendarId = roomToCalendarId(roomSlug);
         const externalCalendarData = roomToExternalCalendarData(roomSlug);
+        console.log("Syncing", roomSlug, calendarId, externalCalendarData);
         for (const { icsUrl, source } of externalCalendarData) {
+          const timeMin = startOfDay(subDays(new Date(), 1));
+          const timeMax = startOfDay(addDays(new Date(), 365));
           const busyDates = await fetchAllBusyDates({
             calendarId,
-            timeMin: new Date(),
-            timeMax: startOfDay(addDays(new Date(), 365)),
+            timeMin,
+            timeMax,
           });
-          await syncExternalCalendar({ calendarId, icsUrl, source, busyDates });
+          await syncExternalCalendar({
+            calendarId,
+            icsUrl,
+            source,
+            busyDates,
+            timeMin,
+            timeMax,
+          });
         }
       })
     );
