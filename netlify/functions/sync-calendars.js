@@ -39,6 +39,10 @@ function generateBatchBody(requests) {
 }
 
 async function batchInsertEvents(calendarId, newEvents) {
+  if (!newEvents.length) {
+    return;
+  }
+
   const accessToken = await googleCalendarAuth.getAccessToken();
 
   const requests = newEvents.map((event) => ({
@@ -70,6 +74,10 @@ async function batchInsertEvents(calendarId, newEvents) {
 }
 
 async function batchDeleteEvents(calendarId, eventIds) {
+  if (!eventIds.length) {
+    return;
+  }
+
   const accessToken = await googleCalendarAuth.getAccessToken();
 
   const requests = eventIds.map((eventId) => ({
@@ -99,8 +107,9 @@ async function syncExternalCalendar({
   source,
   timeMin,
   timeMax,
+  force = false,
 }) {
-  console.log(`Starting sync of ${calendarId}`);
+  console.log(`Starting sync of ${calendarId} (force=${force})`);
 
   const icsContents = await (await fetch(icsUrl)).text();
   const icsEvents = Object.values(ical.sync.parseICS(icsContents))
@@ -124,14 +133,16 @@ async function syncExternalCalendar({
       })
     )?.data?.items || [];
 
-  const dupeEventsToOmit = allExistingEventsBySource.filter((event) =>
-    icsEvents.some((icsEvent) => icsEvent.uid === event.summary)
-  );
+  const dupeEventsToOmit = force
+    ? []
+    : allExistingEventsBySource.filter((event) =>
+        icsEvents.some((icsEvent) => icsEvent.summary === event.summary)
+      );
 
   const eventsToInsert = icsEvents
     .filter(
       (icsEvent) =>
-        !dupeEventsToOmit.some((event) => event.summary === icsEvent.uid)
+        !dupeEventsToOmit.some((event) => event.summary === icsEvent.summary)
     )
     .map((icsEvent) => ({
       summary: icsEvent.summary,
@@ -144,7 +155,9 @@ async function syncExternalCalendar({
   const eventsToDelete = allExistingEventsBySource
     .filter(
       (event) =>
-        !dupeEventsToOmit.some((dupeEvent) => dupeEvent.id === event.id)
+        !dupeEventsToOmit.some(
+          (dupeEvent) => dupeEvent.summary === event.summary
+        )
     )
     .map((event) => event.id);
 
@@ -167,7 +180,8 @@ async function syncExternalCalendar({
   }
 }
 
-exports.handler = async () => {
+exports.handler = async (req) => {
+  const force = req.queryStringParameters?.force === "true";
   try {
     await Promise.all(
       ROOM_SLUGS.map(async (roomSlug) => {
@@ -183,6 +197,7 @@ exports.handler = async () => {
             source,
             timeMin,
             timeMax,
+            force,
           });
         }
       })
@@ -198,4 +213,9 @@ exports.handler = async () => {
       body: JSON.stringify({ error }),
     };
   }
+};
+
+exports.config = {
+  // run every 5 minutes
+  schedule: "*/5 * * * *",
 };
