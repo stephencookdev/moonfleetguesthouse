@@ -1,7 +1,9 @@
 ---
 sections:
   - body: Moonfleet is situated minutes away from the [Cleveland
-      Way](http://www.nationaltrail.co.uk/cleveland-way).
+      Way](http://www.nationaltrail.co.uk/cleveland-way). Experience the varied
+      landscape of the North York Moors National Park on a journey across
+      breathtaking heather moorland and dramatic coastline.
     image: /assets/093a3fe5-d9c2-4f47-af40-b8ce0146d7bb.jpg
     title: Cleveland Way
   - body: The Land of Iron is located a short walk away in the village. Click
