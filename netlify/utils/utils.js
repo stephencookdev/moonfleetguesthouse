@@ -2,8 +2,8 @@ const { google } = require("googleapis");
 const { Temporal } = require("@js-temporal/polyfill");
 const dateFns = require("date-fns");
 
-const CHECK_IN_HOUR = 15;
-const CHECK_OUT_HOUR = 10;
+const CHECK_IN_HOUR = 24;
+const CHECK_OUT_HOUR = 24;
 const SINGLE_OCCUPANCY_DISCOUNT = { percentage: 10 };
 const AUGUST_EXTRA = { amount: 1000, currency: "GBP" };
 const ROOM_TO_CALENDAR_ID = {
@@ -105,13 +105,22 @@ const roomNameToSlug = (name) => {
 
 const getUKTime = (rawDate, hour, minute) => {
   const [year, month, day, _] = rawDate.split(/[^0-9]+/);
+  const date = dateFns.set(new Date(), {
+    year: parseInt(year),
+    month: parseInt(month) - 1,
+    date: parseInt(day),
+    hours: hour,
+    minutes: minute,
+    seconds: 0,
+    milliseconds: 0,
+  });
 
   const zonedDateTime = Temporal.ZonedDateTime.from({
-    year: parseInt(year),
-    month: parseInt(month),
-    day: parseInt(day),
-    hour: parseInt(hour),
-    minute: parseInt(minute),
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
     timeZone: "Europe/London",
   });
 

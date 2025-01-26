@@ -91,6 +91,8 @@ const BookNowInner = ({ room: roomName, dateRange, ...props }) => {
     resetFormRef.current?.();
     setDateRange([dateRange?.start || null, dateRange?.end || null]);
     setNumberOfGuests(2);
+    setSuccess(null);
+    setCardError(null);
   }, [modalIsOpen]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -217,7 +219,7 @@ const BookNowInner = ({ room: roomName, dateRange, ...props }) => {
                 onClick={closeModal}
                 className={styles.secondaryCta}
               >
-                Cancel
+                Close
               </button>
             </div>
           ) : (
