@@ -4,10 +4,10 @@ sections:
       Way](http://www.nationaltrail.co.uk/cleveland-way).
     image: /assets/093a3fe5-d9c2-4f47-af40-b8ce0146d7bb.jpg
     title: Cleveland Way
-  - body: The [Cleveland Ironstone Mining Museum](http://www.ironstonemuseum.co.uk/)
-      is located a short walk away in the village.
+  - body: The Land of Iron is located a short walk away in the village. Click
+      [here](https://landofiron.org.uk/) for details and to book your tickets!
     image: /assets/10078626-a170-4c4f-8473-ad4c82d4d043.jpg
-    title: Cleveland Ironstone Mining Museum
+    title: Land of Iron - Skinningrove
   - body: Visit the local history group's
       [website](https://landofiron.org.uk/skinningrove-history-group) to find
       out more about Skinningrove's rich history.
