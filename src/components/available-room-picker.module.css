@@ -1,0 +1,83 @@
+.room {
+  display: grid;
+  grid-template-columns: 50% auto;
+  grid-template-rows: auto auto auto 1fr;
+}
+@media (max-width: 800px) {
+  .room {
+    grid-template-columns: auto;
+  }
+}
+.room h2 {
+  margin: 0;
+  font-size: 24px;
+}
+.room p {
+  margin: 0;
+}
+.room .description {
+  margin: 8px 0;
+}
+.room img {
+  display: block;
+  grid-row: 1/6;
+  width: 100%;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+@media (max-width: 800px) {
+  .room img {
+    padding: 0 0 16px;
+  }
+}
+.room .price {
+  font-weight: 700;
+}
+
+.room {
+  margin-bottom: 48px;
+}
+@media (max-width: 800px) {
+  .room {
+    margin-bottom: 64px;
+  }
+}
+
+.cta {
+  background-color: #505050;
+  color: white;
+  transition: 0.2s ease background-color;
+  font: 20px "Josefin Sans", sans-serif;
+  padding: 14px 20px 12px;
+  width: fit-content;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+}
+.cta:hover,
+.cta:focus {
+  outline: none;
+  background-color: #222;
+}
+@media (max-width: 800px) {
+  .cta {
+    width: auto;
+    text-align: center;
+    margin-top: 16px;
+  }
+}
+
+.filter {
+  margin: 0 0 16px;
+}
+
+.datePickerSelected {
+  display: block;
+  font: inherit;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0 16px 16px 0;
+  border: 0;
+  cursor: pointer;
+}

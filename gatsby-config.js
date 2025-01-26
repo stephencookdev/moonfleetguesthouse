@@ -4,7 +4,6 @@ module.exports = {
     email: "moonfleetguesthouse@icloud.com",
     telephone: "07572 743 951",
     mainNav: [
-      { href: "/room-rates/", title: "Room Rates" },
       { href: "/find-us/", title: "Find Us" },
       { href: "/gallery/", title: "Gallery" },
       { href: "/contact-us/", title: "Contact" },
@@ -16,19 +15,12 @@ module.exports = {
   plugins: [
     `gatsby-transformer-remark`,
     {
-      resolve: "gatsby-plugin-netlify-cms",
+      resolve: "gatsby-plugin-decap-cms",
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
       },
     },
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -38,8 +30,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-netlify`,
   ],
 };

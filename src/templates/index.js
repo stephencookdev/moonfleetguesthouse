@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Markdown from "markdown-to-jsx";
 import ImageGallery from "react-image-gallery";
+import { Link } from "gatsby";
 import Layout from "../components/layout";
-import BookNow from "../components/book-now";
-import styles from "./index.module.css";
+import * as styles from "./index.module.css";
 
 const BackgroundImageCarousel = ({ images }) => {
   return (
@@ -40,13 +40,9 @@ export const IndexTemplate = ({
       <h1 className={styles.title}>{title}</h1>
       <p className={styles.tagline}>{tagline}</p>
 
-      <BookNow
-        telephone={siteMetadata.telephone}
-        email={siteMetadata.email}
-        className={styles.cta}
-      >
+      <Link to="/room-rates/" className={styles.cta}>
         Book Now
-      </BookNow>
+      </Link>
     </header>
 
     <Layout floatHeader siteMetadata={siteMetadata}>

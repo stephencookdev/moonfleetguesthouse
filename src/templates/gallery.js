@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import ImageGallery from "react-image-gallery";
 import Layout from "../components/layout";
-import styles from "./gallery.module.css";
+import * as styles from "./gallery.module.css";
 
-export const GalleryTemplate = ({ images, siteMetadata }) => {
+export const GalleryTemplate = ({ images: rawImages, siteMetadata }) => {
   const imageGalleryRef = useRef(null);
 
   const openImage = (i) => () => {
@@ -13,21 +13,23 @@ export const GalleryTemplate = ({ images, siteMetadata }) => {
     imageGalleryRef.current.fullScreen();
   };
 
+  const images = rawImages.map((im) => ({
+    thumbnail: im.replace("/assets/", "/assets-thumbnails/"),
+    original: im,
+  }));
+
   return (
     <Layout siteMetadata={siteMetadata}>
       <div className={styles.gallery}>
-        {images.map((src, i) => (
-          <button key={src} onClick={openImage(i)}>
-            <img src={src} alt="" />
+        {images.map(({ thumbnail }, i) => (
+          <button key={thumbnail} onClick={openImage(i)}>
+            <img src={thumbnail} alt="" />
           </button>
         ))}
       </div>
 
       <ImageGallery
-        items={images.map((im) => ({
-          thumbnail: im.replace("/assets/", "/assets-thumbnails/"),
-          original: im,
-        }))}
+        items={images}
         infinite
         showBullets
         showPlayButton={false}

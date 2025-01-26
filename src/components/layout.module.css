@@ -16,7 +16,7 @@ body {
   margin: auto;
   padding: 16px 24px 32px;
   box-sizing: border-box;
-  font: 20px "Cardo";
+  font: 20px "Cardo", serif;
   line-height: 1.3;
 }
 

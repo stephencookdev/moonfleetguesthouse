@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Markdown from "markdown-to-jsx";
-import styles from "./section-list.module.css";
+import * as styles from "./section-list.module.css";
 
 export const SectionType = PropTypes.shape({
   title: PropTypes.string.isRequired,

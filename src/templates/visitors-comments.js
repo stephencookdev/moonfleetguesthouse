@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
-import styles from "./visitors-comments.module.css";
+import * as styles from "./visitors-comments.module.css";
 
 const Circles = ({ count }) => {
   const fullCircles = Math.floor(count);
