@@ -71,6 +71,6 @@ extraSections:
       Otherwise, the full cost of the first night's stay will be chargeable. 
 
 
-      Payment pre-authorisation will be taken 7 days prior to your stay.
+      Payment for the first night will be taken 7 days prior to your stay.
     title: Cancellation Policy
 ---
