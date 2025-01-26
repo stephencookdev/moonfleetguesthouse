@@ -120,7 +120,7 @@ async function syncExternalCalendar({
       summary: `[${source}]: ${event.summary} (${event.uid})`,
     }));
 
-  const allExistingEventsBySource =
+  const allExistingEventsBySource = (
     (
       await calendar.events.list({
         auth: googleCalendarAuth,
@@ -131,7 +131,8 @@ async function syncExternalCalendar({
         maxResults: 2500,
         singleEvents: true,
       })
-    )?.data?.items || [];
+    )?.data?.items || []
+  ).filter((event) => event.summary.startsWith(`[${source}]`));
 
   const dupeEventsToOmit = force
     ? []
