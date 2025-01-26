@@ -6,10 +6,6 @@ sections:
       breathtaking heather moorland and dramatic coastline.
     image: /assets/10078626-a170-4c4f-8473-ad4c82d4d043.jpg
     title: Cleveland Way
-  - body: The Land of Iron is located a short walk away in the village. Click
-      [here](https://landofiron.org.uk/) for details and to book your tickets!
-    image: /assets/land-of-iron-museum.jpeg
-    title: Land of Iron - Skinningrove
   - body: Just a short stroll — less than five minutes — from Skinningrove's
       stunning, unspoiled beaches, known for their dramatic cliff edges,
       expansive sand dunes, and hidden fossils waiting to be discovered at the
@@ -19,6 +15,10 @@ sections:
       [website](https://landofiron.org.uk/skinningrove-history-group).
     image: /assets/bkpam2100478_seacliffs_1.jpg
     title: Skinningrove & Beaches
+  - body: The Land of Iron is located a short walk away in the village. Click
+      [here](https://landofiron.org.uk/) for details and to book your tickets!
+    image: /assets/land-of-iron-museum.jpeg
+    title: Land of Iron - Skinningrove
   - body: >-
       Take a cliffside walk along the coastal paths towards our neighbouring
       seaside towns:
