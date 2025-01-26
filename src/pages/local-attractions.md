@@ -12,7 +12,7 @@ sections:
     title: Land of Iron - Skinningrove
   - body: Less than a 5 minute walk from Skinningrove's unrestricted beaches -
       revered for their wild cliffs, sand dunes and fossils which can be found
-      at the hidden end of the beach. This can also be a great spot for
+      hidden at the end of the beach. This can also be a great spot for
       [birdwatching](https://www.teesmouthbc.com/skinningrove/). Visit the local
       history group's
       [website](https://landofiron.org.uk/skinningrove-history-group) to find
