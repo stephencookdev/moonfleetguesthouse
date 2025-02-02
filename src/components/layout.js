@@ -3,6 +3,7 @@ import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import Modal from "react-modal";
+import BookNow from "../components/book-now";
 import Header from "./header";
 import "react-image-gallery/styles/css/image-gallery.css";
 import * as styles from "./layout.module.css";
@@ -46,9 +47,13 @@ const Layout = ({ floatHeader, siteMetadata, children }) => {
               <a href={`mailto:${email}`}>{email}</a>
             </p>
 
-            <Link to="/room-rates/" className={styles.cta}>
+            <BookNow
+              telephone={siteMetadata.telephone}
+              email={siteMetadata.email}
+              className={styles.cta}
+            >
               Book Now
-            </Link>
+            </BookNow>
           </div>
         </div>
       </footer>

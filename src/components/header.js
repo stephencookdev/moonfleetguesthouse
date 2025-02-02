@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
+import { useBookHref } from "./book-now";
 import * as styles from "./header.module.css";
 
 const Nav = ({ links }) => {
@@ -46,7 +47,8 @@ Nav.propTypes = {
 };
 
 const Header = ({ siteMetadata, floatHeader }) => {
-  const { title, mainNav } = siteMetadata;
+  const { title, mainNav, telephone, email } = siteMetadata;
+  const bookHref = useBookHref(telephone, email);
 
   return (
     <header
@@ -62,12 +64,7 @@ const Header = ({ siteMetadata, floatHeader }) => {
         <Nav
           links={[
             ...mainNav,
-            {
-              href: "/room-rates/",
-              title: "Book",
-              highlight: true,
-              absolute: true,
-            },
+            { href: bookHref, title: "Book", highlight: true, absolute: true },
           ]}
         />
       </div>
