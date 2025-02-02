@@ -72,5 +72,8 @@ extraSections:
 
 
       Payment for the first night will be taken 7 days prior to your stay.
+
+
+      Any remaining balance will be taken on arrival in cash or by card.
     title: Payment & Cancellation Policy
 ---
