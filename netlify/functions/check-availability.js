@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
     const calendarId = roomToCalendarId(room);
 
-    const eventStartTime = getUKTime(dateRange.start, CHECK_IN_HOUR, 0);
+    const eventStartTime = getUKTime(dateRange.start, CHECK_IN_HOUR % 24, 0);
     const eventEndTime = getUKTime(dateRange.end, CHECK_OUT_HOUR, 0);
 
     // Check if a calendar entry already exists

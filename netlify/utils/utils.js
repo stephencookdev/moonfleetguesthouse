@@ -2,8 +2,8 @@ const { google } = require("googleapis");
 const { Temporal } = require("@js-temporal/polyfill");
 const dateFns = require("date-fns");
 
-const CHECK_IN_HOUR = 24;
-const CHECK_OUT_HOUR = 24;
+const CHECK_IN_HOUR = 0;
+const CHECK_OUT_HOUR = 0;
 const SINGLE_OCCUPANCY_DISCOUNT = { percentage: 10 };
 const AUGUST_EXTRA = { amount: 1000, currency: "GBP" };
 const ROOM_TO_CALENDAR_ID = {
@@ -186,13 +186,19 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
       end: dateRange.end,
     })
     .filter((date) => dateFns.isSaturday(date)).length;
+
   // August is also priced differently, so we need to count how many days in August are in the date range
-  const totalAugustDays = dateFns
-    .eachDayOfInterval({
-      start: dateRange.start,
-      end: dateRange.end,
-    })
-    .filter((date) => dateFns.getMonth(date) === 7).length;
+  const totalAugustNights = Math.max(
+    0,
+    dateFns
+      .eachDayOfInterval({
+        start: dateRange.start,
+        end: dateRange.end,
+      })
+      .filter((date) => dateFns.getMonth(date) === 7).length -
+      // -1 since nights not days
+      1
+  );
 
   const totalNonSaturdays = totalNights - totalSaturdays;
 
@@ -201,7 +207,7 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
     roomRates[room].standard,
     totalNonSaturdays
   );
-  const augustAdditions = multiplyPrice(AUGUST_EXTRA, totalAugustDays);
+  const augustAdditions = multiplyPrice(AUGUST_EXTRA, totalAugustNights);
   const validDiscounts =
     numberOfGuests === 1
       ? [
@@ -222,7 +228,7 @@ const getPriceToPay = async ({ dateRange, numberOfGuests, room }) => {
       price: nonSaturdayPrice,
     },
     {
-      description: `August nights x ${totalAugustDays}`,
+      description: `August nights x ${totalAugustNights}`,
       price: augustAdditions,
     },
     ...validDiscounts.filter((d) => d.amount < 0),
