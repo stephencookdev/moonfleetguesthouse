@@ -39,7 +39,7 @@ roomsExtra: |-
 
   A discount of 15% is applied to rooms with single occupancy
 
-  Extra single beds are charged at £30 including breakfast
+  Extra single beds are charged at £35 including breakfast
 extraSections:
   - body: >-
       **Private Hire of the Guest House**
