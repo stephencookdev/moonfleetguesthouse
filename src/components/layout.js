@@ -1,28 +1,15 @@
 import React from "react";
-import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import Modal from "react-modal";
 import BookNow from "../components/book-now";
 import Header from "./header";
-import "react-image-gallery/styles/css/image-gallery.css";
 import * as styles from "./layout.module.css";
 
-const Layout = ({ floatHeader, siteMetadata, children }) => {
+const Layout = ({ floatHeader = false, siteMetadata, children }) => {
   const { title, email, telephone, mainNav } = siteMetadata;
-
-  Modal.setAppElement("#___gatsby");
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-        <link
-          href="https://fonts.googleapis.com/css?family=Cardo:400,700|Josefin+Sans:300,400&display=swap"
-          rel="stylesheet"
-        />
-      </Helmet>
-
       <Header floatHeader={floatHeader} siteMetadata={siteMetadata} />
 
       <main className={styles.main}>{children}</main>
@@ -70,10 +57,6 @@ Layout.propTypes = {
     mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   children: PropTypes.node.isRequired,
-};
-
-Layout.defaultProps = {
-  floatHeader: false,
 };
 
 export default Layout;

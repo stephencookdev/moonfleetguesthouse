@@ -16,6 +16,7 @@ const Nav = ({ links }) => {
       >
         <button
           className={styles.hamburger}
+          aria-label={active ? "Close navigation" : "Open navigation"}
           onClick={() => setActive(!active)}
         />
 
@@ -37,7 +38,11 @@ const Nav = ({ links }) => {
         </nav>
       </div>
 
-      <div className={styles.navBlackOut} onClick={() => setActive(false)} />
+      <button
+        className={styles.navBlackOut}
+        aria-label="Close navigation"
+        onClick={() => setActive(false)}
+      />
     </Fragment>
   );
 };
@@ -46,7 +51,7 @@ Nav.propTypes = {
   links: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const Header = ({ siteMetadata, floatHeader }) => {
+const Header = ({ siteMetadata, floatHeader = false }) => {
   const { title, mainNav, telephone, email } = siteMetadata;
   const bookHref = useBookHref(telephone, email);
 
@@ -80,10 +85,6 @@ Header.propTypes = {
     mainNav: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   floatHeader: PropTypes.bool,
-};
-
-Header.defaultProps = {
-  floatHeader: false,
 };
 
 export default Header;

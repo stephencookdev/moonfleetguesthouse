@@ -12,14 +12,19 @@ export const useBookHref = (telephone, email) => {
   return useTelephone ? `tel:${telephone}` : `mailto:${email}`;
 };
 
-const BookNow = ({ telephone, email, ...props }) => {
+const BookNow = ({ telephone, email, children, ...props }) => {
   const bookHref = useBookHref(telephone, email);
-  return <a href={bookHref} {...props} />;
+  return (
+    <a href={bookHref} {...props}>
+      {children}
+    </a>
+  );
 };
 
 BookNow.propTypes = {
   telephone: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default BookNow;

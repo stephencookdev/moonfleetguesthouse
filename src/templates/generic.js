@@ -1,19 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import SectionList, { SectionType } from "../components/section-list";
-import Layout from "../components/layout";
-
-export const GenericTemplate = ({ sections, siteMetadata }) => (
-  <Layout siteMetadata={siteMetadata}>
-    <SectionList sections={sections} />
-  </Layout>
-);
-
-GenericTemplate.propTypes = {
-  siteMetadata: PropTypes.object.isRequired,
-  sections: PropTypes.arrayOf(SectionType).isRequired,
-};
+import GenericTemplate from "../components/page-templates/generic-template";
 
 const Generic = ({ data }) => {
   const { frontmatter } = data.markdownRemark;

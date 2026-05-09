@@ -1,15 +1,57 @@
-const { mkdirSync } = require("fs");
+const {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} = require("fs");
 const path = require("path");
 const glob = require("glob");
 const sharp = require("sharp");
-const rimraf = require("rimraf");
 
 const ROOT = path.join(__dirname, "..");
 const INPUT_DIR = "static_assets";
 const ASSETS_DIR = "public/assets";
 const THUMBNAIL_DIR = "public/assets-thumbnails";
+const MANIFEST_FILE = ".cache/fix-up-images-manifest.json";
+const OUTPUTS = [
+  { directory: ASSETS_DIR, maxLength: 1800, quality: 85 },
+  { directory: THUMBNAIL_DIR, maxLength: 600, quality: 70 },
+];
 
-const maxSizeJpeg = async (image, outputPath, { maxLength, quality }) => {
+const readManifest = () => {
+  const manifestPath = path.join(ROOT, MANIFEST_FILE);
+
+  if (!existsSync(manifestPath)) return {};
+
+  try {
+    return JSON.parse(readFileSync(manifestPath, "utf8"));
+  } catch {
+    return {};
+  }
+};
+
+const writeManifest = (manifest) => {
+  const manifestPath = path.join(ROOT, MANIFEST_FILE);
+  mkdirSync(path.dirname(manifestPath), { recursive: true });
+  writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+};
+
+const getSignature = (file, options) => {
+  const stats = statSync(file);
+
+  return [
+    stats.size,
+    stats.mtimeMs,
+    options.maxLength,
+    options.quality,
+    1,
+  ].join(":");
+};
+
+const maxSizeJpeg = async (inputPath, outputPath, { maxLength, quality }) => {
+  const image = sharp(inputPath);
   const metadata = await image.metadata();
   const longestLength = Math.max(metadata.width, metadata.height);
   const longestLengthKey =
@@ -26,42 +68,63 @@ const maxSizeJpeg = async (image, outputPath, { maxLength, quality }) => {
     .toFile(outputPath);
 };
 
+const ensureCurrentOutput = async (file, outputPath, options, manifest) => {
+  const signature = getSignature(file, options);
+
+  if (manifest[outputPath] === signature && existsSync(outputPath)) {
+    return false;
+  }
+
+  mkdirSync(path.dirname(outputPath), { recursive: true });
+  await maxSizeJpeg(file, outputPath, options);
+  manifest[outputPath] = signature;
+  return true;
+};
+
 class FixUpImagesPlugin {
   apply(compiler) {
     compiler.hooks.afterEmit.tapPromise("FixUpImagesPlugin", async () => {
-      // Assuming ASSETS_DIR and THUMBNAIL_DIR are defined earlier in the plugin
       const inputAssetsDir = path.join(ROOT, INPUT_DIR);
       const files = glob.sync(path.join(inputAssetsDir, "./**/*.+(jpg|jpeg)"));
       const start = Date.now();
-      console.log(`CREATING THUMBNAILS for ${files.length} files`);
+      const manifest = readManifest();
 
-      rimraf.sync(ASSETS_DIR);
-      rimraf.sync(THUMBNAIL_DIR);
-      mkdirSync(ASSETS_DIR, { recursive: true });
-      mkdirSync(THUMBNAIL_DIR, { recursive: true });
+      let processedCount = 0;
+      const expectedOutputs = new Set();
+      const filePromises = files.flatMap((file) =>
+        OUTPUTS.map(async (options) => {
+          const relativePath = path.relative(inputAssetsDir, file);
+          const outputPath = path.join(ROOT, options.directory, relativePath);
+          expectedOutputs.add(outputPath);
 
-      const filePromises = files.flatMap((file) => {
-        const relativePath = path.relative(inputAssetsDir, file);
-        const outputPath = path.join(ROOT, ASSETS_DIR, relativePath);
-        const thumbnailPath = path.join(ROOT, THUMBNAIL_DIR, relativePath);
+          const didProcess = await ensureCurrentOutput(
+            file,
+            outputPath,
+            options,
+            manifest
+          );
 
-        const image = sharp(file);
-
-        return [
-          maxSizeJpeg(image, outputPath, {
-            maxLength: 1800,
-            quality: 85,
-          }),
-          maxSizeJpeg(image, thumbnailPath, {
-            maxLength: 600,
-            quality: 70,
-          }),
-        ];
-      });
+          if (didProcess) processedCount += 1;
+        })
+      );
 
       await Promise.all(filePromises);
 
-      console.log(`Done CREATING THUMBNAILS in ${Date.now() - start}ms`);
+      Object.keys(manifest).forEach((outputPath) => {
+        if (!expectedOutputs.has(outputPath)) {
+          rmSync(outputPath, { force: true });
+          delete manifest[outputPath];
+        }
+      });
+      writeManifest(manifest);
+
+      console.log(
+        `Checked ${
+          files.length
+        } images, processed ${processedCount} outputs in ${
+          Date.now() - start
+        }ms`
+      );
     });
   }
 }

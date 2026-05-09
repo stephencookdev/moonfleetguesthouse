@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Markdown from "markdown-to-jsx";
+import { toThumbnailSrc } from "../utils/image-paths";
 import * as styles from "./section-list.module.css";
 
 export const SectionType = PropTypes.shape({
@@ -15,7 +16,14 @@ const SectionList = ({ sections }) => (
       <div className={styles.section} key={title}>
         <h2>{title}</h2>
         <div className={styles.sectionContent}>
-          {image && <img src={image} alt="" />}
+          {image && (
+            <img
+              src={toThumbnailSrc(image)}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          )}
           <Markdown options={{ forceBlock: true }}>{body}</Markdown>
         </div>
       </div>

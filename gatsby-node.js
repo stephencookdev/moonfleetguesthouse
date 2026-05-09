@@ -1,8 +1,7 @@
 const path = require("path");
-const { existsSync } = require("fs");
+const { existsSync, readdirSync, rmSync } = require("fs");
 const { createFilePath } = require("gatsby-source-filesystem");
 const FixUpImagesPlugin = require("./webpack/fix-up-images-plugin");
-const RoomRatesNetlifyPlugin = require("./webpack/room-rates-netlify-plugin");
 
 const getPages = ({ graphql }) => {
   return graphql(`
@@ -71,6 +70,17 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
-    plugins: [new FixUpImagesPlugin(), new RoomRatesNetlifyPlugin()],
+    devtool: false,
+    plugins: [new FixUpImagesPlugin()],
   });
+};
+
+exports.onPostBuild = () => {
+  const adminDir = path.resolve("public/admin");
+
+  if (!existsSync(adminDir)) return;
+
+  readdirSync(adminDir)
+    .filter((file) => file.endsWith(".map"))
+    .forEach((file) => rmSync(path.join(adminDir, file), { force: true }));
 };

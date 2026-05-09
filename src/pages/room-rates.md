@@ -32,7 +32,8 @@ rooms:
     name: Jeremy Fox
     normalPrice: £145
     saturdayPrice: £160
-    tagline: Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath &
+    tagline:
+      Luxury Room with Super-King Sized Bed and Free-Standing Copper Bath &
       Shower
 roomsExtra: |-
   **During peak month of August, please add £10 to all room prices above.** 
@@ -50,7 +51,8 @@ extraSections:
 
       Perfect for a group holiday or family reunion! Please call us directly for more information. Dogs welcome.
     title: Friends and Family Gatherings
-  - body: Dogs are welcome to stay upon request. There is an extra charge of £10 per
+  - body:
+      Dogs are welcome to stay upon request. There is an extra charge of £10 per
       night per dog to allow for extra cleaning.
     title: Dogs
   - body: >-

@@ -1,67 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import Markdown from "markdown-to-jsx";
-import ImageGallery from "react-image-gallery";
-import Layout from "../components/layout";
-import BookNow from "../components/book-now";
-import * as styles from "./index.module.css";
-
-const BackgroundImageCarousel = ({ images }) => {
-  return (
-    <div className={styles.headerBg}>
-      <ImageGallery
-        items={images.map((im) => ({ original: im }))}
-        showNav={false}
-        showThumbnails={false}
-        showFullscreenButton={false}
-        showPlayButton={false}
-        autoPlay
-        slideInterval={6000}
-        renderItem={(item) => (
-          <img src={item.original} alt="" className={styles.headerBgItem} />
-        )}
-      />
-    </div>
-  );
-};
-
-export const IndexTemplate = ({
-  title,
-  tagline,
-  carouselImage,
-  body,
-  siteMetadata,
-}) => (
-  <>
-    <BackgroundImageCarousel images={carouselImage} />
-
-    <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <p className={styles.tagline}>{tagline}</p>
-
-      <BookNow
-        telephone={siteMetadata.telephone}
-        email={siteMetadata.email}
-        className={styles.cta}
-      >
-        Book Now
-      </BookNow>
-    </header>
-
-    <Layout floatHeader siteMetadata={siteMetadata}>
-      <Markdown options={{ forceBlock: true }}>{body}</Markdown>
-    </Layout>
-  </>
-);
-
-IndexTemplate.propTypes = {
-  title: PropTypes.string,
-  tagline: PropTypes.string,
-  carouselImage: PropTypes.arrayOf(PropTypes.string),
-  body: PropTypes.string,
-  siteMetadata: PropTypes.object.isRequired,
-};
+import IndexTemplate from "../components/page-templates/index-template";
 
 const IndexPage = ({ data }) => {
   const { frontmatter, rawMarkdownBody } = data.markdownRemark;

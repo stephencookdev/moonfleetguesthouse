@@ -19,9 +19,13 @@ module.exports = {
       resolve: "gatsby-plugin-decap-cms",
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
+        customizeWebpackConfig: (config) => {
+          if (config.mode === "production") {
+            config.devtool = false;
+          }
+        },
       },
     },
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -29,8 +33,6 @@ module.exports = {
         name: `pages`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-netlify`,
   ],
 };

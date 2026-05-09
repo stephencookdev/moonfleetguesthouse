@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CMS from "decap-cms-app";
-import { IndexTemplate } from "../templates/index";
-import { FindUsTemplate } from "../templates/find-us";
-import { GalleryTemplate } from "../templates/gallery";
-import { RoomRatesTemplate } from "../templates/room-rates";
-import { VisitorsCommentsTemplate } from "../templates/visitors-comments";
-import { GenericTemplate } from "../templates/generic";
+import IndexTemplate from "../components/page-templates/index-template";
+import FindUsTemplate from "../components/page-templates/find-us-template";
+import GalleryTemplate from "../components/page-templates/gallery-template";
+import RoomRatesTemplate from "../components/page-templates/room-rates-template";
+import VisitorsCommentsTemplate from "../components/page-templates/visitors-comments-template";
+import GenericTemplate from "../components/page-templates/generic-template";
 import config from "../../gatsby-config";
 
 const createPagePreview = (Template) => {
