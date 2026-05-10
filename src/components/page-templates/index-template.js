@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Markdown from "markdown-to-jsx";
 import ImageGallery from "react-image-gallery";
+import { T, Ways } from "@18ways/react";
+import { createFieldTranslationContext } from "../../i18n";
+import TranslatedMarkdown from "../translated-markdown";
 import BookNow from "../book-now";
 import Layout from "../layout";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -52,20 +54,34 @@ const IndexTemplate = ({
     <BackgroundImageCarousel images={carouselImage} />
 
     <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
-      <p className={styles.tagline}>{tagline}</p>
+      <h1 className={styles.title}>
+        <Ways context={createFieldTranslationContext("title", "Title")}>
+          <T>{title}</T>
+        </Ways>
+      </h1>
+      <p className={styles.tagline}>
+        <Ways context={createFieldTranslationContext("tagline", "Tagline")}>
+          <T>{tagline}</T>
+        </Ways>
+      </p>
 
       <BookNow
         telephone={siteMetadata.telephone}
         email={siteMetadata.email}
         className={styles.cta}
       >
-        Book Now
+        <Ways
+          context={createFieldTranslationContext("booking.cta", "Booking CTA")}
+        >
+          <T>Book Now</T>
+        </Ways>
       </BookNow>
     </header>
 
     <Layout floatHeader siteMetadata={siteMetadata}>
-      <Markdown options={{ forceBlock: true }}>{body}</Markdown>
+      <Ways context={createFieldTranslationContext("body", "Body")}>
+        <TranslatedMarkdown>{body}</TranslatedMarkdown>
+      </Ways>
     </Layout>
   </>
 );

@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Markdown from "markdown-to-jsx";
+import { T, Ways } from "@18ways/react";
+import { createFieldTranslationContext } from "../../i18n";
 import BookNow from "../book-now";
 import Layout from "../layout";
+import TranslatedMarkdown from "../translated-markdown";
 import { toThumbnailSrc } from "../../utils/image-paths";
 import * as styles from "../../templates/room-rates.module.css";
 
@@ -15,21 +17,36 @@ const Room = ({
   saturdayPrice,
   tagline,
 }) => (
-  <div key={name} className={styles.room}>
-    <h2>{name}</h2>
-    <p className={styles.description}>{tagline}</p>
-    <p>
-      Sun-Fri inc. Breakfast <span className={styles.price}>{normalPrice}</span>
-    </p>
-    <p>
-      Saturday inc. Breakfast{" "}
-      <span className={styles.price}>{saturdayPrice}</span>
-    </p>
-    <img src={toThumbnailSrc(image)} alt="" loading="lazy" decoding="async" />
-    <BookNow telephone={telephone} email={email} className={styles.cta}>
-      Book Now
-    </BookNow>
-  </div>
+  <Ways context="room">
+    <div key={name} className={styles.room}>
+      <h2>
+        <T fixed>{name}</T>
+      </h2>
+      <p className={styles.description}>
+        <T>{tagline}</T>
+      </p>
+      <p>
+        <T>
+          <>
+            Sun-Fri inc. Breakfast{" "}
+            <span className={styles.price}>{normalPrice}</span>
+          </>
+        </T>
+      </p>
+      <p>
+        <T>
+          <>
+            Saturday inc. Breakfast{" "}
+            <span className={styles.price}>{saturdayPrice}</span>
+          </>
+        </T>
+      </p>
+      <img src={toThumbnailSrc(image)} alt="" loading="lazy" decoding="async" />
+      <BookNow telephone={telephone} email={email} className={styles.cta}>
+        <T>Book Now</T>
+      </BookNow>
+    </div>
+  </Ways>
 );
 
 Room.propTypes = {
@@ -50,7 +67,11 @@ const RoomRatesTemplate = ({
   extraSections,
 }) => (
   <Layout siteMetadata={siteMetadata}>
-    <p className={styles.tagline}>{tagline}</p>
+    <p className={styles.tagline}>
+      <Ways context={createFieldTranslationContext("tagline", "Tagline")}>
+        <T>{tagline}</T>
+      </Ways>
+    </p>
 
     <div>
       {rooms.map((room) => (
@@ -63,13 +84,30 @@ const RoomRatesTemplate = ({
       ))}
     </div>
 
-    <Markdown options={{ forceBlock: true }}>{roomsExtra}</Markdown>
+    <Ways context={createFieldTranslationContext("roomsExtra", "Rooms extra")}>
+      <TranslatedMarkdown>{roomsExtra}</TranslatedMarkdown>
+    </Ways>
 
-    {extraSections.map(({ title, body }) => (
-      <div key={title} className={styles.roomSection}>
-        <h3>{title}</h3>
-        <Markdown options={{ forceBlock: true }}>{body}</Markdown>
-      </div>
+    {extraSections.map(({ title, body }, index) => (
+      <Ways
+        key={title}
+        context={{
+          name: `extraSections.${index + 1}`,
+          label: title,
+          treePath: `Extra sections > ${title}`,
+        }}
+      >
+        <div key={title} className={styles.roomSection}>
+          <h3>
+            <Ways context={createFieldTranslationContext("title", "Title")}>
+              <T>{title}</T>
+            </Ways>
+          </h3>
+          <Ways context={createFieldTranslationContext("body", "Body")}>
+            <TranslatedMarkdown>{body}</TranslatedMarkdown>
+          </Ways>
+        </div>
+      </Ways>
     ))}
   </Layout>
 );

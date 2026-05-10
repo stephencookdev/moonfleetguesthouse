@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
+import { useT } from "@18ways/react";
 import ImageGallery from "react-image-gallery";
 import Layout from "../layout";
 import { toThumbnailSrc } from "../../utils/image-paths";
@@ -9,6 +10,7 @@ import * as styles from "../../templates/gallery.module.css";
 const GalleryTemplate = ({ images: rawImages, siteMetadata }) => {
   const imageGalleryRef = useRef(null);
   const [fullscreenIndex, setFullscreenIndex] = useState(null);
+  const t = useT({ suspend: false });
 
   useEffect(() => {
     if (fullscreenIndex !== null) {
@@ -33,7 +35,9 @@ const GalleryTemplate = ({ images: rawImages, siteMetadata }) => {
           <button
             key={`${thumbnail}-${i}`}
             onClick={openImage(i)}
-            aria-label={`Open image ${i + 1}`}
+            aria-label={t("Open image {imageNumber}", {
+              vars: { imageNumber: i + 1 },
+            })}
           >
             <img src={thumbnail} alt="" loading="lazy" decoding="async" />
           </button>

@@ -1,11 +1,14 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Link } from "gatsby";
+import { T, Ways, useT } from "@18ways/react";
+import { createFieldTranslationContext } from "../i18n";
 import { useBookHref } from "./book-now";
+import LocalizedLink from "./localized-link";
 import * as styles from "./header.module.css";
 
 const Nav = ({ links }) => {
   const [active, setActive] = useState(false);
+  const t = useT({ suspend: false });
 
   return (
     <Fragment>
@@ -16,13 +19,13 @@ const Nav = ({ links }) => {
       >
         <button
           className={styles.hamburger}
-          aria-label={active ? "Close navigation" : "Open navigation"}
+          aria-label={active ? t("Close navigation") : t("Open navigation")}
           onClick={() => setActive(!active)}
         />
 
         <nav>
           {links.map(({ title, absolute, href, highlight }) => {
-            const LinkComp = absolute ? "a" : Link;
+            const LinkComp = absolute ? "a" : LocalizedLink;
             const hrefAttr = absolute ? "href" : "to";
 
             return (
@@ -31,7 +34,14 @@ const Nav = ({ links }) => {
                 className={highlight ? styles.highlight : null}
                 {...{ [hrefAttr]: href }}
               >
-                {title}
+                <Ways
+                  context={createFieldTranslationContext(
+                    href.replaceAll("/", "") || "home",
+                    title
+                  )}
+                >
+                  <T>{title}</T>
+                </Ways>
               </LinkComp>
             );
           })}
@@ -40,7 +50,7 @@ const Nav = ({ links }) => {
 
       <button
         className={styles.navBlackOut}
-        aria-label="Close navigation"
+        aria-label={t("Close navigation")}
         onClick={() => setActive(false)}
       />
     </Fragment>
@@ -63,15 +73,24 @@ const Header = ({ siteMetadata, floatHeader = false }) => {
     >
       <div className={styles.headerInner}>
         <h1>
-          <Link to="/">{title}</Link>
+          <LocalizedLink to="/">{title}</LocalizedLink>
         </h1>
 
-        <Nav
-          links={[
-            ...mainNav,
-            { href: bookHref, title: "Book", highlight: true, absolute: true },
-          ]}
-        />
+        <Ways
+          context={createFieldTranslationContext("navigation", "Navigation")}
+        >
+          <Nav
+            links={[
+              ...mainNav,
+              {
+                href: bookHref,
+                title: "Book",
+                highlight: true,
+                absolute: true,
+              },
+            ]}
+          />
+        </Ways>
       </div>
     </header>
   );

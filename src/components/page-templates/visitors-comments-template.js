@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { T } from "@18ways/react";
 import Layout from "../layout";
 import * as styles from "../../templates/visitors-comments.module.css";
 
@@ -46,7 +47,7 @@ const VisitorsCommentsTemplate = ({
             <Circles count={Number.parseFloat(tripAdvisorComRating)} />
 
             <span className={styles.title}>
-              {tripAdvisorComRating} on TripAdvisor
+              <T>{{ tripAdvisorComRating }} on TripAdvisor</T>
             </span>
           </a>
         </div>
@@ -59,7 +60,7 @@ const VisitorsCommentsTemplate = ({
             <div className={styles.bookingCom}>{bookingComRating}</div>
 
             <span className={styles.title}>
-              {bookingComRating} on Booking.com
+              <T>{{ bookingComRating }} on Booking.com</T>
             </span>
           </a>
         </div>

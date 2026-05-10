@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useT } from "@18ways/react";
 import Layout from "../layout";
 import SectionList, { SectionType } from "../section-list";
 import * as styles from "../../templates/find-us.module.css";
@@ -9,25 +10,29 @@ const FindUsTemplate = ({
   preMapSections,
   googleMapsIframeSrc,
   postMapSections,
-}) => (
-  <Layout siteMetadata={siteMetadata}>
-    <SectionList sections={preMapSections} />
+}) => {
+  const t = useT({ suspend: false });
 
-    <iframe
-      src={googleMapsIframeSrc}
-      allowFullScreen={false}
-      height="400"
-      width="100%"
-      frameBorder={0}
-      className={styles.iframe}
-      title="Map to Moonfleet"
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-    ></iframe>
+  return (
+    <Layout siteMetadata={siteMetadata}>
+      <SectionList sections={preMapSections} contextName="preMapSections" />
 
-    <SectionList sections={postMapSections} />
-  </Layout>
-);
+      <iframe
+        src={googleMapsIframeSrc}
+        allowFullScreen={false}
+        height="400"
+        width="100%"
+        frameBorder={0}
+        className={styles.iframe}
+        title={t("Map to Moonfleet")}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
+
+      <SectionList sections={postMapSections} contextName="postMapSections" />
+    </Layout>
+  );
+};
 
 FindUsTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,

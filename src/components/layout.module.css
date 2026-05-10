@@ -81,3 +81,44 @@ body {
     margin: 32px 0;
   }
 }
+
+.languageSelector {
+  margin-top: 24px;
+  min-width: 280px;
+  max-width: 100%;
+  align-self: flex-start;
+  box-sizing: border-box;
+  padding: 12px 44px 11px 14px;
+  border: 2px solid currentColor;
+  border-radius: 0;
+  background: linear-gradient(45deg, transparent 50%, currentColor 50%) right
+      18px center / 7px 7px no-repeat,
+    linear-gradient(135deg, currentColor 50%, transparent 50%) right 11px center /
+      7px 7px no-repeat,
+    transparent;
+  color: currentColor;
+  font: inherit;
+  font-weight: 400;
+  line-height: 1.2;
+  cursor: pointer;
+  appearance: none;
+}
+.languageSelector:hover,
+.languageSelector:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+.languageSelector option {
+  background: white;
+  color: #222;
+}
+@media (max-width: 800px) {
+  .languageSelector {
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    margin-top: 20px;
+    margin-bottom: 36px;
+    text-align: center;
+  }
+}
