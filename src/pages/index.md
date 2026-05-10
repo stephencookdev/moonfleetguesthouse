@@ -1,7 +1,12 @@
 ---
-title: Welcome to Moonfleet
+title: Moonfleet Guest House in Skinningrove
 tagline: Grade II listed former manor house, 300 yards from the sea in
   Skinningrove, a traditional fishing village on the North East coast of England
+seoTitle: Moonfleet Guest House | Bed & Breakfast in Skinningrove
+seoDescription: Stay at Moonfleet, a Grade II listed guest house in Skinningrove, 300 yards from the sea and close to the Cleveland Way, Cattersty Sands, Saltburn and Staithes.
+canonicalPath: /
+featuredImage: /assets/moonfleet-outside.jpg
+featuredImageAlt: Moonfleet Guest House exterior with red front door in Skinningrove
 carouselImage:
   - /assets/door-with-black-and-white.jpg
   - /assets/moonfleet-12.jpg
@@ -10,14 +15,17 @@ carouselImage:
   - /assets/moonfleet-33.jpg
 ---
 
-Local attractions include a hidden unspoilt cove (making it perfect for a quiet getaway!). There is no commercialism here, but lots of history: from saxon treasure found in the hills nearby, to smuggling, fishing and iron ore mining. Pigeon racing is a major local past time and on 5th November there is an amazing bonfire on the beach, watched by thousands. Skinningrove is a village centrally located for the tourist hot spots of Whitby, Staithes, Saltburn-by-the-Sea and the Yorkshire moors.
+Moonfleet is a characterful guest house and bed and breakfast in Skinningrove, a quiet fishing village on the North Yorkshire coast between Saltburn and Staithes. The house is Grade II listed, close to the beach, and made for unhurried coastal breaks, Cleveland Way stopovers, dog-friendly stays by arrangement, and direct bookings with a local touch.
 
-Moonfleet is situated 5 minutes walk from the Cleveland Way; ideally positioned as a stopover for walkers. The local beach (Cattersty Sands) is largely unpopulated and has no restrictions for dogs all year round - please see our Dogs page for more information on their stay at Moonfleet.
+## Why stay here
 
-All rooms are newly renovated to a high standard, have en-suite bathrooms, flat screen TVs and tea and coffee making facilities.
+- 300 yards from the sea and the quiet sands around Cattersty Sands and Skinningrove Beach
+- 5 minutes walk from the Cleveland Way, with packed lunches available upon request
+- Dog-friendly stays by arrangement, with practical facilities for muddy paws
+- Six individually decorated en-suite bedrooms with flat screen TVs and tea and coffee making facilities
+- Private bar, games room, breakfast room, and free parking
+- Direct booking by phone or email
 
-There is a private bar, games room and free car park.
+Local attractions include the hidden cove and cliffs of Cattersty Sands, the Land of Iron museum, the Skinningrove Heritage Trail, and coastal paths towards Saltburn, Staithes and Whitby. There is no commercialism here, but plenty of history: from Saxon treasure found in the hills nearby, to smuggling, fishing and iron ore mining.
 
-Packed lunches are available upon request.
-
-Visitors with dogs welcome - please contact for prior arrangements.
+Start with [Room Rates](/room-rates/), [Things To Do Near Moonfleet](/local-attractions/), [Dog-Friendly Stays](/dogs/), or our [Cleveland Way guide](/local-attractions/cleveland-way-skinningrove/).

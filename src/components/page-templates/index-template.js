@@ -79,9 +79,11 @@ const IndexTemplate = ({
     </header>
 
     <Layout floatHeader siteMetadata={siteMetadata}>
-      <Ways context={createFieldTranslationContext("body", "Body")}>
-        <TranslatedMarkdown>{body}</TranslatedMarkdown>
-      </Ways>
+      <div className={styles.body}>
+        <Ways context={createFieldTranslationContext("body", "Body")}>
+          <TranslatedMarkdown>{body}</TranslatedMarkdown>
+        </Ways>
+      </div>
     </Layout>
   </>
 );

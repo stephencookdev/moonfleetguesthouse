@@ -20,12 +20,12 @@
   box-sizing: border-box;
 }
 
-.header h1 {
+.brand {
   padding: 0;
   margin: 0;
   line-height: 1;
 }
-.header h1 a {
+.brand a {
   font: 26px "Josefin Sans", sans-serif;
   font-weight: 300;
   color: inherit;

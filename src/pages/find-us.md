@@ -1,4 +1,10 @@
 ---
+title: Find Moonfleet
+seoTitle: Find Moonfleet Guest House In Skinningrove
+seoDescription: Find Moonfleet Guest House at The Square, Skinningrove, close to Cattersty Sands, the Cleveland Way, Saltburn, Staithes and Whitby.
+canonicalPath: /find-us/
+featuredImage: /assets/moonfleet-outside.jpg
+featuredImageAlt: Moonfleet Guest House exterior with red front door in Skinningrove
 preMapSections:
   - body: Moonfleet, The Square, Skinningrove, Saltburn-by-the-Sea, UK, TS13 4BD
     title: Our Address

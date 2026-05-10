@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { T } from "@18ways/react";
+import { T, Ways } from "@18ways/react";
 import Layout from "../layout";
+import { createFieldTranslationContext } from "../../i18n";
 import * as styles from "../../templates/visitors-comments.module.css";
 
 const Circles = ({ count }) => {
@@ -32,11 +33,20 @@ Circles.propTypes = {
 
 const VisitorsCommentsTemplate = ({
   siteMetadata,
+  title,
   tripAdvisorComRating,
   bookingComRating,
 }) => {
   return (
     <Layout siteMetadata={siteMetadata}>
+      {title && (
+        <h1>
+          <Ways context={createFieldTranslationContext("title", "Title")}>
+            <T>{title}</T>
+          </Ways>
+        </h1>
+      )}
+
       <div className={styles.container}>
         <div className={styles.containerCell}>
           <a
@@ -71,6 +81,7 @@ const VisitorsCommentsTemplate = ({
 
 VisitorsCommentsTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,
+  title: PropTypes.string,
   tripAdvisorComRating: PropTypes.string.isRequired,
   bookingComRating: PropTypes.string.isRequired,
 };

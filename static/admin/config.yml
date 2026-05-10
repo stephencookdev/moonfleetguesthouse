@@ -9,6 +9,23 @@ collections:
             name: title
           - label: Tagline
             name: tagline
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
           - field:
               label: Image
               name: image
@@ -25,6 +42,23 @@ collections:
       - fields:
           - label: Title
             name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
           - label: Tagline
             name: tagline
           - fields:
@@ -32,6 +66,17 @@ collections:
                 name: name
               - label: Tagline
                 name: tagline
+              - label: Short description
+                name: shortDescription
+                required: false
+                widget: text
+              - field:
+                  label: Amenity
+                  name: amenity
+                label: Amenities
+                name: amenities
+                required: false
+                widget: list
               - label: Normal price
                 name: normalPrice
               - label: Saturday price
@@ -39,6 +84,9 @@ collections:
               - label: Image
                 name: image
                 widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
             label: Rooms
             name: rooms
             widget: list
@@ -58,9 +106,45 @@ collections:
         label: Room rates
         name: room-rates
       - fields:
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
+          - label: Section layout
+            name: sectionLayout
+            required: false
+            widget: select
+            options:
+              - cards
+              - article
           - fields:
               - label: Title
                 name: title
+              - label: Image
+                name: image
+                required: false
+                widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
+              - label: Image caption
+                name: imageCaption
+                required: false
               - label: Body
                 name: body
                 widget: markdown
@@ -72,6 +156,16 @@ collections:
           - fields:
               - label: Title
                 name: title
+              - label: Image
+                name: image
+                required: false
+                widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
+              - label: Image caption
+                name: imageCaption
+                required: false
               - label: Body
                 name: body
                 widget: markdown
@@ -82,10 +176,35 @@ collections:
         label: "Find Us"
         name: find-us
       - fields:
-          - field:
-              label: Image
-              name: image
-              widget: image
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
+          - fields:
+              - label: Image
+                name: image
+                widget: image
+              - label: Alt text
+                name: alt
+                required: false
+              - label: Caption
+                name: caption
+                required: false
             label: Images
             name: images
             widget: list
@@ -93,9 +212,45 @@ collections:
         label: Gallery
         name: gallery
       - fields:
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
+          - label: Section layout
+            name: sectionLayout
+            required: false
+            widget: select
+            options:
+              - cards
+              - article
           - fields:
               - label: Title
                 name: title
+              - label: Image
+                name: image
+                required: false
+                widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
+              - label: Image caption
+                name: imageCaption
+                required: false
               - label: Body
                 name: body
                 widget: markdown
@@ -106,12 +261,45 @@ collections:
         label: "Contact Us"
         name: contact-us
       - fields:
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
+          - label: Section layout
+            name: sectionLayout
+            required: false
+            widget: select
+            options:
+              - cards
+              - article
           - fields:
               - label: Title
                 name: title
               - label: Image
                 name: image
+                required: false
                 widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
+              - label: Image caption
+                name: imageCaption
+                required: false
               - label: Body
                 name: body
                 widget: markdown
@@ -122,6 +310,25 @@ collections:
         label: "Things To Do"
         name: local-attractions
       - fields:
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
           - label: "Booking.com Rating"
             name: bookingComRating
           - label: "TripAdvisor Rating"
@@ -130,12 +337,38 @@ collections:
         label: "Reviews"
         name: visitors-comments
       - fields:
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
           - fields:
               - label: Title
                 name: title
               - label: Image
                 name: image
+                required: false
                 widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
+              - label: Image caption
+                name: imageCaption
+                required: false
               - label: Body
                 name: body
                 widget: markdown
@@ -145,7 +378,100 @@ collections:
         file: src/pages/dogs.md
         label: "Dogs"
         name: dogs
+      - fields:
+          - label: Title
+            name: title
+          - label: SEO title
+            name: seoTitle
+            required: false
+          - label: SEO description
+            name: seoDescription
+            required: false
+            widget: text
+          - label: Canonical path
+            name: canonicalPath
+            required: false
+          - label: Featured image
+            name: featuredImage
+            required: false
+            widget: image
+          - label: Featured image alt
+            name: featuredImageAlt
+            required: false
+          - fields:
+              - label: Title
+                name: title
+              - label: Image
+                name: image
+                required: false
+                widget: image
+              - label: Image alt
+                name: imageAlt
+                required: false
+              - label: Image caption
+                name: imageCaption
+                required: false
+              - label: Body
+                name: body
+                widget: markdown
+            label: "Sections"
+            name: sections
+            widget: list
+        file: src/pages/private-hire-group-accommodation-skinningrove.md
+        label: "Private Hire"
+        name: private-hire-group-accommodation-skinningrove
     label: Moonfleet Guesthouse
     name: moonfleet
+  - create: true
+    fields:
+      - label: Title
+        name: title
+      - label: SEO title
+        name: seoTitle
+        required: false
+      - label: SEO description
+        name: seoDescription
+        required: false
+        widget: text
+      - label: Canonical path
+        name: canonicalPath
+        required: false
+      - label: Featured image
+        name: featuredImage
+        required: false
+        widget: image
+      - label: Featured image alt
+        name: featuredImageAlt
+        required: false
+      - label: Section layout
+        name: sectionLayout
+        required: false
+        widget: select
+        options:
+          - cards
+          - article
+      - fields:
+          - label: Title
+            name: title
+          - label: Image
+            name: image
+            required: false
+            widget: image
+          - label: Image alt
+            name: imageAlt
+            required: false
+          - label: Image caption
+            name: imageCaption
+            required: false
+          - label: Body
+            name: body
+            widget: markdown
+        label: "Sections"
+        name: sections
+        widget: list
+    folder: src/pages/local-attractions
+    label: "Local Guide Pages"
+    name: local-guide-pages
+    slug: "{{slug}}"
 media_folder: static_assets
 public_folder: /assets

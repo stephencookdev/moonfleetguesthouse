@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import IndexTemplate from "../components/page-templates/index-template";
+import Seo, { createLodgingSchema } from "../components/seo";
 
 const IndexPage = ({ data }) => {
   const { frontmatter, rawMarkdownBody } = data.markdownRemark;
@@ -34,13 +35,37 @@ IndexPage.propTypes = {
 
 export default IndexPage;
 
+export const Head = ({ data, pageContext }) => (
+  <Seo
+    frontmatter={data.markdownRemark.frontmatter}
+    siteMetadata={data.site.siteMetadata}
+    pageContext={pageContext}
+    structuredData={[
+      createLodgingSchema({ siteMetadata: data.site.siteMetadata }),
+    ]}
+  />
+);
+
 export const pageQuery = graphql`
   query IndexQuery($id: String!) {
     site {
       siteMetadata {
         title
+        siteUrl
+        defaultDescription
+        defaultImage
         email
         telephone
+        priceRange
+        address {
+          streetAddress
+          addressLocality
+          addressRegion
+          postalCode
+          addressCountry
+        }
+        sameAs
+        amenities
         mainNav {
           href
           title
@@ -53,6 +78,11 @@ export const pageQuery = graphql`
         title
         tagline
         carouselImage
+        seoTitle
+        seoDescription
+        canonicalPath
+        featuredImage
+        featuredImageAlt
       }
     }
   }

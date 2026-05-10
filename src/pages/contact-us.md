@@ -1,4 +1,10 @@
 ---
+title: Contact Moonfleet
+seoTitle: Contact Moonfleet Guest House | Skinningrove
+seoDescription: Contact Moonfleet Guest House in Skinningrove for direct bookings, dog-friendly stays by arrangement, room rates and private hire enquiries.
+canonicalPath: /contact-us/
+featuredImage: /assets/moonfleet-outside.jpg
+featuredImageAlt: Moonfleet Guest House exterior with red front door in Skinningrove
 sections:
   - body: |-
       **Phone**

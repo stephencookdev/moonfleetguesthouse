@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import GalleryTemplate from "../components/page-templates/gallery-template";
+import Seo, { createBreadcrumbSchema, createPageSeo } from "../components/seo";
 
 const Gallery = ({ data }) => {
   const { frontmatter } = data.markdownRemark;
@@ -29,13 +30,47 @@ Gallery.propTypes = {
 
 export default Gallery;
 
+export const Head = ({ data, pageContext }) => {
+  const { frontmatter } = data.markdownRemark;
+  const siteMetadata = data.site.siteMetadata;
+  const seo = createPageSeo({ frontmatter, siteMetadata, pageContext });
+
+  return (
+    <Seo
+      frontmatter={frontmatter}
+      siteMetadata={siteMetadata}
+      pageContext={pageContext}
+      structuredData={[
+        createBreadcrumbSchema({
+          siteMetadata,
+          pageContext,
+          title: seo.title,
+        }),
+      ]}
+    />
+  );
+};
+
 export const pageQuery = graphql`
   query GalleryQuery($id: String!) {
     site {
       siteMetadata {
         title
+        siteUrl
+        defaultDescription
+        defaultImage
         email
         telephone
+        priceRange
+        address {
+          streetAddress
+          addressLocality
+          addressRegion
+          postalCode
+          addressCountry
+        }
+        sameAs
+        amenities
         mainNav {
           href
           title
@@ -44,7 +79,17 @@ export const pageQuery = graphql`
     }
     markdownRemark(id: { eq: $id }) {
       frontmatter {
-        images
+        title
+        seoTitle
+        seoDescription
+        canonicalPath
+        featuredImage
+        featuredImageAlt
+        images {
+          image
+          alt
+          caption
+        }
       }
     }
   }
