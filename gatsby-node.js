@@ -1,5 +1,5 @@
 const path = require("path");
-const { existsSync, readdirSync, rmSync } = require("fs");
+const { existsSync, readdirSync, rmSync, writeFileSync } = require("fs");
 const { createFilePath } = require("gatsby-source-filesystem");
 const { fetchAcceptedLocales } = require("@18ways/react");
 const { init: init18ways } = require("@18ways/core/common");
@@ -13,6 +13,7 @@ const REQUEST_ORIGIN =
   process.env.GATSBY_18WAYS_REQUEST_ORIGIN ||
   process.env.URL ||
   "http://localhost:8000";
+let acceptedLocalesPromise;
 
 const normalizeAvailableLocales = (locales) => {
   const availableLocales = Array.isArray(locales)
@@ -46,17 +47,23 @@ const localizePath = (pagePath, locale) => {
 };
 
 const getAcceptedLocales = async () => {
-  init18ways({
-    key: API_KEY,
-    baseLocale: BASE_LOCALE,
-    apiUrl: API_URL,
-  });
+  if (!acceptedLocalesPromise) {
+    acceptedLocalesPromise = (async () => {
+      init18ways({
+        key: API_KEY,
+        baseLocale: BASE_LOCALE,
+        apiUrl: API_URL,
+      });
 
-  const locales = await fetchAcceptedLocales(BASE_LOCALE, {
-    origin: REQUEST_ORIGIN,
-  });
+      const locales = await fetchAcceptedLocales(BASE_LOCALE, {
+        origin: REQUEST_ORIGIN,
+      });
 
-  return normalizeAvailableLocales(locales);
+      return normalizeAvailableLocales(locales);
+    })();
+  }
+
+  return acceptedLocalesPromise;
 };
 
 const getPages = ({ graphql }) => {
@@ -91,7 +98,7 @@ const getPages = ({ graphql }) => {
       const pageContextName = fileName === "index" ? "homepage" : fileName;
       const pageLabel =
         fileName === "index" ? "Homepage" : titleize(pageContextName);
-      const filePath = `src/pages/${fileName}.md`;
+      const filePath = path.relative(process.cwd(), edge.node.fileAbsolutePath);
 
       return {
         path: edge.node.fields.slug,
@@ -159,6 +166,68 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+
+  createTypes(`
+    type MarkdownRemarkFrontmatter @infer {
+      title: String
+      seoTitle: String
+      seoDescription: String
+      canonicalPath: String
+      featuredImage: String
+      featuredImageAlt: String
+      sectionLayout: String
+      sections: [MarkdownRemarkFrontmatterSections]
+      preMapSections: [MarkdownRemarkFrontmatterPreMapSections]
+      postMapSections: [MarkdownRemarkFrontmatterPostMapSections]
+      images: [MarkdownRemarkFrontmatterImages]
+      rooms: [MarkdownRemarkFrontmatterRooms]
+    }
+
+    type MarkdownRemarkFrontmatterSections @infer {
+      title: String
+      image: String
+      imageAlt: String
+      imageCaption: String
+      body: String
+    }
+
+    type MarkdownRemarkFrontmatterPreMapSections @infer {
+      title: String
+      image: String
+      imageAlt: String
+      imageCaption: String
+      body: String
+    }
+
+    type MarkdownRemarkFrontmatterPostMapSections @infer {
+      title: String
+      image: String
+      imageAlt: String
+      imageCaption: String
+      body: String
+    }
+
+    type MarkdownRemarkFrontmatterImages @infer {
+      image: String
+      alt: String
+      caption: String
+    }
+
+    type MarkdownRemarkFrontmatterRooms @infer {
+      name: String
+      image: String
+      imageAlt: String
+      tagline: String
+      shortDescription: String
+      amenities: [String]
+      normalPrice: String
+      saturdayPrice: String
+    }
+  `);
+};
+
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     devtool: false,
@@ -166,12 +235,51 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   });
 };
 
-exports.onPostBuild = () => {
+exports.onPostBuild = async ({ graphql }) => {
   const adminDir = path.resolve("public/admin");
 
-  if (!existsSync(adminDir)) return;
+  if (existsSync(adminDir)) {
+    readdirSync(adminDir)
+      .filter((file) => file.endsWith(".map"))
+      .forEach((file) => rmSync(path.join(adminDir, file), { force: true }));
+  }
 
-  readdirSync(adminDir)
-    .filter((file) => file.endsWith(".map"))
-    .forEach((file) => rmSync(path.join(adminDir, file), { force: true }));
+  const result = await graphql(`
+    {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
+      allMarkdownRemark(limit: 1000) {
+        nodes {
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    result.errors.forEach((e) => console.error(e.toString()));
+    return;
+  }
+
+  const siteUrl = result.data.site.siteMetadata.siteUrl.replace(/\/$/, "");
+  const availableLocales = await getAcceptedLocales();
+  const urls = result.data.allMarkdownRemark.nodes.flatMap(({ fields }) =>
+    availableLocales.map(
+      (locale) => `${siteUrl}${localizePath(fields.slug, locale)}`
+    )
+  );
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map((url) => `  <url><loc>${url}</loc></url>`)
+    .join("\n")}\n</urlset>\n`;
+
+  writeFileSync(path.resolve("public/sitemap.xml"), sitemap);
+  writeFileSync(
+    path.resolve("public/robots.txt"),
+    `User-agent: *\nDisallow: /admin/\nSitemap: ${siteUrl}/sitemap.xml\n`
+  );
 };

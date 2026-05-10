@@ -13,9 +13,12 @@ const Room = ({
   telephone,
   email,
   image,
+  imageAlt,
   normalPrice,
   saturdayPrice,
   tagline,
+  shortDescription,
+  amenities,
 }) => (
   <Ways context="room">
     <div key={name} className={styles.room}>
@@ -25,6 +28,20 @@ const Room = ({
       <p className={styles.description}>
         <T>{tagline}</T>
       </p>
+      {shortDescription && (
+        <p className={styles.shortDescription}>
+          <T>{shortDescription}</T>
+        </p>
+      )}
+      {amenities?.length > 0 && (
+        <ul className={styles.amenities}>
+          {amenities.map((amenity) => (
+            <li key={amenity}>
+              <T>{amenity}</T>
+            </li>
+          ))}
+        </ul>
+      )}
       <p>
         <T>
           <>
@@ -41,7 +58,12 @@ const Room = ({
           </>
         </T>
       </p>
-      <img src={toThumbnailSrc(image)} alt="" loading="lazy" decoding="async" />
+      <img
+        src={toThumbnailSrc(image)}
+        alt={imageAlt || ""}
+        loading="lazy"
+        decoding="async"
+      />
       <BookNow telephone={telephone} email={email} className={styles.cta}>
         <T>Book Now</T>
       </BookNow>
@@ -52,21 +74,31 @@ const Room = ({
 Room.propTypes = {
   name: PropTypes.string,
   image: PropTypes.string,
+  imageAlt: PropTypes.string,
   normalPrice: PropTypes.string,
   saturdayPrice: PropTypes.string,
   tagline: PropTypes.string,
+  shortDescription: PropTypes.string,
+  amenities: PropTypes.arrayOf(PropTypes.string),
   telephone: PropTypes.string,
   email: PropTypes.string,
 };
 
 const RoomRatesTemplate = ({
   siteMetadata,
+  title,
   tagline,
   rooms,
   roomsExtra,
   extraSections,
 }) => (
   <Layout siteMetadata={siteMetadata}>
+    <h1>
+      <Ways context={createFieldTranslationContext("title", "Title")}>
+        <T>{title}</T>
+      </Ways>
+    </h1>
+
     <p className={styles.tagline}>
       <Ways context={createFieldTranslationContext("tagline", "Tagline")}>
         <T>{tagline}</T>
@@ -114,7 +146,7 @@ const RoomRatesTemplate = ({
 
 RoomRatesTemplate.propTypes = {
   siteMetadata: PropTypes.object.isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   tagline: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
   roomsExtra: PropTypes.string,

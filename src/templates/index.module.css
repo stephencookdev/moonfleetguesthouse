@@ -68,3 +68,14 @@
     font-size: 24px;
   }
 }
+
+.body a {
+  color: #222;
+  outline: none;
+}
+.body a:hover,
+.body a:focus {
+  color: #fff;
+  background: #222;
+  text-decoration: none;
+}

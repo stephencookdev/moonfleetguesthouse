@@ -72,9 +72,9 @@ const Header = ({ siteMetadata, floatHeader = false }) => {
         .join(" ")}
     >
       <div className={styles.headerInner}>
-        <h1>
+        <div className={styles.brand}>
           <LocalizedLink to="/">{title}</LocalizedLink>
-        </h1>
+        </div>
 
         <Ways
           context={createFieldTranslationContext("navigation", "Navigation")}
