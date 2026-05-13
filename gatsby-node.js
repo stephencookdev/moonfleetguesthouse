@@ -13,6 +13,50 @@ const REQUEST_ORIGIN =
   process.env.GATSBY_18WAYS_REQUEST_ORIGIN ||
   process.env.URL ||
   "http://localhost:8000";
+const IS_BUILD_DEBUG_ENABLED = process.env.GATSBY_18WAYS_BUILD_DEBUG === "1";
+
+const log18waysBuildConfig = (availableLocales) => {
+  if (!IS_BUILD_DEBUG_ENABLED) return;
+
+  console.log("[18ways-build] config", {
+    netlify: process.env.NETLIFY || "false",
+    context: process.env.CONTEXT || "",
+    branch: process.env.BRANCH || "",
+    url: process.env.URL || "",
+    deployPrimeUrl: process.env.DEPLOY_PRIME_URL || "",
+    requestOrigin: REQUEST_ORIGIN,
+    apiUrl: API_URL || "default",
+    apiKey: API_KEY === DEMO_API_KEY ? "demo fallback" : "provided",
+    apiKeyLength: API_KEY === DEMO_API_KEY ? 0 : API_KEY.length,
+    suspenseTimeoutMs: process.env.GATSBY_18WAYS_SUSPENSE_TIMEOUT_MS || "30000",
+    availableLocales,
+    availableLocalesSource: "18ways config",
+  });
+};
+
+const normalizeAvailableLocales = (locales) => {
+  const availableLocales = Array.isArray(locales)
+    ? locales.filter(Boolean)
+    : [];
+
+  if (!availableLocales.includes(BASE_LOCALE)) {
+    availableLocales.unshift(BASE_LOCALE);
+  }
+
+  return Array.from(new Set(availableLocales));
+};
+
+const warnIfLocalesLookIncomplete = (availableLocales) => {
+  if (API_KEY === DEMO_API_KEY || availableLocales.length > 1) return;
+
+  console.warn(
+    `[18ways-build] Only ${
+      availableLocales.length
+    } accepted locale resolved from 18ways. requestOrigin=${REQUEST_ORIGIN} apiUrl=${
+      API_URL || "default"
+    }`
+  );
+};
 
 const titleize = (value) =>
   value
@@ -40,7 +84,11 @@ const getAcceptedLocales = async () => {
     apiUrl: API_URL,
   });
 
-  return fetchAcceptedLocales(BASE_LOCALE, { origin: REQUEST_ORIGIN });
+  const locales = await fetchAcceptedLocales(BASE_LOCALE, {
+    origin: REQUEST_ORIGIN,
+  });
+
+  return normalizeAvailableLocales(locales);
 };
 
 const getPages = ({ graphql }) => {
@@ -94,42 +142,43 @@ const getPages = ({ graphql }) => {
   });
 };
 
-exports.createPages = ({ actions, graphql }) => {
+exports.createPages = async ({ actions, graphql }) => {
   const { createPage, createRedirect } = actions;
+  const availableLocales = await getAcceptedLocales();
+  const pages = await getPages({ graphql });
 
-  return Promise.all([getPages({ graphql }), getAcceptedLocales()]).then(
-    ([pages, availableLocales]) => {
-      pages.forEach((page) => {
-        availableLocales.forEach((locale) => {
-          createPage({
-            ...page,
-            path: localizePath(page.path, locale),
-            context: {
-              ...page.context,
-              locale,
-              availableLocales,
-            },
-          });
-        });
+  log18waysBuildConfig(availableLocales);
+  warnIfLocalesLookIncomplete(availableLocales);
 
-        createRedirect({
-          fromPath: page.path,
-          toPath: localizePath(page.path, BASE_LOCALE),
-          isPermanent: true,
-          redirectInBrowser: true,
-        });
+  pages.forEach((page) => {
+    availableLocales.forEach((locale) => {
+      createPage({
+        ...page,
+        path: localizePath(page.path, locale),
+        context: {
+          ...page.context,
+          locale,
+          availableLocales,
+        },
+      });
+    });
 
-        if (page.path !== "/" && page.path.endsWith("/")) {
-          createRedirect({
-            fromPath: page.path.slice(0, -1),
-            toPath: localizePath(page.path, BASE_LOCALE),
-            isPermanent: true,
-            redirectInBrowser: true,
-          });
-        }
+    createRedirect({
+      fromPath: page.path,
+      toPath: localizePath(page.path, BASE_LOCALE),
+      isPermanent: true,
+      redirectInBrowser: true,
+    });
+
+    if (page.path !== "/" && page.path.endsWith("/")) {
+      createRedirect({
+        fromPath: page.path.slice(0, -1),
+        toPath: localizePath(page.path, BASE_LOCALE),
+        isPermanent: true,
+        redirectInBrowser: true,
       });
     }
-  );
+  });
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

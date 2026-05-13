@@ -8,7 +8,7 @@ import * as styles from "./header.module.css";
 
 const Nav = ({ links }) => {
   const [active, setActive] = useState(false);
-  const t = useT({ suspend: false });
+  const t = useT();
 
   return (
     <Fragment>

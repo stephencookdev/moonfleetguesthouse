@@ -10,7 +10,7 @@ import * as styles from "../../templates/gallery.module.css";
 const GalleryTemplate = ({ images: rawImages, siteMetadata }) => {
   const imageGalleryRef = useRef(null);
   const [fullscreenIndex, setFullscreenIndex] = useState(null);
-  const t = useT({ suspend: false });
+  const t = useT();
 
   useEffect(() => {
     if (fullscreenIndex !== null) {

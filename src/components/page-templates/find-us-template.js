@@ -11,7 +11,7 @@ const FindUsTemplate = ({
   googleMapsIframeSrc,
   postMapSections,
 }) => {
-  const t = useT({ suspend: false });
+  const t = useT();
 
   return (
     <Layout siteMetadata={siteMetadata}>
