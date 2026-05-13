@@ -14,6 +14,18 @@ const REQUEST_ORIGIN =
   process.env.URL ||
   "http://localhost:8000";
 
+const normalizeAvailableLocales = (locales) => {
+  const availableLocales = Array.isArray(locales)
+    ? locales.filter(Boolean)
+    : [];
+
+  if (!availableLocales.includes(BASE_LOCALE)) {
+    availableLocales.unshift(BASE_LOCALE);
+  }
+
+  return Array.from(new Set(availableLocales));
+};
+
 const titleize = (value) =>
   value
     .split("-")
@@ -40,7 +52,11 @@ const getAcceptedLocales = async () => {
     apiUrl: API_URL,
   });
 
-  return fetchAcceptedLocales(BASE_LOCALE, { origin: REQUEST_ORIGIN });
+  const locales = await fetchAcceptedLocales(BASE_LOCALE, {
+    origin: REQUEST_ORIGIN,
+  });
+
+  return normalizeAvailableLocales(locales);
 };
 
 const getPages = ({ graphql }) => {
@@ -94,42 +110,40 @@ const getPages = ({ graphql }) => {
   });
 };
 
-exports.createPages = ({ actions, graphql }) => {
+exports.createPages = async ({ actions, graphql }) => {
   const { createPage, createRedirect } = actions;
+  const availableLocales = await getAcceptedLocales();
+  const pages = await getPages({ graphql });
 
-  return Promise.all([getPages({ graphql }), getAcceptedLocales()]).then(
-    ([pages, availableLocales]) => {
-      pages.forEach((page) => {
-        availableLocales.forEach((locale) => {
-          createPage({
-            ...page,
-            path: localizePath(page.path, locale),
-            context: {
-              ...page.context,
-              locale,
-              availableLocales,
-            },
-          });
-        });
+  pages.forEach((page) => {
+    availableLocales.forEach((locale) => {
+      createPage({
+        ...page,
+        path: localizePath(page.path, locale),
+        context: {
+          ...page.context,
+          locale,
+          availableLocales,
+        },
+      });
+    });
 
-        createRedirect({
-          fromPath: page.path,
-          toPath: localizePath(page.path, BASE_LOCALE),
-          isPermanent: true,
-          redirectInBrowser: true,
-        });
+    createRedirect({
+      fromPath: page.path,
+      toPath: localizePath(page.path, BASE_LOCALE),
+      isPermanent: true,
+      redirectInBrowser: true,
+    });
 
-        if (page.path !== "/" && page.path.endsWith("/")) {
-          createRedirect({
-            fromPath: page.path.slice(0, -1),
-            toPath: localizePath(page.path, BASE_LOCALE),
-            isPermanent: true,
-            redirectInBrowser: true,
-          });
-        }
+    if (page.path !== "/" && page.path.endsWith("/")) {
+      createRedirect({
+        fromPath: page.path.slice(0, -1),
+        toPath: localizePath(page.path, BASE_LOCALE),
+        isPermanent: true,
+        redirectInBrowser: true,
       });
     }
-  );
+  });
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

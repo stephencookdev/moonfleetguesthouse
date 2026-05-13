@@ -48,7 +48,7 @@ const formatLocaleName = (locale) => {
 const PathLanguageSwitcher = () => {
   const acceptedLocales = useAcceptedLocales();
   const currentLocale = useCurrentLocale();
-  const t = useT({ suspend: false });
+  const t = useT();
 
   const handleLocaleChange = (nextLocale) => {
     if (typeof window === "undefined") return;

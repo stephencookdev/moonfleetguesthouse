@@ -1,5 +1,11 @@
 const DEMO_API_KEY = "pk_dummy_demo_token";
 
+const parsePositiveInteger = (value, fallback) => {
+  const parsed = Number.parseInt(value, 10);
+
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+
 export const BASE_LOCALE = "en-GB";
 export const API_KEY = process.env.GATSBY_18WAYS_API_KEY || DEMO_API_KEY;
 export const API_URL = process.env.GATSBY_18WAYS_API_URL || undefined;
@@ -7,6 +13,10 @@ export const REQUEST_ORIGIN =
   process.env.GATSBY_18WAYS_REQUEST_ORIGIN ||
   process.env.URL ||
   "http://localhost:8000";
+export const SUSPENSE_TIMEOUT_MS = parsePositiveInteger(
+  process.env.GATSBY_18WAYS_SUSPENSE_TIMEOUT_MS,
+  30000
+);
 
 export const ROOT_TRANSLATION_CONTEXT = {
   name: "moonfleet",
@@ -20,6 +30,7 @@ export const WAYS_ROOT_PROPS = {
   baseLocale: BASE_LOCALE,
   persistLocaleCookie: true,
   requestOrigin: REQUEST_ORIGIN,
+  suspenseTimeoutMs: SUSPENSE_TIMEOUT_MS,
   context: ROOT_TRANSLATION_CONTEXT,
 };
 
