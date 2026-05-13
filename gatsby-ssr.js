@@ -3,9 +3,14 @@ const { Ways } = require("@18ways/react");
 const { BASE_LOCALE, getPathLocale, WAYS_ROOT_PROPS } = require("./src/i18n");
 
 exports.wrapPageElement = ({ element, props }) => {
-  const { locale, translationContext } = props.pageContext || {};
+  const { availableLocales, locale, translationContext } =
+    props.pageContext || {};
   const routeLocale =
     getPathLocale(props.location?.pathname) || locale || BASE_LOCALE;
+  const rootProps =
+    availableLocales && availableLocales.length > 0
+      ? { ...WAYS_ROOT_PROPS, acceptedLocales: availableLocales }
+      : WAYS_ROOT_PROPS;
 
   const pageElement = translationContext
     ? React.createElement(Ways, { context: translationContext }, element)
@@ -13,7 +18,7 @@ exports.wrapPageElement = ({ element, props }) => {
 
   return React.createElement(
     Ways,
-    { ...WAYS_ROOT_PROPS, locale: routeLocale },
+    { ...rootProps, locale: routeLocale },
     pageElement
   );
 };

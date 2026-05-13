@@ -98,15 +98,16 @@ exports.createPages = ({ actions, graphql }) => {
   const { createPage, createRedirect } = actions;
 
   return Promise.all([getPages({ graphql }), getAcceptedLocales()]).then(
-    ([pages, locales]) => {
+    ([pages, availableLocales]) => {
       pages.forEach((page) => {
-        locales.forEach((locale) => {
+        availableLocales.forEach((locale) => {
           createPage({
             ...page,
             path: localizePath(page.path, locale),
             context: {
               ...page.context,
               locale,
+              availableLocales,
             },
           });
         });
