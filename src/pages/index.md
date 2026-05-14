@@ -5,7 +5,7 @@ tagline: Grade II listed former manor house, 300 yards from the sea in
 seoTitle: Moonfleet Guest House | Bed & Breakfast in Skinningrove
 seoDescription: Stay at Moonfleet, a Grade II listed guest house in Skinningrove, 300 yards from the sea and close to the Cleveland Way, Cattersty Sands, Saltburn and Staithes.
 canonicalPath: /
-featuredImage: /assets/moonfleet-outside.jpg
+featuredImage: /assets/moonfleet-og.png
 featuredImageAlt: Moonfleet Guest House exterior with red front door in Skinningrove
 carouselImage:
   - /assets/door-with-black-and-white.jpg

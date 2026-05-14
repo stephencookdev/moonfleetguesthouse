@@ -4,7 +4,7 @@ module.exports = {
     siteUrl: "https://www.moonfleetguesthouse.co.uk",
     defaultDescription:
       "Stay at Moonfleet, a Grade II listed guest house in Skinningrove, 300 yards from the sea and close to the Cleveland Way, Cattersty Sands, Saltburn and Staithes.",
-    defaultImage: "/assets/moonfleet-outside.jpg",
+    defaultImage: "/assets/moonfleet-og.png",
     email: "moonfleetguesthouse@icloud.com",
     telephone: "07572 743 951",
     priceRange: "£125-£160",

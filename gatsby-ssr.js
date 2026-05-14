@@ -1,6 +1,7 @@
 const React = require("react");
 const { Ways } = require("@18ways/react");
 const { BASE_LOCALE, getPathLocale, WAYS_ROOT_PROPS } = require("./src/i18n");
+require("./src/global.css");
 
 const GA_MEASUREMENT_ID = process.env.GATSBY_GA_MEASUREMENT_ID;
 const GA_MEASUREMENT_ID_LITERAL = JSON.stringify(GA_MEASUREMENT_ID);
@@ -41,6 +42,42 @@ exports.onRenderBody = ({ pathname, setHeadComponents, setHtmlAttributes }) => {
       key: "font-stylesheet",
       href: "https://fonts.googleapis.com/css?family=Cardo:400,700|Josefin+Sans:300,400&display=swap",
       rel: "stylesheet",
+    }),
+    React.createElement("link", {
+      key: "favicon-ico",
+      rel: "icon",
+      href: "/assets/favicon.ico",
+      sizes: "any",
+    }),
+    React.createElement("link", {
+      key: "favicon-32",
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: "/assets/favicon-32x32.png",
+    }),
+    React.createElement("link", {
+      key: "favicon-16",
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      href: "/assets/favicon-16x16.png",
+    }),
+    React.createElement("link", {
+      key: "apple-touch-icon",
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: "/assets/apple-touch-icon.png",
+    }),
+    React.createElement("link", {
+      key: "site-webmanifest",
+      rel: "manifest",
+      href: "/site.webmanifest",
+    }),
+    React.createElement("meta", {
+      key: "theme-color",
+      name: "theme-color",
+      content: "#222222",
     }),
   ];
 

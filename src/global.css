@@ -1,0 +1,11 @@
+.translatedMarkdownLink {
+  color: #222;
+  outline: none;
+}
+
+.translatedMarkdownLink:hover,
+.translatedMarkdownLink:focus {
+  color: #fff;
+  background: #222;
+  text-decoration: none;
+}

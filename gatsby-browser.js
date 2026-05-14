@@ -2,6 +2,7 @@ import React from "react";
 import { Ways } from "@18ways/react";
 import { trackPageView } from "./src/analytics";
 import { BASE_LOCALE, getPathLocale, WAYS_ROOT_PROPS } from "./src/i18n";
+import "./src/global.css";
 
 export const wrapPageElement = ({ element, props }) => {
   const { availableLocales, locale, translationContext } =

@@ -5,20 +5,39 @@ import { T } from "@18ways/react";
 
 const translatedMarkdownTags = ["p", "li", "h1", "h2", "h3", "h4", "h5", "h6"];
 
+const MarkdownLink = ({ children, className, ...props }) => (
+  <a
+    className={["translatedMarkdownLink", className].filter(Boolean).join(" ")}
+    {...props}
+  >
+    {children}
+  </a>
+);
+
+MarkdownLink.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
+
 const createMarkdownOptions = () => ({
   forceBlock: true,
-  overrides: Object.fromEntries(
-    translatedMarkdownTags.map((tagName) => {
-      const Component = ({ children, ...props }) =>
-        React.createElement(tagName, props, <T>{children}</T>);
+  overrides: {
+    ...Object.fromEntries(
+      translatedMarkdownTags.map((tagName) => {
+        const Component = ({ children, ...props }) =>
+          React.createElement(tagName, props, <T>{children}</T>);
 
-      Component.propTypes = {
-        children: PropTypes.node,
-      };
+        Component.propTypes = {
+          children: PropTypes.node,
+        };
 
-      return [tagName, { component: Component }];
-    })
-  ),
+        return [tagName, { component: Component }];
+      })
+    ),
+    a: {
+      component: MarkdownLink,
+    },
+  },
 });
 
 const TranslatedMarkdown = ({ children }) => (
