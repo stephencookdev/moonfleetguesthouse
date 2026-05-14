@@ -1,5 +1,6 @@
 import React from "react";
 import { Ways } from "@18ways/react";
+import { trackPageView } from "./src/analytics";
 import { BASE_LOCALE, getPathLocale, WAYS_ROOT_PROPS } from "./src/i18n";
 
 export const wrapPageElement = ({ element, props }) => {
@@ -23,4 +24,12 @@ export const wrapPageElement = ({ element, props }) => {
       {pageElement}
     </Ways>
   );
+};
+
+export const onInitialClientRender = () => {
+  window.setTimeout(() => trackPageView(window.location), 0);
+};
+
+export const onRouteUpdate = ({ location }) => {
+  window.setTimeout(() => trackPageView(location), 0);
 };

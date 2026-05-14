@@ -2,6 +2,9 @@ const React = require("react");
 const { Ways } = require("@18ways/react");
 const { BASE_LOCALE, getPathLocale, WAYS_ROOT_PROPS } = require("./src/i18n");
 
+const GA_MEASUREMENT_ID = process.env.GATSBY_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID_LITERAL = JSON.stringify(GA_MEASUREMENT_ID);
+
 exports.wrapPageElement = ({ element, props }) => {
   const { availableLocales, locale, translationContext } =
     props.pageContext || {};
@@ -26,7 +29,7 @@ exports.wrapPageElement = ({ element, props }) => {
 exports.onRenderBody = ({ pathname, setHeadComponents, setHtmlAttributes }) => {
   setHtmlAttributes({ lang: getPathLocale(pathname) || BASE_LOCALE });
 
-  setHeadComponents([
+  const headComponents = [
     React.createElement("title", { key: "title" }, "Moonfleet"),
     React.createElement("link", {
       key: "font-preconnect",
@@ -39,5 +42,30 @@ exports.onRenderBody = ({ pathname, setHeadComponents, setHtmlAttributes }) => {
       href: "https://fonts.googleapis.com/css?family=Cardo:400,700|Josefin+Sans:300,400&display=swap",
       rel: "stylesheet",
     }),
-  ]);
+  ];
+
+  if (GA_MEASUREMENT_ID) {
+    headComponents.push(
+      React.createElement("script", {
+        key: "ga-script",
+        async: true,
+        src: `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
+          GA_MEASUREMENT_ID
+        )}`,
+      }),
+      React.createElement("script", {
+        key: "ga-config",
+        dangerouslySetInnerHTML: {
+          __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", ${GA_MEASUREMENT_ID_LITERAL}, { send_page_view: false });
+`,
+        },
+      })
+    );
+  }
+
+  setHeadComponents(headComponents);
 };

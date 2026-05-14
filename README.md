@@ -64,6 +64,11 @@ ignored via `.prettierignore`.
 bun run build
 ```
 
+## Analytics
+
+Set `GATSBY_GA_MEASUREMENT_ID` to a GA4 measurement ID, for example
+`G-XXXXXXXXXX`, to enable Google Analytics tracking in production builds.
+
 ## Useful Paths
 
 - `src/pages`: Markdown content
