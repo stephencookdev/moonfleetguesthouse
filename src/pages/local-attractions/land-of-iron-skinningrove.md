@@ -1,7 +1,8 @@
 ---
 title: Land Of Iron In Skinningrove
 seoTitle: Land Of Iron Skinningrove | Moonfleet Local Guide
-seoDescription: Plan a visit to Land of Iron in Skinningrove, with nearby heritage, beach and Cleveland Way ideas plus accommodation notes.
+seoDescription: Plan a visit to Land of Iron in Skinningrove, with nearby
+  heritage, beach and Cleveland Way ideas plus accommodation notes.
 canonicalPath: /local-attractions/land-of-iron-skinningrove/
 featuredImage: /assets/land-of-iron-museum.jpeg
 featuredImageAlt: Land of Iron museum in Skinningrove near Moonfleet Guest House
@@ -17,29 +18,23 @@ sections:
       shaped East Cleveland.
 
 
-      It is a strong choice if you want to understand why this coast feels
-      different from a standard seaside resort. The museum connects the cliffs,
-      village, mine workings and industrial history into one local story.
+      It is a strong choice if you want to understand why this coast feels different from a standard seaside resort. The museum connects the cliffs, village, mine workings and industrial history into one local story.
 
 
-      Check [Land of Iron](https://landofiron.org.uk/) for opening times,
-      tickets and visit details before you travel.
+      Check [Land of Iron](https://landofiron.org.uk/) for opening times, tickets and visit details before you travel.
   - title: Who It Works Well For
-    body: >-
-      Land of Iron is useful for families, heritage visitors, walkers with a wet
-      weather gap, and anyone who likes places with a real local identity. It is
-      also an easy add-on to a beach walk or a shorter Cleveland Way day, because
-      it gives context before you head back outside.
+    body: Land of Iron is a great choice for families, heritage visitors, walkers
+      with a wet weather gap, or anyone who likes places with a real local
+      identity. It is also an easy add-on to a beach walk or a shorter Cleveland
+      Way day, because it gives context to the area around you.
   - title: How It Fits Into A Stay
     body: >-
       Land of Iron pairs well with a beach walk, the Skinningrove Heritage Trail
       and a gentle look around the village. Guests who want a longer day can add
-      Cleveland Way views or a short trip to Saltburn or Staithes.
+      Cleveland Way views or a trip to Saltburn or Staithes.
 
 
-      If you are comparing places to stay, Skinningrove is best for people who
-      want the museum, beach and coast path close together rather than a
-      full-resort itinerary.
+      If you are comparing places to stay, Skinningrove is best for people who want the museum, beach and coast path close together rather than a full-resort itinerary.
   - title: A Simple Skinningrove Itinerary
     body: >-
       If you are here for one day, keep it local: visit Land of Iron, walk down
@@ -47,8 +42,7 @@ sections:
       the heritage trail or a short Cleveland Way section for cliff views.
 
 
-      If you are staying longer, add Saltburn, Staithes or Whitby as separate
-      day trips rather than trying to rush the whole coast at once.
+      If you are staying longer, add Saltburn, Staithes or Whitby as separate day trips rather than trying to rush the whole coast at once. A ‘cove crawl’ is a great way to see the area!
   - title: Accommodation Near Land Of Iron
     image: /assets/moonfleet-outside.jpg
     imageAlt: Moonfleet Guest House exterior with red front door in Skinningrove
@@ -58,12 +52,8 @@ sections:
       coastal walk on the same day.
 
 
-      Moonfleet is a Skinningrove guest house with six en-suite bedrooms,
-      breakfast, free parking, a private bar and dog-friendly stays by
-      arrangement. It is a practical base for visitors who want local history
-      and coast without staying in a larger resort.
+      Moonfleet is a boutique hotel in Skinningrove with six en-suite bedrooms, breakfast, free parking, a private bar and dog-friendly stays by arrangement. It is a practical base for visitors who want local history and coast without staying in a larger resort.
 
 
-      See [Room Rates](/room-rates/) or [Contact Moonfleet](/contact-us/) to
-      enquire directly.
+      See [Room Rates](/room-rates/) or [Contact Moonfleet](/contact-us/) to enquire directly.
 ---
